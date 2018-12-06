@@ -52,18 +52,22 @@ class Template extends Component {
     if (path.includes('management')) {
       header = <Management />;
     } else {
-      header = <Front />;
+      header = <></>;
     }
 
     return (
+      // <div>
+      //   {header}
+      //   <div className="main">{this.props.children}</div>
+      //   <div className="footer">
+      //     <div className="content">
+      //       <div className="copyright">© 2017 Elsa Lab Limited</div>
+      //     </div>
+      //   </div>
+      // </div>
       <div>
         {header}
-        <div className="main">{this.props.children}</div>
-        <div className="footer">
-          <div className="content">
-            <div className="copyright">© 2017 Elsa Lab Limited</div>
-          </div>
-        </div>
+        {this.props.children}
       </div>
     );
   }

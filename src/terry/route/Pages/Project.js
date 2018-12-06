@@ -7,9 +7,7 @@ import SingleProjectPage from '../../components/SingleProjectPage';
 
 class Project extends Component {
   render() {
-    const {
-      match: { params },
-    } = this.props;
+    const { params } = this.props;
 
     return (
       <div>

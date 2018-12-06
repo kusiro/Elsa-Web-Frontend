@@ -5,9 +5,7 @@ import EachCourse from '../../components/Courses/Course';
 
 class Course extends Component {
   render() {
-    const {
-      match: { params },
-    } = this.props;
+    const { params } = this.props;
 
     return (
       <div>

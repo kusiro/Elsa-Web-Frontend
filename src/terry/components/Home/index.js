@@ -65,22 +65,22 @@ const EachEntry = [
   {
     name: 'Courses',
     image: BackgroundCourses,
-    href: './courses',
+    href: '/courses',
   },
   {
     name: 'Publications',
     image: BackgroundPublications,
-    href: './',
+    href: '/',
   },
   {
     name: 'Projects',
     image: BackgroundProjects,
-    href: './projects',
+    href: '/projects',
   },
   {
     name: 'News',
     image: BackgroundNews,
-    href: './',
+    href: '/',
   },
 ];
 
