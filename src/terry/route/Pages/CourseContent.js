@@ -19,10 +19,9 @@ class CourseContent extends Component {
 }
 
 CourseContent.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
+  params: PropTypes.shape({
+    course_id: PropTypes.string.isRequired,
+    content_id: PropTypes.string.isRequired,
   }).isRequired,
 };
 

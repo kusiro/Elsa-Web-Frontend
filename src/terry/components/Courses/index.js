@@ -3,12 +3,11 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router';
-import settings from '../../../settings';
 
 import BackgroundImage from '../static/background_image_invert_vertical.jpg';
-import BackgroundImageGreen from '../static/background_image_green.jpg';
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
+import settings from '../../../settings';
 import {
   BackgroundColor,
   BigTitle,
@@ -59,26 +58,12 @@ const ImageArea = styled.div`
   background-position: center center;
 `;
 
-const CoursesContent = [
-  {
-    content: { year: '2018 Fall', name: 'Hardware Design and lab' },
-    image: BackgroundImage,
-    link: '/course/Hardware_Design_And_Lab',
-  },
-  {
-    content: { year: '2018 Fall', name: 'Hardware Design and lab 2' },
-    image: BackgroundImageGreen,
-    link: '/course/Hardware_Design_And_Lab_2',
-  },
-];
-
 class Courses extends Component {
   state = {
     courses: '',
   };
 
   componentWillMount() {
-    const token = localStorage.token;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
@@ -97,41 +82,26 @@ class Courses extends Component {
 
   renderClass = () => {
     if (this.state.courses) {
-      return this.state.courses.map(
-        ({ id: course_id, title, description, contents }) => {
-          return contents.map(
-            ({
-              id,
-              TAs,
-              course_no,
-              lectures,
-              location,
-              season,
-              time,
-              year,
-            }) => {
-              return (
-                <Link key={id} to={`courses/${course_id}/contents/${id}`}>
-                  <EachBlock>
-                    <Row>
-                      <Col span={12}>
-                        <TextArea>
-                          <Year>
-                            {year} {season}
-                          </Year>
-                          <Title>{title}</Title>
-                        </TextArea>
-                      </Col>
-                      <Col span={12}>
-                        <ImageArea image={BackgroundImage} />
-                      </Col>
-                    </Row>
-                  </EachBlock>
-                </Link>
-              );
-            }
-          );
-        }
+      return this.state.courses.map(({ id: courseId, title, contents }) =>
+        contents.map(({ id, season, year }) => (
+          <Link key={id} to={`courses/${courseId}/contents/${id}`}>
+            <EachBlock>
+              <Row>
+                <Col span={12}>
+                  <TextArea>
+                    <Year>
+                      {year} {season}
+                    </Year>
+                    <Title>{title}</Title>
+                  </TextArea>
+                </Col>
+                <Col span={12}>
+                  <ImageArea image={BackgroundImage} />
+                </Col>
+              </Row>
+            </EachBlock>
+          </Link>
+        ))
       );
     }
   };

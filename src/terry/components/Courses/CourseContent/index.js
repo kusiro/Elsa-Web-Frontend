@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router';
@@ -7,6 +8,7 @@ import { Link } from 'react-router';
 import BackgroundImage from '../../static/background_image_invert_vertical.jpg';
 import Header from '../../Share/Header';
 import IconImg from '../../static/icon.png';
+import settings from '../../../../settings';
 import {
   BackgroundColor,
   BigTitle,
@@ -66,104 +68,135 @@ const MidText = styled.div`
   margin-top: 3vh;
 `;
 
-const CourseContentData = {
-  Hardware_Design_And_Lab: {
-    year: '2018 Fall',
-    name: 'Hardware Design and lab',
-    pdfs: [
-      {
-        name: 'Course Syllabus',
-        link: '/course/Hardware_Design_And_Lab/syllabus',
-      },
-      {
-        name: 'Verilog-Introduction-and-FPGA-Implementation',
-        link: '/course/Hardware_Design_And_Lab/lecture_1',
-      },
-      {
-        name: 'Verilog-Data-Flow-and-Data-Types',
-        link: '/course/Hardware_Design_And_Lab/lecture_2',
-      },
-    ],
-  },
-  Hardware_Design_And_Lab_2: {
-    year: '2018 Fall',
-    name: 'Hardware Design and lab 2',
-    pdfs: [
-      {
-        name: 'NOTHING',
-        link: '/course/Hardware_Design_And_Lab_2',
-      },
-    ],
-  },
-};
+class CourseContent extends Component {
+  state = {
+    title: '',
+    description: '',
+    year: '',
+    season: '',
+    lectures: [],
+  };
 
-const CourseContent = ({ course_id, content_id }) => (
-  <Row>
-    <Col span={9}>
-      <BackgroundColor color="#f8d188">
-        <MainRow type="flex" justify="center">
-          <LogoContent span={18}>
-            <Row type="flex" justify="start" align="middle" gutter={8}>
-              <Col>
-                <IconImage src={IconImg} />
-              </Col>
-              <Col>
-                <Title1>NTHU</Title1>
-                <Title2>ELSA</Title2>
-              </Col>
-            </Row>
-          </LogoContent>
-          <SmallContent span={18} color="#8c8c8c">
-            <Row type="flex" justify="start" align="bottom">
-              <Col span={6}>
-                <Hr color="#8c8c8c" />
-              </Col>
-              <Col span={12} offset={1}>
-                Home / Courses
-              </Col>
-            </Row>
-          </SmallContent>
-          <BigTitle span={18}>
-            {/* <TitleText>{CourseContentData[courseName].year}</TitleText> */}
-            {/* <MidText>{CourseContentData[courseName].name}</MidText> */}
-          </BigTitle>
-          <MedContent span={12} color="#8c8c8c" />
-          <Col span={6} />
-        </MainRow>
-      </BackgroundColor>
-    </Col>
-    <Col span={15}>
-      <BackgroundColor color="white">
-        <Header fontColor="#9b9b9b" />
-        <Blocks>
-          {console.log({ course_id, content_id })}
-          {/* {CourseContentData[courseName].pdfs.map(({ name, link }, index) => (
-            <Link key={name} to={link}>
-              <EachBlock>
-                <Row>
-                  <Col span={8}>
-                    <ImageArea image={BackgroundImage} />
+  componentWillMount() {
+    const { course_id: courseId, content_id: contentId } = this.props;
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+    });
+
+    ins
+      .get(`courses/${courseId}`)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          title: res.data.title,
+          description: res.data.description,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    ins
+      .get(`courses/${courseId}/contents/${contentId}`)
+      .then(res => {
+        console.log(res.data);
+        this.setState(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  render() {
+    const { course_id: courseId, content_id: contentId } = this.props;
+
+    return (
+      <Row>
+        <Col span={9}>
+          <BackgroundColor color="#f8d188">
+            <MainRow type="flex" justify="center">
+              <LogoContent span={18}>
+                <Row type="flex" justify="start" align="middle" gutter={8}>
+                  <Col>
+                    <IconImage src={IconImg} />
                   </Col>
-                  <Col span={16}>
-                    <TextArea>
-                      <div>
-                        material #{index + 1} <Date>2019/02/17</Date>
-                      </div>
-                      <Title>{name}</Title>
-                    </TextArea>
+                  <Col>
+                    <Title1>NTHU</Title1>
+                    <Title2>ELSA</Title2>
                   </Col>
                 </Row>
-              </EachBlock>
-            </Link>
-          ))} */}
-        </Blocks>
-      </BackgroundColor>
-    </Col>
-  </Row>
-);
+              </LogoContent>
+              <SmallContent span={18} color="#8c8c8c">
+                <Row type="flex" justify="start" align="bottom">
+                  <Col span={6}>
+                    <Hr color="#8c8c8c" />
+                  </Col>
+                  <Col span={12} offset={1}>
+                    Home / Courses
+                  </Col>
+                </Row>
+              </SmallContent>
+              <BigTitle span={18}>
+                <TitleText>
+                  {this.state.year} {this.state.season}
+                </TitleText>
+                <MidText>{this.state.title}</MidText>
+              </BigTitle>
+              <MedContent span={12} color="#8c8c8c">
+                {this.state.description}
+              </MedContent>
+              <Col span={6} />
+            </MainRow>
+          </BackgroundColor>
+        </Col>
+        <Col span={15}>
+          <BackgroundColor color="white">
+            <Header fontColor="#9b9b9b" />
+            <Blocks>
+              {this.state.lectures.map(
+                ({
+                  id: lectureId,
+                  title,
+                  lecture_number: lectureNumber,
+                  files,
+                }) => (
+                  <Link
+                    key={lectureId}
+                    to={`courses/${courseId}/contents/${contentId}${contentId}/lectures/${lectureId}/files/${
+                      files[0].id
+                    }`}
+                  >
+                    {console.log({ files })}
+                    <EachBlock>
+                      <Row>
+                        <Col span={8}>
+                          <ImageArea image={BackgroundImage} />
+                        </Col>
+                        <Col span={16}>
+                          <TextArea>
+                            <div>
+                              material #{lectureNumber} <Date>2019/02/17</Date>
+                            </div>
+                            <Title>{title}</Title>
+                          </TextArea>
+                        </Col>
+                      </Row>
+                    </EachBlock>
+                  </Link>
+                )
+              )}
+            </Blocks>
+          </BackgroundColor>
+        </Col>
+      </Row>
+    );
+  }
+}
 
 CourseContent.propTypes = {
-  courseName: PropTypes.string.isRequired,
+  content_id: PropTypes.string.isRequired,
+  course_id: PropTypes.string.isRequired,
 };
 
 export default CourseContent;

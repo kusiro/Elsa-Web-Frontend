@@ -33,4 +33,11 @@ const AboutPage = Loadable({
   loading: Loading,
 });
 
-export { HomePage, CoursesPage, CourseContent, ProjectsPage, Project, AboutPage };
+export {
+  HomePage,
+  CoursesPage,
+  CourseContent,
+  ProjectsPage,
+  Project,
+  AboutPage,
+};

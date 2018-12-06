@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ReactFullpage from '@fullpage/react-fullpage';
 
-import Gallery from '../../components/Gallery';
 import SingleProjectPage from '../../components/SingleProjectPage';
 
 class Project extends Component {
@@ -18,10 +16,8 @@ class Project extends Component {
 }
 
 Project.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
+  params: PropTypes.shape({
+    name: PropTypes.string.isRequired,
   }).isRequired,
 };
 
