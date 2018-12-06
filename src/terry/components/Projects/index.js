@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
+import { Link } from 'react-router';
 
 import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import BackgroundImageGreen from '../static/background_image_green.jpg';
@@ -58,8 +59,16 @@ const ImageArea = styled.div`
 `;
 
 const ProjectsContent = [
-  { content: project1.topic, image: BackgroundImage },
-  { content: project2.topic, image: BackgroundImageGreen },
+  {
+    content: project1.topic,
+    image: BackgroundImage,
+    link: '/project/Virtual-to-Real',
+  },
+  {
+    content: project2.topic,
+    image: BackgroundImageGreen,
+    link: '/project/Dynamic-Video-Segmentation-Network',
+  },
 ];
 
 const Projects = () => (
@@ -100,21 +109,23 @@ const Projects = () => (
       <BackgroundColor color="white">
         <Header fontColor="#9b9b9b" />
         <Blocks>
-          {ProjectsContent.map(({ content, image }) => (
-            <EachBlock key={content[1]}>
-              <Row>
-                <Col span={12}>
-                  <TextArea>
-                    <Year>{content[0]}</Year>
-                    <Title>{content[1]}</Title>
-                    <p>{content[2]}</p>
-                  </TextArea>
-                </Col>
-                <Col span={12}>
-                  <ImageArea image={image} />
-                </Col>
-              </Row>
-            </EachBlock>
+          {ProjectsContent.map(({ content, link, image }) => (
+            <Link key={content[1]} to={link}>
+              <EachBlock key={content[1]}>
+                <Row>
+                  <Col span={12}>
+                    <TextArea>
+                      <Year>{content[0]}</Year>
+                      <Title>{content[1]}</Title>
+                      <p>{content[2]}</p>
+                    </TextArea>
+                  </Col>
+                  <Col span={12}>
+                    <ImageArea image={image} />
+                  </Col>
+                </Row>
+              </EachBlock>
+            </Link>
           ))}
         </Blocks>
       </BackgroundColor>

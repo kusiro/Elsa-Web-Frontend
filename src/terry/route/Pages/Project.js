@@ -11,23 +11,7 @@ class Project extends Component {
 
     return (
       <div>
-        {params.name !== undefined ? (
-          <SingleProjectPage name={params.name} />
-        ) : (
-          <ReactFullpage
-            licenseKey="OPEN-SOURCE-GPLV3-LICENSE"
-            render={({ state, fullpageApi }) => {
-              console.log('render prop change', state);
-              console.log({ fullpageApi });
-
-              return (
-                <ReactFullpage.Wrapper>
-                  <Gallery />
-                </ReactFullpage.Wrapper>
-              );
-            }}
-          />
-        )}
+        <SingleProjectPage name={params.name} />
       </div>
     );
   }
