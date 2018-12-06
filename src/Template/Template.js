@@ -70,7 +70,8 @@ class Template extends Component {
 }
 
 Template.propTypes = {
-  params: React.PropTypes.object,
+  // FIXME: comment
+  // params: React.PropTypes.object,
 };
 
 export default Template;

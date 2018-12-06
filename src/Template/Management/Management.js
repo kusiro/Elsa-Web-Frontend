@@ -12,7 +12,7 @@ class Management extends Component {
     logOut() {
         delete localStorage.token;
         delete localStorage.user_id;
-        location.reload();
+        window.location.reload();
     }
 
     componentWillMount() {

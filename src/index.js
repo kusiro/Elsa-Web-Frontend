@@ -50,6 +50,15 @@ import lectureNew from './Management/Courses/Content/Lecture/New/New'
 import lectureShow from './Management/Courses/Content/Lecture/Show/Show'
 import lectureEdit from './Management/Courses/Content/Lecture/Edit/Edit'
 
+import {
+  AboutPage,
+  Course,
+  CoursesPage,
+  HomePage,
+  Project,
+  ProjectsPage,
+} from './terry/route/DynamicLoad';
+
 import './index.css';
 
 // router setting
@@ -57,6 +66,7 @@ ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={Template}>
       <IndexRoute component={Home} />
+      {/* <Route exact path="/" component={HomePage} /> */}
       <Route path="/members" component={Members} />
       <Route path="/courses" component={Courses} />
       <Route path="/courses(/:course_id)/contents(/:content_id)" component={courseFrontShow} />

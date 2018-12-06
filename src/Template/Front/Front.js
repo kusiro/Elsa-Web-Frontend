@@ -3,7 +3,7 @@ import { Link, IndexLink } from 'react-router';
 import axios from 'axios';
 import settings from '../../settings.js'
 import FontAwesome from 'react-fontawesome'
-import raleway from '../../../Raleway/Raleway-Medium.ttf';
+import raleway from '../../Raleway/Raleway-Medium.ttf';
 
 class Front extends Component {
     constructor(props) {
@@ -19,7 +19,7 @@ class Front extends Component {
     logOut() {
         delete localStorage.token;
         delete localStorage.user_id;
-        location.reload();
+        window.location.reload();
     }
 
     componentWillMount() {

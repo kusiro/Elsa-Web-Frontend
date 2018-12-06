@@ -14,12 +14,12 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <Route exact path="/" component={HomePage} />
+        {/* <Route exact path="/" component={HomePage} />
         <Route path="/courses" component={CoursesPage} />
         <Route path="/course/:name?" component={Course} />
         <Route path="/projects" component={ProjectsPage} />
         <Route path="/project/:name?" component={Project} />
-        <Route path="/about" component={AboutPage} />
+        <Route path="/about" component={AboutPage} /> */}
       </div>
     );
   }

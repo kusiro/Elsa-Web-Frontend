@@ -106,7 +106,8 @@ const Conclusion = ({ projectName, content }) => (
 );
 
 Conclusion.propTypes = {
-  content: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // FIXME: comment
+  // content: PropTypes.arrayOf(PropTypes.object).isRequired,
   projectName: PropTypes.string.isRequired,
 };
 

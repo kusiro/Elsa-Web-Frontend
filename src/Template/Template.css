@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Raleway';
   font-style: normal;
-  src: url('../../Raleway/Raleway-Regular.ttf')
+  src: url('../Raleway/Raleway-Regular.ttf')
 }
 
 .header {
