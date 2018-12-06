@@ -52,7 +52,7 @@ class Template extends Component {
     if (path.includes('management')) {
       header = <Management />;
     } else {
-      header = <></>;
+      header = <Front />;
     }
 
     return (

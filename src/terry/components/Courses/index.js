@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router';
+import settings from '../../../settings';
 
 import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import BackgroundImageGreen from '../static/background_image_green.jpg';
@@ -70,65 +72,95 @@ const CoursesContent = [
   },
 ];
 
-const Courses = () => (
-  <Row>
-    <Col span={9}>
-      <BackgroundColor color="#f8d188">
-        <MainRow type="flex" justify="center">
-          <LogoContent span={18}>
-            <Row type="flex" justify="start" align="middle" gutter={8}>
-              <Col>
-                <IconImage src={IconImg} />
+class Courses extends Component {
+  state = {
+    courses: '',
+  };
+
+  componentWillMount() {
+    const token = localStorage.token;
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+    });
+
+    ins
+      .get('/courses')
+      .then(res => {
+        console.log(res.data);
+        this.setState({ courses: res.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  renderClass = () => {
+    if (this.state.courses) {
+      return this.state.courses.map(({ id, title, description, contents }) => (
+        <Link key={id} to="/course">
+          <EachBlock>
+            <Row>
+              <Col span={12}>
+                <TextArea>
+                  <Year>2018 Fall</Year>
+                  <Title>{title}</Title>
+                </TextArea>
               </Col>
-              <Col>
-                <Title1>NTHU</Title1>
-                <Title2>ELSA</Title2>
+              <Col span={12}>
+                <ImageArea image={BackgroundImage} />
               </Col>
             </Row>
-          </LogoContent>
-          <SmallContent span={18} color="#8c8c8c">
-            <Row type="flex" justify="start" align="bottom">
-              <Col span={6}>
-                <Hr color="#8c8c8c" />
-              </Col>
-              <Col span={12} offset={1}>
-                Home
-              </Col>
-            </Row>
-          </SmallContent>
-          <BigTitle span={18}>
-            <TitleText>Courses</TitleText>
-          </BigTitle>
-          <MedContent span={12} color="#8c8c8c" />
-          <Col span={6} />
-        </MainRow>
-      </BackgroundColor>
-    </Col>
-    <Col span={15}>
-      <BackgroundColor color="white">
-        <Header fontColor="#9b9b9b" />
-        <Blocks>
-          {CoursesContent.map(({ content, image, link }) => (
-            <Link key={content.name} to={link}>
-              <EachBlock>
-                <Row>
-                  <Col span={12}>
-                    <TextArea>
-                      <Year>{content.year}</Year>
-                      <Title>{content.name}</Title>
-                    </TextArea>
+          </EachBlock>
+        </Link>
+      ));
+    }
+  };
+
+  render() {
+    return (
+      <Row>
+        <Col span={9}>
+          <BackgroundColor color="#f8d188">
+            <MainRow type="flex" justify="center">
+              <LogoContent span={18}>
+                <Row type="flex" justify="start" align="middle" gutter={8}>
+                  <Col>
+                    <IconImage src={IconImg} />
                   </Col>
-                  <Col span={12}>
-                    <ImageArea image={image} />
+                  <Col>
+                    <Title1>NTHU</Title1>
+                    <Title2>ELSA</Title2>
                   </Col>
                 </Row>
-              </EachBlock>
-            </Link>
-          ))}
-        </Blocks>
-      </BackgroundColor>
-    </Col>
-  </Row>
-);
+              </LogoContent>
+              <SmallContent span={18} color="#8c8c8c">
+                <Row type="flex" justify="start" align="bottom">
+                  <Col span={6}>
+                    <Hr color="#8c8c8c" />
+                  </Col>
+                  <Col span={12} offset={1}>
+                    Home
+                  </Col>
+                </Row>
+              </SmallContent>
+              <BigTitle span={18}>
+                <TitleText>Courses</TitleText>
+              </BigTitle>
+              <MedContent span={12} color="#8c8c8c" />
+              <Col span={6} />
+            </MainRow>
+          </BackgroundColor>
+        </Col>
+        <Col span={15}>
+          <BackgroundColor color="white">
+            <Header fontColor="#9b9b9b" />
+            <Blocks>{this.renderClass()}</Blocks>
+          </BackgroundColor>
+        </Col>
+      </Row>
+    );
+  }
+}
 
 export default Courses;
