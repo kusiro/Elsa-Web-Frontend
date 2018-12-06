@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router';
 
 import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import Header from '../Share/Header';
@@ -84,7 +83,7 @@ class Courses extends Component {
     if (this.state.courses) {
       return this.state.courses.map(({ id: courseId, title, contents }) =>
         contents.map(({ id, season, year }) => (
-          <Link key={id} to={`courses/${courseId}/contents/${id}`}>
+          <a key={id} href={`/courses/${courseId}/contents/${id}`}>
             <EachBlock>
               <Row>
                 <Col span={12}>
@@ -100,7 +99,7 @@ class Courses extends Component {
                 </Col>
               </Row>
             </EachBlock>
-          </Link>
+          </a>
         ))
       );
     }

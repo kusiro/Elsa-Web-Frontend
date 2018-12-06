@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router';
 
 import BackgroundImage from '../../static/background_image_invert_vertical.jpg';
 import Header from '../../Share/Header';
@@ -109,7 +108,7 @@ class CourseContent extends Component {
   }
 
   render() {
-    const { course_id: courseId, content_id: contentId } = this.props;
+    const { content_id: contentId } = this.props;
 
     return (
       <Row>
@@ -161,13 +160,12 @@ class CourseContent extends Component {
                   lecture_number: lectureNumber,
                   files,
                 }) => (
-                  <Link
+                  <a
                     key={lectureId}
-                    to={`courses/${courseId}/contents/${contentId}${contentId}/lectures/${lectureId}/files/${
+                    href={`${contentId}/lectures/${lectureId}/files/${
                       files[0].id
                     }`}
                   >
-                    {console.log({ files })}
                     <EachBlock>
                       <Row>
                         <Col span={8}>
@@ -183,7 +181,7 @@ class CourseContent extends Component {
                         </Col>
                       </Row>
                     </EachBlock>
-                  </Link>
+                  </a>
                 )
               )}
             </Blocks>
