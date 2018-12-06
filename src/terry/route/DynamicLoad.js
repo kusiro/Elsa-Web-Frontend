@@ -13,8 +13,8 @@ const CoursesPage = Loadable({
   loading: Loading,
 });
 
-const Course = Loadable({
-  loader: () => import('./Pages/Course'),
+const CourseContent = Loadable({
+  loader: () => import('./Pages/CourseContent'),
   loading: Loading,
 });
 
@@ -33,4 +33,4 @@ const AboutPage = Loadable({
   loading: Loading,
 });
 
-export { HomePage, CoursesPage, Course, ProjectsPage, Project, AboutPage };
+export { HomePage, CoursesPage, CourseContent, ProjectsPage, Project, AboutPage };

@@ -66,7 +66,7 @@ const MidText = styled.div`
   margin-top: 3vh;
 `;
 
-const CourseContent = {
+const CourseContentData = {
   Hardware_Design_And_Lab: {
     year: '2018 Fall',
     name: 'Hardware Design and lab',
@@ -97,7 +97,7 @@ const CourseContent = {
   },
 };
 
-const Course = ({ courseName }) => (
+const CourseContent = ({ course_id, content_id }) => (
   <Row>
     <Col span={9}>
       <BackgroundColor color="#f8d188">
@@ -124,8 +124,8 @@ const Course = ({ courseName }) => (
             </Row>
           </SmallContent>
           <BigTitle span={18}>
-            <TitleText>{CourseContent[courseName].year}</TitleText>
-            <MidText>{CourseContent[courseName].name}</MidText>
+            {/* <TitleText>{CourseContentData[courseName].year}</TitleText> */}
+            {/* <MidText>{CourseContentData[courseName].name}</MidText> */}
           </BigTitle>
           <MedContent span={12} color="#8c8c8c" />
           <Col span={6} />
@@ -136,7 +136,8 @@ const Course = ({ courseName }) => (
       <BackgroundColor color="white">
         <Header fontColor="#9b9b9b" />
         <Blocks>
-          {CourseContent[courseName].pdfs.map(({ name, link }, index) => (
+          {console.log({ course_id, content_id })}
+          {/* {CourseContentData[courseName].pdfs.map(({ name, link }, index) => (
             <Link key={name} to={link}>
               <EachBlock>
                 <Row>
@@ -154,15 +155,15 @@ const Course = ({ courseName }) => (
                 </Row>
               </EachBlock>
             </Link>
-          ))}
+          ))} */}
         </Blocks>
       </BackgroundColor>
     </Col>
   </Row>
 );
 
-Course.propTypes = {
+CourseContent.propTypes = {
   courseName: PropTypes.string.isRequired,
 };
 
-export default Course;
+export default CourseContent;

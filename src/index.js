@@ -52,7 +52,7 @@ import lectureEdit from './Management/Courses/Content/Lecture/Edit/Edit'
 
 import {
   AboutPage,
-  Course,
+  CourseContent,
   CoursesPage,
   HomePage,
   Project,
@@ -69,14 +69,15 @@ ReactDOM.render((
       {/* <Route path="/" component={HomePage} /> */}
       <Route exact path="/" component={HomePage} />
       <Route path="/courses" component={CoursesPage} />
-      <Route path="/course(/:name)" component={Course} />
+      <Route path="/courses(/:course_id)/contents(/:content_id)" component={CourseContent} />
+
       <Route path="/projects" component={ProjectsPage} />
       <Route path="/project(/:name)" component={Project} />
       <Route path="/about" component={AboutPage} />
 
       <Route path="/members" component={Members} />
       {/* <Route path="/courses" component={Courses} /> */}
-      <Route path="/courses(/:course_id)/contents(/:content_id)" component={courseFrontShow} />
+      {/* <Route path="/courses(/:course_id)/contents(/:content_id)" component={courseFrontShow} /> */}
       <Route path="/courses(/:course_id)/contents(/:content_id)/lectures(/:lecture_id)/files(/:file_id)" component={Attachments} />
       <Route path="/courses(/:course_id)/contents(/:content_id)/lectures(/:lecture_id)/files(/:file_id)/pages(/:page_num)" component={attachmentShow} />
       <Route path="/publications" component={Publications} />

@@ -1,21 +1,24 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import EachCourse from '../../components/Courses/Course';
+import EachCourseContent from '../../components/Courses/CourseContent';
 
-class Course extends Component {
+class CourseContent extends Component {
   render() {
     const { params } = this.props;
 
     return (
       <div>
-        <EachCourse courseName={params.name} />
+        <EachCourseContent
+          course_id={params.course_id}
+          content_id={params.content_id}
+        />
       </div>
     );
   }
 }
 
-Course.propTypes = {
+CourseContent.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -23,4 +26,4 @@ Course.propTypes = {
   }).isRequired,
 };
 
-export default Course;
+export default CourseContent;
