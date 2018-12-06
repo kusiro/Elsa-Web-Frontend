@@ -31,10 +31,12 @@ class Template extends Component {
           console.log(res);
           this.setState({ user: res.data, logIn: true });
           // if user not in root_user_types redirect to '/'
-          // FIXME: 先暫時這樣
-          // if (path.includes('management') && !settings.root_user_types.includes(res.data.profile.studentType)) {
-          //     window.location = '/';
-          // }
+          if (
+            path.includes('management') &&
+            !settings.root_user_types.includes(res.data.profile.studentType)
+          ) {
+            window.location = '/';
+          }
         })
         .catch(error => {
           console.log(error);

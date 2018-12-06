@@ -97,23 +97,42 @@ class Courses extends Component {
 
   renderClass = () => {
     if (this.state.courses) {
-      return this.state.courses.map(({ id, title, description, contents }) => (
-        <Link key={id} to="/course">
-          <EachBlock>
-            <Row>
-              <Col span={12}>
-                <TextArea>
-                  <Year>2018 Fall</Year>
-                  <Title>{title}</Title>
-                </TextArea>
-              </Col>
-              <Col span={12}>
-                <ImageArea image={BackgroundImage} />
-              </Col>
-            </Row>
-          </EachBlock>
-        </Link>
-      ));
+      return this.state.courses.map(
+        ({ id: course_id, title, description, contents }) => {
+          return contents.map(
+            ({
+              id,
+              TAs,
+              course_no,
+              lectures,
+              location,
+              season,
+              time,
+              year,
+            }) => {
+              return (
+                <Link key={id} to={`courses/${course_id}/contents/${id}`}>
+                  <EachBlock>
+                    <Row>
+                      <Col span={12}>
+                        <TextArea>
+                          <Year>
+                            {year} {season}
+                          </Year>
+                          <Title>{title}</Title>
+                        </TextArea>
+                      </Col>
+                      <Col span={12}>
+                        <ImageArea image={BackgroundImage} />
+                      </Col>
+                    </Row>
+                  </EachBlock>
+                </Link>
+              );
+            }
+          );
+        }
+      );
     }
   };
 
