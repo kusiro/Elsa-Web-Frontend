@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import IconImg from '../static/icon.png';
 import {

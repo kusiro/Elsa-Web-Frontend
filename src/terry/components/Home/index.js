@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import BackgroundCourses from '../static/home/Courses.jpg';
 import BackgroundNews from '../static/home/News.jpg';

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import BackgroundImageGreen from '../static/background_image_green.jpg';

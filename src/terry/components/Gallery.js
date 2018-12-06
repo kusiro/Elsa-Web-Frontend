@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Spring } from 'react-spring';
 
 import GalleryBackgroundImage from './static/gallery_background_image.jpg';

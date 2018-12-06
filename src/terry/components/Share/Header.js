@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 const Layout = styled.div`
   width: 100%;

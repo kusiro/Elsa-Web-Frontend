@@ -64,9 +64,10 @@ import './index.css';
 // router setting
 ReactDOM.render((
   <Router history={browserHistory}>
-    <Route path="/" component={Template}>
-      <IndexRoute component={Home} />
-      {/* <Route exact path="/" component={HomePage} /> */}
+    {/* <Route path="/" component={Template}> */}
+    <Route path="/">
+      <IndexRoute component={HomePage} />
+      {/* <Route path="/" component={HomePage} /> */}
       <Route path="/members" component={Members} />
       <Route path="/courses" component={Courses} />
       <Route path="/courses(/:course_id)/contents(/:content_id)" component={courseFrontShow} />
