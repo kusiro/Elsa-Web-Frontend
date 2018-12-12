@@ -4,68 +4,23 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 // import { Element } from 'react-scroll';
-import { Link } from 'react-router';
 
-import BackgroundImage from '../../../static/background_image_invert_vertical.jpg';
 import Header from '../../../Share/Header';
 import IconImg from '../../../static/icon.png';
 import settings from '../../../../../settings';
 import {
   BackgroundColor,
-  BigTitle,
   Hr,
   IconImage,
   LogoContent,
   MainRow,
-  MedContent,
   SmallContent,
   Title1,
   Title2,
-  TitleText,
 } from '../../../Share';
 
 const Blocks = styled.div`
   padding-top: 20vh;
-`;
-
-const EachBlock = styled.div`
-  width: 80%;
-  height: 20vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 5vh;
-  color: white;
-  font-size: 1.5vw;
-`;
-
-const Date = styled.span`
-  font-size: 0.8vw;
-  padding-left: 0.25vw;
-`;
-
-const Title = styled.div`
-  font-size: 2vw;
-`;
-
-const TextArea = styled.div`
-  padding-left: 2.5vw;
-  padding-right: 4vw;
-  padding-top: 4.5vh;
-`;
-
-const ImageArea = styled.div`
-  width: 100%;
-  height: 20vh;
-  background: url(${props => props.image});
-  background-size: cover;
-  background-position: center center;
-`;
-
-const MidText = styled.div`
-  font-size: 80%;
-  font-style: italic;
-  margin-top: 3vh;
 `;
 
 const EachPage = styled.img`
@@ -79,13 +34,27 @@ const PagesBlock = styled.div`
   overflow-y: scroll;
 `;
 
+const ImageShow = styled.img`
+  width: 60%;
+  height: 50%;
+  margin: auto;
+`;
+
+const LeftArrow = styled.button`
+  width: 5vw;
+`;
+
+const RightArrow = styled.button`
+  width: 5vw;
+`;
+
 class PdfPage extends Component {
   state = {
     title: '',
-    image_root_url: '',
+    imageRootUrl: '',
     page_size: '',
-    lectures: [],
     allSlides: [],
+    current: 0,
   };
 
   componentDidMount() {
@@ -123,7 +92,7 @@ class PdfPage extends Component {
       .then(res => {
         console.log(res.data);
         this.setState({
-          image_root_url: res.data.image_root_url,
+          imageRootUrl: res.data.image_root_url,
           page_size: res.data.page_size,
         });
         this.displaySlides();
@@ -134,18 +103,14 @@ class PdfPage extends Component {
   }
 
   displaySlides = () => {
-    const { fileId } = this.props;
-
     const slides = [];
     for (let i = 0; i < this.state.page_size; i++) {
       slides.push(
-        <a href={`${fileId}/pages/${i}`}>
-          <EachPage
-            alt="/page"
-            className="slide-thumbnail"
-            src={`${this.state.image_root_url}/page-${i}.jpeg`}
-          />
-        </a>
+        <EachPage
+          alt="/page"
+          className="slide-thumbnail"
+          src={`${this.state.imageRootUrl}/page-${i}.jpeg`}
+        />
       );
     }
 
@@ -153,7 +118,7 @@ class PdfPage extends Component {
   };
 
   render() {
-    const { title, year, season } = this.state;
+    const { title, year, season, imageRootUrl, current } = this.state;
 
     return (
       <Row>
@@ -189,25 +154,17 @@ class PdfPage extends Component {
           <BackgroundColor color="white">
             <Header fontColor="#9b9b9b" />
             <Blocks>
-              {/* {PdfContent[this.props.pdfName].pdfs.map((temp, index) => (
-                <Link key={temp} to="/">
-                  <EachBlock>
-                    <Row>
-                      <Col span={8}>
-                        <ImageArea image={BackgroundImage} />
-                      </Col>
-                      <Col span={16}>
-                        <TextArea>
-                          <div>
-                            material #{index} <Date>2019/02/17</Date>
-                          </div>
-                          <Title>{PdfContent[this.props.pdfName].name}</Title>
-                        </TextArea>
-                      </Col>
-                    </Row>
-                  </EachBlock>
-                </Link>
-              ))} */}
+              <LeftArrow
+                onClick={() => this.setState({ current: current - 1 })}
+              >
+                Left
+              </LeftArrow>
+              <ImageShow src={`${imageRootUrl}/page-${current}.jpeg`} />
+              <RightArrow
+                onClick={() => this.setState({ current: current + 1 })}
+              >
+                Right
+              </RightArrow>
             </Blocks>
           </BackgroundColor>
         </Col>
