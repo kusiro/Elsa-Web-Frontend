@@ -18,6 +18,11 @@ const CourseContent = Loadable({
   loading: Loading,
 });
 
+const PdfPage = Loadable({
+  loader: () => import('./Pages/PdfPage'),
+  loading: Loading,
+});
+
 const ProjectsPage = Loadable({
   loader: () => import('./Pages/ProjectsPage'),
   loading: Loading,
@@ -37,6 +42,7 @@ export {
   HomePage,
   CoursesPage,
   CourseContent,
+  PdfPage,
   ProjectsPage,
   Project,
   AboutPage,

@@ -1,28 +1,28 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import EachCourseContent from '../../components/Courses/CourseContent';
+import AllPdfPage from '../../components/Courses/CourseContent/PdfPage';
 
-class CourseContent extends Component {
+class PdfPage extends Component {
   render() {
     const { params } = this.props;
 
     return (
       <div>
-        <EachCourseContent
+        <AllPdfPage
           courseId={params.course_id}
           contentId={params.content_id}
+          fileId={params.file_id}
         />
       </div>
     );
   }
 }
 
-CourseContent.propTypes = {
+PdfPage.propTypes = {
   params: PropTypes.shape({
-    course_id: PropTypes.string.isRequired,
-    content_id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-export default CourseContent;
+export default PdfPage;

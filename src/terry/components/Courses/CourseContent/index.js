@@ -77,7 +77,7 @@ class CourseContent extends Component {
   };
 
   componentWillMount() {
-    const { course_id: courseId, content_id: contentId } = this.props;
+    const { courseId, contentId } = this.props;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
@@ -108,7 +108,7 @@ class CourseContent extends Component {
   }
 
   render() {
-    const { content_id: contentId } = this.props;
+    const { contentId } = this.props;
 
     return (
       <Row>
@@ -174,7 +174,7 @@ class CourseContent extends Component {
                         <Col span={16}>
                           <TextArea>
                             <div>
-                              material #{lectureNumber} <Date>2019/02/17</Date>
+                              material #{lectureNumber} <Date>2019/01/01</Date>
                             </div>
                             <Title>{title}</Title>
                           </TextArea>
@@ -193,8 +193,8 @@ class CourseContent extends Component {
 }
 
 CourseContent.propTypes = {
-  content_id: PropTypes.string.isRequired,
-  course_id: PropTypes.string.isRequired,
+  contentId: PropTypes.string.isRequired,
+  courseId: PropTypes.string.isRequired,
 };
 
 export default CourseContent;
