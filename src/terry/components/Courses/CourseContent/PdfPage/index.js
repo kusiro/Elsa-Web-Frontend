@@ -19,6 +19,8 @@ import {
   Title2,
 } from '../../../Share';
 
+import Comment from './Comment';
+
 const Blocks = styled.div`
   padding-top: 20vh;
 `;
@@ -166,6 +168,7 @@ class PdfPage extends Component {
                 Right
               </RightArrow>
             </Blocks>
+            <Comment fileId={this.props.fileId} nowPage={current} />
           </BackgroundColor>
         </Col>
       </Row>

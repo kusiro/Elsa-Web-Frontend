@@ -6,6 +6,7 @@ module.exports = {
     browser: true,
   },
   rules: {
+    'no-param-reassign': 0,
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/mouse-events-have-key-events': 'off',
