@@ -26,13 +26,16 @@ const Blocks = styled.div`
 `;
 
 const EachPage = styled.img`
-  width: 10vw;
-  margin-right: 1vw;
+  width: 45%;
 `;
 
 const PagesBlock = styled.div`
+  background-color: rgba(255, 255, 255, 0.5);
   margin-top: 5vh;
-  height: 30%;
+  margin-left: -1vw;
+  padding-left: 0.5vw;
+  padding-top: 0.8vh;
+  height: 60vh;
   overflow-y: scroll;
 `;
 
