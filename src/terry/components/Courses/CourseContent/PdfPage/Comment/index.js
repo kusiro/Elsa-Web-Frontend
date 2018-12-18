@@ -156,7 +156,9 @@ class Comment extends Component {
 
     return (
       <div className="comments">
-        <div className="comments-title">Page {this.props.nowPage} - 討論區</div>
+        <div className="comments-title">
+          Page {this.props.nowPage + 1} - 討論區
+        </div>
         <div className="comment-main">
           {comments}
           {this.renderCommentForm()}

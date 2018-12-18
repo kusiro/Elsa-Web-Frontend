@@ -2,9 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Col, Row } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { Col, Icon, Row } from 'antd';
 
 import Header from '../../../Share/Header';
 import IconImg from '../../../static/icon.png';
@@ -46,7 +44,7 @@ const ImageShow = styled.img`
   margin: auto;
 `;
 
-const ArrowIcon = styled(FontAwesomeIcon)`
+const ArrowIcon = styled(Icon)`
   margin-left: 40%;
   cursor: pointer;
 `;
@@ -173,9 +171,11 @@ class PdfPage extends Component {
               <Row type="flex" justify="center" align="middle">
                 <Col span={4}>
                   <ArrowIcon
-                    icon={faAngleLeft}
-                    size="5x"
-                    onClick={() => this.setState({ current: current - 1 })}
+                    type="left"
+                    style={{ fontSize: '2vw' }}
+                    onClick={() =>
+                      current > 0 && this.setState({ current: current - 1 })
+                    }
                   />
                 </Col>
                 <Col span={16}>
@@ -183,9 +183,12 @@ class PdfPage extends Component {
                 </Col>
                 <Col span={4}>
                   <ArrowIcon
-                    icon={faAngleRight}
-                    size="5x"
-                    onClick={() => this.setState({ current: current + 1 })}
+                    type="right"
+                    style={{ fontSize: '2vw' }}
+                    onClick={() =>
+                      current + 1 < allSlides.length &&
+                      this.setState({ current: current + 1 })
+                    }
                   />
                 </Col>
               </Row>
