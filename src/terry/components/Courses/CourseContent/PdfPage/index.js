@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-// import { Element } from 'react-scroll';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 import Header from '../../../Share/Header';
 import IconImg from '../../../static/icon.png';
@@ -22,7 +23,7 @@ import {
 import Comment from './Comment';
 
 const Blocks = styled.div`
-  padding-top: 20vh;
+  padding-top: 15vh;
 `;
 
 const EachPage = styled.img`
@@ -34,23 +35,26 @@ const PagesBlock = styled.div`
   margin-top: 5vh;
   margin-left: -1vw;
   padding-left: 0.5vw;
-  padding-top: 0.8vh;
+  padding-top: 0.5vh;
   height: 60vh;
   overflow-y: scroll;
 `;
 
 const ImageShow = styled.img`
-  width: 60%;
+  width: 100%;
   height: 50%;
   margin: auto;
 `;
 
-const LeftArrow = styled.button`
-  width: 5vw;
+const ArrowIcon = styled(FontAwesomeIcon)`
+  margin-left: 40%;
+  cursor: pointer;
 `;
 
-const RightArrow = styled.button`
-  width: 5vw;
+const CountPages = styled.div`
+  text-align: center;
+  margin-top: 2vh;
+  margin-bottom: 1vh;
 `;
 
 class PdfPage extends Component {
@@ -123,7 +127,14 @@ class PdfPage extends Component {
   };
 
   render() {
-    const { title, year, season, imageRootUrl, current } = this.state;
+    const {
+      title,
+      year,
+      season,
+      imageRootUrl,
+      current,
+      allSlides,
+    } = this.state;
 
     return (
       <Row>
@@ -149,7 +160,7 @@ class PdfPage extends Component {
                   <Col span={12} offset={1}>
                     Home / Courses / {year} {season} - {title}
                   </Col>
-                  <PagesBlock span={24}>{this.state.allSlides}</PagesBlock>
+                  <PagesBlock span={24}>{allSlides}</PagesBlock>
                 </Row>
               </SmallContent>
             </MainRow>
@@ -159,18 +170,33 @@ class PdfPage extends Component {
           <BackgroundColor color="white">
             <Header fontColor="#9b9b9b" />
             <Blocks>
-              <LeftArrow
-                onClick={() => this.setState({ current: current - 1 })}
-              >
-                Left
-              </LeftArrow>
-              <ImageShow src={`${imageRootUrl}/page-${current}.jpeg`} />
-              <RightArrow
-                onClick={() => this.setState({ current: current + 1 })}
-              >
-                Right
-              </RightArrow>
+              <Row type="flex" justify="center" align="middle">
+                <Col span={4}>
+                  <ArrowIcon
+                    icon={faAngleLeft}
+                    size="5x"
+                    onClick={() => this.setState({ current: current - 1 })}
+                  />
+                </Col>
+                <Col span={16}>
+                  <ImageShow src={`${imageRootUrl}/page-${current}.jpeg`} />
+                </Col>
+                <Col span={4}>
+                  <ArrowIcon
+                    icon={faAngleRight}
+                    size="5x"
+                    onClick={() => this.setState({ current: current + 1 })}
+                  />
+                </Col>
+              </Row>
             </Blocks>
+            <Row type="flex" justify="center" align="middle">
+              <Col span={8}>
+                <CountPages>
+                  Pages {current + 1}/{allSlides.length}
+                </CountPages>
+              </Col>
+            </Row>
             <Comment fileId={this.props.fileId} nowPage={current} />
           </BackgroundColor>
         </Col>
