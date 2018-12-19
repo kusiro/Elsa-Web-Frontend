@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
-import showdown from 'showdown';
 import styled from 'styled-components';
 import { Comment as AntComment, Avatar, Col, Row } from 'antd';
 
@@ -25,6 +24,7 @@ class Comment extends Component {
     value: '',
     fileId: this.props.fileId,
     nowPage: this.props.nowPage,
+    pictureUrl: '',
   };
 
   componentWillMount() {
@@ -34,25 +34,39 @@ class Comment extends Component {
     // if login load all comments under this page
     this.loadComment();
     // else render login only message
+
+    const { token, user_id: userId } = localStorage;
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    });
+
+    ins
+      .get(`user/${userId}`)
+      .then(res => {
+        console.log(res);
+        this.setState({ pictureUrl: res.data.profile.pictureUrl });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   renderCommentForm = () => {
     const { token } = localStorage;
-    const { submitting, value } = this.state;
+    const { submitting, value, pictureUrl } = this.state;
 
     // check login or not
     if (token) {
       return (
         <AntComment
-          avatar={
-            <Avatar
-              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              alt="Han Solo"
-            />
-          }
+          avatar={<Avatar src={pictureUrl} />}
           content={
             <Editor
-              onChange={this.handleChange}
+              onChange={e => this.handleChange('q_content', e)}
               onSubmit={this.handleSubmit}
               submitting={submitting}
               value={value}
@@ -104,8 +118,15 @@ class Comment extends Component {
       submitting: true,
     });
 
-    const { fileId, nowPage } = this.state;
+    const {
+      fileId,
+      nowPage,
+      comments,
+      value,
+      email_notify: emailNotify,
+    } = this.state;
     const { token } = localStorage;
+
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
@@ -115,7 +136,13 @@ class Comment extends Component {
     });
 
     ins
-      .post(`files/${fileId}/pages/${nowPage}`, this.state)
+      .post(`files/${fileId}/pages/${nowPage}`, {
+        comments,
+        content: value,
+        fileId,
+        nowPage,
+        email_notify: emailNotify,
+      })
       .then(res => {
         console.log(res);
         this.setState({ submitting: false, value: '' });
