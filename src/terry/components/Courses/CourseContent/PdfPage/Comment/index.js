@@ -55,6 +55,12 @@ class Comment extends Component {
       });
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.nowPage !== prevProps.nowPage) {
+      this.loadComment();
+    }
+  }
+
   renderCommentForm = () => {
     const { token } = localStorage;
     const { submitting, value, pictureUrl } = this.state;
@@ -92,7 +98,10 @@ class Comment extends Component {
 
   loadComment = () => {
     // if login load all comments under this page
-    const { fileId, nowPage } = this.state;
+    this.setState({ nowPage: this.props.nowPage });
+    const { fileId } = this.state;
+    const { nowPage } = this.props;
+
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
