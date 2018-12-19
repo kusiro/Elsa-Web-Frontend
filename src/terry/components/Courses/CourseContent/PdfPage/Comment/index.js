@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
-import moment from 'moment';
 import showdown from 'showdown';
 import styled from 'styled-components';
 import { Comment as AntComment, Avatar, Col, Row } from 'antd';
@@ -24,6 +23,76 @@ class Comment extends Component {
     comments: [],
     submitting: false,
     value: '',
+    fileId: this.props.fileId,
+    nowPage: this.props.nowPage,
+  };
+
+  componentWillMount() {
+    const { nowPage } = this.state;
+    // reset state
+    this.setState({ nowPage });
+    // if login load all comments under this page
+    this.loadComment();
+    // else render login only message
+  }
+
+  renderCommentForm = () => {
+    const { token } = localStorage;
+    const { submitting, value } = this.state;
+
+    // check login or not
+    if (token) {
+      return (
+        <AntComment
+          avatar={
+            <Avatar
+              src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              alt="Han Solo"
+            />
+          }
+          content={
+            <Editor
+              onChange={this.handleChange}
+              onSubmit={this.handleSubmit}
+              submitting={submitting}
+              value={value}
+            />
+          }
+        />
+      );
+    }
+
+    return (
+      <div className="comment-notice">
+        <a href={`/login?redirect_url=${window.location.pathname}`}>登入</a>
+        後才能留言喔！
+      </div>
+    );
+  };
+
+  // parse @ 被 tag 的人
+  parseMetionTagInComment = content => {
+    const pattern = /\B@[a-z0-9_-]+/gi;
+    return content.match(pattern);
+  };
+
+  loadComment = () => {
+    // if login load all comments under this page
+    const { fileId, nowPage } = this.state;
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+    });
+    ins
+      .get(`files/${fileId}/pages/${nowPage}`)
+      .then(res => {
+        console.log('In Load Comment');
+        console.log(res.data);
+        this.setState({ comments: res.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   handleSubmit = () => {
@@ -35,57 +104,51 @@ class Comment extends Component {
       submitting: true,
     });
 
-    setTimeout(() => {
-      const { comments, value } = this.state;
+    const { fileId, nowPage } = this.state;
+    const { token } = localStorage;
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    });
 
-      this.setState({
-        submitting: false,
-        value: '',
-        comments: [
-          {
-            author: 'Han Solo',
-            avatar:
-              'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-            content: <p>{value}</p>,
-            datetime: moment().fromNow(),
-          },
-          ...comments,
-        ],
+    ins
+      .post(`files/${fileId}/pages/${nowPage}`, this.state)
+      .then(res => {
+        console.log(res);
+        this.setState({ submitting: false, value: '' });
+        this.loadComment();
+      })
+      .catch(error => {
+        console.log(error);
       });
-    }, 1000);
   };
 
-  handleChange = e => {
-    this.setState({
-      value: e.target.value,
-    });
+  handleChange = (id, event) => {
+    if (id === 'q_content') {
+      this.setState({
+        value: event.target.value,
+        email_notify: {
+          link: window.location.href,
+          message_type: 'course_file_comment_reply',
+          mentions: this.parseMetionTagInComment(event.target.value),
+        },
+      });
+    }
   };
 
   render() {
-    const { comments, submitting, value } = this.state;
+    const { comments } = this.state;
 
     return (
       <div>
         <Row type="flex" justify="center" align="top">
           <Col span={16}>
             <AllCommentBlock>
-              <AntComment
-                avatar={
-                  <Avatar
-                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                    alt="Han Solo"
-                  />
-                }
-                content={
-                  <Editor
-                    onChange={this.handleChange}
-                    onSubmit={this.handleSubmit}
-                    submitting={submitting}
-                    value={value}
-                  />
-                }
-              />
-              {comments.length > 0 && <CommentList comments={comments} />}
+              {this.renderCommentForm()}
+              {comments && <CommentList comments={comments} />}
             </AllCommentBlock>
           </Col>
         </Row>
@@ -95,8 +158,8 @@ class Comment extends Component {
 }
 
 Comment.propTypes = {
-  // fileId: PropTypes.string.isRequired,
-  // nowPage: PropTypes.string.isRequired,
+  fileId: PropTypes.string.isRequired,
+  nowPage: PropTypes.number.isRequired,
 };
 
 export default Comment;
