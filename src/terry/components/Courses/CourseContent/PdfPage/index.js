@@ -26,6 +26,11 @@ const Blocks = styled.div`
 
 const EachPage = styled.img`
   width: 45%;
+  margin: 0.5vw;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const PagesBlock = styled.div`
@@ -115,8 +120,8 @@ class PdfPage extends Component {
       slides.push(
         <EachPage
           alt="/page"
-          className="slide-thumbnail"
           src={`${this.state.imageRootUrl}/page-${i}.jpeg`}
+          onClick={() => this.setState({ current: i })}
         />
       );
     }
