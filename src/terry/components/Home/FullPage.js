@@ -113,7 +113,7 @@ class FullPage extends Component {
                     </PageLink>
                   </TextCol>
                   <TextCol span={24}>
-                    <PageLink to="/about">
+                    <PageLink to="/login">
                       <Text color={otherColorMap[current]}>Sign in</Text>
                     </PageLink>
                   </TextCol>

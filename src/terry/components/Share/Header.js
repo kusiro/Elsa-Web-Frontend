@@ -58,7 +58,7 @@ const Header = ({ fontColor }) => (
         </EachLink>
       </Col>
       <Col span={2}>
-        <EachLink color={fontColor} to="/">
+        <EachLink color={fontColor} to="/login">
           <LinkCol>Sign in</LinkCol>
         </EachLink>
       </Col>

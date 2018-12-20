@@ -3,14 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import Template from './Template/Template'
 
-import Home from './Home/Home'
-
 import Members from './Members/Members'
-
-import Courses from './Courses/Courses'
-import courseFrontShow from './Courses/Show/Show'
-import Attachments from './Courses/Attachments/Attachments'
-import attachmentShow from './Courses/Attachments/Show/Show'
 
 import Publications from './Publications/Publications'
 
@@ -20,8 +13,8 @@ import newsFrontShow from './News/Show/Show'
 import Contact from './Contact/Contact'
 
 import Register from './Register/Register'
-import Login from './Login/Login'
-import Logout from './Logout/Logout'
+// import Login from './Login/Login'
+// import Logout from './Logout/Logout'
 
 import newsIndex from './Management/News/Index/Index'
 import newsNew from './Management/News/New/New'
@@ -58,6 +51,8 @@ import {
   HomePage,
   Project,
   ProjectsPage,
+  LoginPage,
+  Logout
 } from './terry/route/DynamicLoad';
 
 import './index.css';
@@ -66,6 +61,7 @@ import './index.css';
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={Template}>
+      {/* New */}
       <IndexRoute component={HomePage} />
       <Route exact path="/" component={HomePage} />
       <Route path="/courses" component={CoursesPage} />
@@ -74,16 +70,17 @@ ReactDOM.render((
       <Route path="/projects" component={ProjectsPage} />
       <Route path="/project(/:name)" component={Project} />
       <Route path="/about" component={AboutPage} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/logout" component={Logout} />
+
+      {/* Origin */}
       <Route path="/members" component={Members} />
-      
-      <Route path="/courses(/:course_id)/contents(/:content_id)/lectures(/:lecture_id)/files(/:file_id)/pages(/:page_num)" component={attachmentShow} />
       <Route path="/publications" component={Publications} />
       <Route path="/news" component={News} />
       <Route path="/news(/:news_id)" component={newsFrontShow} />
       <Route path="/contact" component={Contact} />
       <Route path="/register" component={Register} />
-      <Route path="/login" component={Login} />
-      <Route path="/logout" component={Logout} />
+
       <Route path="/management" component={userIndex} />
       <Route path="/management/news" component={newsIndex} />
       <Route path="/management/news/new" component={newsNew} />
