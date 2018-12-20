@@ -7,6 +7,7 @@ import BackgroundCourses from '../static/home/Courses.jpg';
 import BackgroundNews from '../static/home/News.jpg';
 import BackgroundProjects from '../static/home/Projects.jpg';
 import BackgroundPublications from '../static/home/Publications.jpg';
+import { media } from '../size';
 
 import FullPage from './FullPage';
 
@@ -16,12 +17,26 @@ const EntryLink = styled.div`
   padding-right: 3.5vw;
   top: 70%;
   left: 0;
+
+  ${media.lessThan('notebook')`
+    padding: 0;
+  `};
 `;
 
 const ImageEntry = styled.img`
   width: 100%;
   height: 100%;
   border: 5px white solid;
+
+  ${media.lessThan('notebook')`
+    border: 0;
+  `};
+`;
+
+const EachTitleEntry = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: white;
 `;
 
 const BlackLayer = styled.div`
@@ -61,29 +76,6 @@ const EachLink = styled(Link)`
   }
 `;
 
-const EachEntry = [
-  {
-    name: 'Courses',
-    image: BackgroundCourses,
-    href: '/courses',
-  },
-  {
-    name: 'Publications',
-    image: BackgroundPublications,
-    href: '/',
-  },
-  {
-    name: 'Projects',
-    image: BackgroundProjects,
-    href: '/projects',
-  },
-  {
-    name: 'News',
-    image: BackgroundNews,
-    href: '/',
-  },
-];
-
 class Home extends Component {
   state = {
     current: 0,
@@ -103,19 +95,62 @@ class Home extends Component {
         <FullPage current={current} />
         <EntryLink>
           <Row type="flex" justify="space-around">
-            {EachEntry.map(({ name, image, href }, index) => (
-              <Col key={name} span={4}>
-                <ImageEntry src={image} />
-                <BlackLayer
-                  onMouseEnter={() => this.changeBackground(index + 1)}
-                  onMouseLeave={() => this.changeBackground(0)}
-                >
-                  <EachLink to={href}>
-                    <Text>{name}</Text>
-                  </EachLink>
-                </BlackLayer>
-              </Col>
-            ))}
+            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+              <ImageEntry src={BackgroundCourses} />
+              <BlackLayer
+                onMouseEnter={() => this.changeBackground(1)}
+                onMouseLeave={() => this.changeBackground(0)}
+              >
+                <EachLink to="/courses">
+                  <Text>Courses</Text>
+                </EachLink>
+              </BlackLayer>
+            </Col>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+              <EachTitleEntry />
+            </Col>
+            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+              <ImageEntry src={BackgroundPublications} />
+              <BlackLayer
+                onMouseEnter={() => this.changeBackground(2)}
+                onMouseLeave={() => this.changeBackground(0)}
+              >
+                <EachLink to="/">
+                  <Text>Publications</Text>
+                </EachLink>
+              </BlackLayer>
+            </Col>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+              <EachTitleEntry />
+            </Col>
+            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+              <ImageEntry src={BackgroundProjects} />
+              <BlackLayer
+                onMouseEnter={() => this.changeBackground(3)}
+                onMouseLeave={() => this.changeBackground(0)}
+              >
+                <EachLink to="/projects">
+                  <Text>Projects</Text>
+                </EachLink>
+              </BlackLayer>
+            </Col>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+              <EachTitleEntry />
+            </Col>
+            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+              <ImageEntry src={BackgroundNews} />
+              <BlackLayer
+                onMouseEnter={() => this.changeBackground(4)}
+                onMouseLeave={() => this.changeBackground(0)}
+              >
+                <EachLink to="/">
+                  <Text>News</Text>
+                </EachLink>
+              </BlackLayer>
+            </Col>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+              <EachTitleEntry />
+            </Col>
           </Row>
         </EntryLink>
       </Fragment>

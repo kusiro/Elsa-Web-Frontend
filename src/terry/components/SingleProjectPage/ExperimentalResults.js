@@ -136,8 +136,7 @@ class ExperimentalResults extends Component {
 }
 
 ExperimentalResults.propTypes = {
-  // FIXME: comment
-  // content: PropTypes.arrayOf(PropTypes.object).isRequired,
+  content: PropTypes.arrayOf(PropTypes.object).isRequired,
   projectName: PropTypes.string.isRequired,
 };
 
