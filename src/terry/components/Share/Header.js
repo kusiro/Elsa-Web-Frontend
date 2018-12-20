@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router';
@@ -29,42 +29,58 @@ const LinkCol = styled(Col)`
   }
 `;
 
-const Header = ({ fontColor }) => (
-  <Layout>
-    <Row type="flex" justify="end" align="middle">
-      <Col span={2}>
-        <EachLink color={fontColor} to="/">
-          <LinkCol>Home</LinkCol>
+class Header extends Component {
+  renderLogin = () => {
+    const { token } = localStorage;
+    if (token) {
+      return (
+        <EachLink color={this.props.fontColor} to="/logout">
+          <LinkCol>Sign out</LinkCol>
         </EachLink>
-      </Col>
-      <Col span={2}>
-        <EachLink color={fontColor} to="/courses">
-          <LinkCol>Course</LinkCol>
-        </EachLink>
-      </Col>
-      <Col span={3}>
-        <EachLink color={fontColor} to="/">
-          <LinkCol>Publications</LinkCol>
-        </EachLink>
-      </Col>
-      <Col span={2}>
-        <EachLink color={fontColor} to="/projects">
-          <LinkCol>Projects</LinkCol>
-        </EachLink>
-      </Col>
-      <Col span={2}>
-        <EachLink color={fontColor} to="/">
-          <LinkCol>News</LinkCol>
-        </EachLink>
-      </Col>
-      <Col span={2}>
-        <EachLink color={fontColor} to="/login">
-          <LinkCol>Sign in</LinkCol>
-        </EachLink>
-      </Col>
-    </Row>
-  </Layout>
-);
+      );
+    }
+    return (
+      <EachLink color={this.props.fontColor} to="/login">
+        <LinkCol>Sign in</LinkCol>
+      </EachLink>
+    );
+  };
+
+  render() {
+    return (
+      <Layout>
+        <Row type="flex" justify="end" align="middle">
+          <Col span={2}>
+            <EachLink color={this.props.fontColor} to="/">
+              <LinkCol>Home</LinkCol>
+            </EachLink>
+          </Col>
+          <Col span={2}>
+            <EachLink color={this.props.fontColor} to="/courses">
+              <LinkCol>Course</LinkCol>
+            </EachLink>
+          </Col>
+          <Col span={3}>
+            <EachLink color={this.props.fontColor} to="/">
+              <LinkCol>Publications</LinkCol>
+            </EachLink>
+          </Col>
+          <Col span={2}>
+            <EachLink color={this.props.fontColor} to="/projects">
+              <LinkCol>Projects</LinkCol>
+            </EachLink>
+          </Col>
+          <Col span={2}>
+            <EachLink color={this.props.fontColor} to="/">
+              <LinkCol>News</LinkCol>
+            </EachLink>
+          </Col>
+          <Col span={2}>{this.renderLogin()}</Col>
+        </Row>
+      </Layout>
+    );
+  }
+}
 
 Header.propTypes = {
   fontColor: PropTypes.string.isRequired,

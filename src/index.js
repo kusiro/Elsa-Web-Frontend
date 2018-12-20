@@ -13,8 +13,6 @@ import newsFrontShow from './News/Show/Show'
 import Contact from './Contact/Contact'
 
 import Register from './Register/Register'
-// import Login from './Login/Login'
-// import Logout from './Logout/Logout'
 
 import newsIndex from './Management/News/Index/Index'
 import newsNew from './Management/News/New/New'
