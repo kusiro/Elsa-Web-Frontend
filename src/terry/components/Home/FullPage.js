@@ -18,6 +18,7 @@ import {
   Title2,
   TitleText,
 } from '../Share';
+import { media } from '../size';
 
 import {
   backgroundColorInvertMap,
@@ -35,6 +36,12 @@ const BackgroundImage = styled.div`
   background-size: cover;
   height: 100vh;
   width: 100%;
+`;
+
+const BackgroundStyleColor = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 70vh;
+  `};
 `;
 
 const OtherLink = styled(Col)`
@@ -66,6 +73,22 @@ const PageLink = styled(Link)`
   }
 `;
 
+const TitleStyleText = styled(TitleText)`
+  ${media.lessThan('notebook')`
+    font-size: 10vw;
+  `};
+`;
+
+const IconStyleImage = styled(IconImage)`
+  ${media.lessThan('notebook')`
+    width: 8vw;
+  `};
+`;
+
+const LogoStyleContent = styled(LogoContent)`
+  margin-top: 4vh;
+`;
+
 class FullPage extends Component {
   renderLogin = current => {
     const { token } = localStorage;
@@ -83,26 +106,44 @@ class FullPage extends Component {
     );
   };
 
+  renderOtherBlock = current => (
+    <Row>
+      <TextCol span={24}>
+        <PageLink to="/about">
+          <Text color={otherColorMap[current]}>About Elsa Lab</Text>
+        </PageLink>
+      </TextCol>
+      <TextCol span={24}>{this.renderLogin(current)}</TextCol>
+    </Row>
+  );
+
   render() {
     const { current } = this.props;
 
     return (
       <Row>
-        <Col span={9}>
-          <BackgroundColor color={backgroundColorMap[current]}>
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color={backgroundColorMap[current]}>
             <MainRow type="flex" justify="center">
-              <LogoContent span={18}>
+              <LogoStyleContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
                   <Col>
-                    <IconImage src={IconImg} />
+                    <IconStyleImage src={IconImg} />
                   </Col>
                   <Col>
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
+                  <Col xs={{ span: 10 }} xl={{ span: 0 }} offset={8}>
+                    {this.renderOtherBlock()}
+                  </Col>
                 </Row>
-              </LogoContent>
-              <SmallContent span={18} color={backgroundColorInvertMap[current]}>
+              </LogoStyleContent>
+              <SmallContent
+                xs={{ span: 22 }}
+                xl={{ span: 18 }}
+                color={backgroundColorInvertMap[current]}
+              >
                 <Row type="flex" justify="start" align="bottom">
                   <Col span={6}>
                     <Hr color={backgroundColorInvertMap[current]} />
@@ -112,29 +153,24 @@ class FullPage extends Component {
                   </Col>
                 </Row>
               </SmallContent>
-              <BigTitle span={18}>
-                <TitleText>
+              <BigTitle xs={{ span: 20 }} xl={{ span: 18 }}>
+                <TitleStyleText>
                   {current !== 0 ? <br /> : ''}
                   {bigTitleMap[current]}
-                </TitleText>
+                </TitleStyleText>
               </BigTitle>
+              <Col xs={{ span: 2 }} xl={{ span: 0 }} />
               <MedContent span={12} color={medColorMap[current]}>
                 {medContentMap[current]}
               </MedContent>
-              <OtherLink span={6}>
-                <Row>
-                  <TextCol span={24}>
-                    <PageLink to="/about">
-                      <Text color={otherColorMap[current]}>About Elsa Lab</Text>
-                    </PageLink>
-                  </TextCol>
-                  <TextCol span={24}>{this.renderLogin(current)}</TextCol>
-                </Row>
+              <Col xs={{ span: 10 }} xl={{ span: 0 }} />
+              <OtherLink xs={{ span: 0 }} xl={{ span: 6 }}>
+                {this.renderOtherBlock(current)}
               </OtherLink>
             </MainRow>
-          </BackgroundColor>
+          </BackgroundStyleColor>
         </Col>
-        <Col span={15}>
+        <Col xs={{ span: 0 }} xl={{ span: 15 }}>
           <BackgroundImage image={backgroundImageMap[current]} />
         </Col>
       </Row>
