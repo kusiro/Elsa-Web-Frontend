@@ -67,6 +67,22 @@ const PageLink = styled(Link)`
 `;
 
 class FullPage extends Component {
+  renderLogin = current => {
+    const { token } = localStorage;
+    if (token) {
+      return (
+        <PageLink to="/logout">
+          <Text color={otherColorMap[current]}>Sign out</Text>
+        </PageLink>
+      );
+    }
+    return (
+      <PageLink to="/login">
+        <Text color={otherColorMap[current]}>Sign in</Text>
+      </PageLink>
+    );
+  };
+
   render() {
     const { current } = this.props;
 
@@ -112,11 +128,7 @@ class FullPage extends Component {
                       <Text color={otherColorMap[current]}>About Elsa Lab</Text>
                     </PageLink>
                   </TextCol>
-                  <TextCol span={24}>
-                    <PageLink to="/login">
-                      <Text color={otherColorMap[current]}>Sign in</Text>
-                    </PageLink>
-                  </TextCol>
+                  <TextCol span={24}>{this.renderLogin(current)}</TextCol>
                 </Row>
               </OtherLink>
             </MainRow>
