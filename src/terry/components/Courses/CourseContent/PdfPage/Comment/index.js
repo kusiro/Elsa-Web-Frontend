@@ -15,6 +15,19 @@ const AllCommentBlock = styled.div`
   overflow-y: scroll;
   padding-left: 2vw;
   padding-right: 2vw;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`;
+
+const NeedLogin = styled.div`
+  height: 5vh;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
 `;
 
 class Comment extends Component {
@@ -83,10 +96,12 @@ class Comment extends Component {
     }
 
     return (
-      <div className="comment-notice">
-        <a href={`/login?redirect_url=${window.location.pathname}`}>登入</a>
-        後才能留言喔！
-      </div>
+      <NeedLogin>
+        <div>
+          <a href={`/login?redirect_url=${window.location.pathname}`}>登入</a>
+          後才能留言喔！
+        </div>
+      </NeedLogin>
     );
   };
 

@@ -47,6 +47,13 @@ const ImageShow = styled.img`
   width: 100%;
   height: 50%;
   margin: auto;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 const ArrowIcon = styled(Icon)`
@@ -58,6 +65,13 @@ const CountPages = styled.div`
   text-align: center;
   margin-top: 2vh;
   margin-bottom: 1vh;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 `;
 
 class PdfPage extends Component {
