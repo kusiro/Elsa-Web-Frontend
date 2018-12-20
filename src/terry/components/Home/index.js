@@ -33,10 +33,18 @@ const ImageEntry = styled.img`
   `};
 `;
 
+const LittleTitle = styled.div`
+  font-size: 6vw;
+  color: white;
+`;
+
 const EachTitleEntry = styled.div`
+  background-color: ${props => props.color};
   width: 100%;
   height: 100%;
-  background-color: white;
+  color: #8c8c8c;
+  padding-top: 8vh;
+  padding-left: 5vw;
 `;
 
 const BlackLayer = styled.div`
@@ -107,7 +115,16 @@ class Home extends Component {
               </BlackLayer>
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 0 }}>
-              <EachTitleEntry />
+              <EachTitleEntry color="#e9ce9b">
+                01#
+                <LittleTitle>Courses</LittleTitle>
+              </EachTitleEntry>
+            </Col>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+              <EachTitleEntry color="rgba(154, 180, 179, 0.8)">
+                02#
+                <LittleTitle>Publications</LittleTitle>
+              </EachTitleEntry>
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundPublications} />
@@ -120,9 +137,7 @@ class Home extends Component {
                 </EachLink>
               </BlackLayer>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
-              <EachTitleEntry />
-            </Col>
+
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundProjects} />
               <BlackLayer
@@ -135,7 +150,16 @@ class Home extends Component {
               </BlackLayer>
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 0 }}>
-              <EachTitleEntry />
+              <EachTitleEntry color="rgba(137, 155, 206, 0.8)">
+                03#
+                <LittleTitle>Projects</LittleTitle>
+              </EachTitleEntry>
+            </Col>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+              <EachTitleEntry color="rgba(160, 137, 169, 0.8)">
+                04#
+                <LittleTitle>News</LittleTitle>
+              </EachTitleEntry>
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundNews} />
@@ -147,9 +171,6 @@ class Home extends Component {
                   <Text>News</Text>
                 </EachLink>
               </BlackLayer>
-            </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
-              <EachTitleEntry />
             </Col>
           </Row>
         </EntryLink>
