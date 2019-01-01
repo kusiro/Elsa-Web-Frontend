@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
+import { Link } from 'react-router';
 
 export const BackgroundColor = styled.div`
   background-color: ${props => props.color};
@@ -27,7 +28,7 @@ export const Title2 = styled.p`
 
 export const LogoContent = styled(Col)`
   color: white;
-  margin-top: 8vh;
+  margin-top: 4vh;
 `;
 
 export const Hr = styled.hr`
@@ -57,4 +58,29 @@ export const MedContent = styled(Col)`
   color: ${props => props.color};
   font-size: 1vw;
   margin-top: 5vh;
+`;
+
+export const TextCol = styled.div`
+  float: right;
+  font-size: 1vw;
+  color: white;
+`;
+
+export const Text = styled.div`
+  background-color: ${props => props.color};
+  margin: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
+
+  :hover {
+    background-color: white;
+  }
+`;
+
+export const PageLink = styled(Link)`
+  color: white;
+
+  :hover {
+    color: black;
+  }
 `;

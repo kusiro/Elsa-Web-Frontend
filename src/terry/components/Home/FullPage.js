@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router';
 
 import BackgroundHome from '../static/home/delta.jpg';
 import IconImg from '../static/icon.png';
@@ -14,7 +13,10 @@ import {
   LogoContent,
   MainRow,
   MedContent,
+  PageLink,
   SmallContent,
+  Text,
+  TextCol,
   Title1,
   Title2,
   TitleText,
@@ -51,31 +53,6 @@ const OtherLink = styled(Col)`
   margin-top: 5vh;
 `;
 
-const TextCol = styled.div`
-  float: right;
-  font-size: 1vw;
-  color: white;
-`;
-
-const Text = styled.div`
-  background-color: ${props => props.color};
-  margin: 3px;
-  padding-left: 3px;
-  padding-right: 3px;
-
-  :hover {
-    background-color: white;
-  }
-`;
-
-const PageLink = styled(Link)`
-  color: white;
-
-  :hover {
-    color: black;
-  }
-`;
-
 const TitleStyleText = styled(TitleText)`
   ${media.lessThan('notebook')`
     font-size: 10vw;
@@ -88,9 +65,9 @@ const IconStyleImage = styled(IconImage)`
   `};
 `;
 
-const LogoStyleContent = styled(LogoContent)`
-  margin-top: 4vh;
-`;
+// const LogoStyleContent = styled(LogoContent)`
+//   margin-top: 4vh;
+// `;
 
 class FullPage extends Component {
   renderLogin = current => {
@@ -128,7 +105,7 @@ class FullPage extends Component {
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color={backgroundColorMap[current]}>
             <MainRow type="flex" justify="center">
-              <LogoStyleContent xs={{ span: 22 }} xl={{ span: 18 }}>
+              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
                   <Col>
                     <IconStyleImage src={IconImg} />
@@ -141,7 +118,7 @@ class FullPage extends Component {
                     {this.renderOtherBlock()}
                   </Col>
                 </Row>
-              </LogoStyleContent>
+              </LogoContent>
               <SmallContent
                 xs={{ span: 22 }}
                 xl={{ span: 18 }}

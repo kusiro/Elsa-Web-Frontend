@@ -15,14 +15,24 @@ import {
   LogoContent,
   MainRow,
   MedContent,
+  PageLink,
   SmallContent,
+  Text,
+  TextCol,
   Title1,
   Title2,
   TitleText,
 } from '../Share';
+import { media } from '../size';
 
 const Blocks = styled.div`
   padding-top: 20vh;
+`;
+
+const BackgroundStyleColor = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 70vh;
+  `};
 `;
 
 const EachBlock = styled.div`
@@ -105,13 +115,40 @@ class Courses extends Component {
     }
   };
 
+  renderLogin = () => {
+    const { token } = localStorage;
+    if (token) {
+      return (
+        <PageLink to="/logout">
+          <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
+        </PageLink>
+      );
+    }
+    return (
+      <PageLink to="/login">
+        <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
+      </PageLink>
+    );
+  };
+
+  renderOtherBlock = () => (
+    <Row>
+      <TextCol span={24}>
+        <PageLink to="/about">
+          <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
+        </PageLink>
+      </TextCol>
+      <TextCol span={24}>{this.renderLogin()}</TextCol>
+    </Row>
+  );
+
   render() {
     return (
       <Row>
-        <Col span={9}>
-          <BackgroundColor color="#f8d188">
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color="#f8d188">
             <MainRow type="flex" justify="center">
-              <LogoContent span={18}>
+              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
                   <Col>
                     <IconImage src={IconImg} />
@@ -120,9 +157,12 @@ class Courses extends Component {
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
+                  <Col xs={{ span: 10 }} xl={{ span: 0 }} offset={8}>
+                    {this.renderOtherBlock()}
+                  </Col>
                 </Row>
               </LogoContent>
-              <SmallContent span={18} color="#8c8c8c">
+              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
                 <Row type="flex" justify="start" align="bottom">
                   <Col span={6}>
                     <Hr color="#8c8c8c" />
@@ -132,13 +172,13 @@ class Courses extends Component {
                   </Col>
                 </Row>
               </SmallContent>
-              <BigTitle span={18}>
+              <BigTitle xs={{ span: 20 }} xl={{ span: 18 }}>
                 <TitleText>Courses</TitleText>
               </BigTitle>
               <MedContent span={12} color="#8c8c8c" />
               <Col span={6} />
             </MainRow>
-          </BackgroundColor>
+          </BackgroundStyleColor>
         </Col>
         <Col span={15}>
           <BackgroundColor color="white">
