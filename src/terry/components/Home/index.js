@@ -1,3 +1,4 @@
+import MediaQuery from 'react-responsive';
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
@@ -7,7 +8,7 @@ import BackgroundCourses from '../static/home/Courses.jpg';
 import BackgroundNews from '../static/home/News.jpg';
 import BackgroundProjects from '../static/home/Projects.jpg';
 import BackgroundPublications from '../static/home/Publications.jpg';
-import { media } from '../size';
+import { media, notebook } from '../size';
 
 import FullPage from './FullPage';
 
@@ -78,10 +79,22 @@ const Text = styled.div`
 const EachLink = styled(Link)`
   color: rgba(0, 0, 0, 0);
   text-decoration: none !important;
+  pointer-events: auto;
+  cursor: pointer;
 
   :hover {
     color: rgba(0, 0, 0, 0);
   }
+`;
+
+const EachLinkMob = styled(EachLink)`
+  pointer-events: none;
+  cursor: default;
+
+  ${media.lessThan('notebook')`
+    pointer-events: auto;
+    cursor: pointer;
+  `};
 `;
 
 class Home extends Component {
@@ -105,21 +118,33 @@ class Home extends Component {
           <Row type="flex" justify="space-around">
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundCourses} />
-              <BlackLayer
-                onMouseEnter={() => this.changeBackground(1)}
-                onMouseLeave={() => this.changeBackground(0)}
-              >
-                <EachLink to="/courses">
-                  <Text>Courses</Text>
-                </EachLink>
-              </BlackLayer>
+              <MediaQuery query={`(max-width: ${notebook})`}>
+                {matches => {
+                  if (!matches) {
+                    return (
+                      <BlackLayer
+                        onMouseEnter={() => this.changeBackground(1)}
+                        onMouseLeave={() => this.changeBackground(0)}
+                      >
+                        <EachLink to="/courses">
+                          <Text>Courses</Text>
+                        </EachLink>
+                      </BlackLayer>
+                    );
+                  }
+                  return <></>;
+                }}
+              </MediaQuery>
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 0 }}>
-              <EachTitleEntry color="#e9ce9b">
-                01#
-                <LittleTitle>Courses</LittleTitle>
-              </EachTitleEntry>
+              <EachLinkMob to="/courses">
+                <EachTitleEntry color="#e9ce9b">
+                  01#
+                  <LittleTitle>Courses</LittleTitle>
+                </EachTitleEntry>
+              </EachLinkMob>
             </Col>
+
             <Col xs={{ span: 12 }} xl={{ span: 0 }}>
               <EachTitleEntry color="rgba(154, 180, 179, 0.8)">
                 02#
@@ -128,32 +153,52 @@ class Home extends Component {
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundPublications} />
-              <BlackLayer
-                onMouseEnter={() => this.changeBackground(2)}
-                onMouseLeave={() => this.changeBackground(0)}
-              >
-                <EachLink to="/">
-                  <Text>Publications</Text>
-                </EachLink>
-              </BlackLayer>
+              <MediaQuery query={`(max-width: ${notebook})`}>
+                {matches => {
+                  if (!matches) {
+                    return (
+                      <BlackLayer
+                        onMouseEnter={() => this.changeBackground(2)}
+                        onMouseLeave={() => this.changeBackground(0)}
+                      >
+                        <EachLink to="/">
+                          <Text>Publications</Text>
+                        </EachLink>
+                      </BlackLayer>
+                    );
+                  }
+                  return <></>;
+                }}
+              </MediaQuery>
             </Col>
 
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundProjects} />
-              <BlackLayer
-                onMouseEnter={() => this.changeBackground(3)}
-                onMouseLeave={() => this.changeBackground(0)}
-              >
-                <EachLink to="/projects">
-                  <Text>Projects</Text>
-                </EachLink>
-              </BlackLayer>
+              <MediaQuery query={`(max-width: ${notebook})`}>
+                {matches => {
+                  if (!matches) {
+                    return (
+                      <BlackLayer
+                        onMouseEnter={() => this.changeBackground(3)}
+                        onMouseLeave={() => this.changeBackground(0)}
+                      >
+                        <EachLink to="/projects">
+                          <Text>Projects</Text>
+                        </EachLink>
+                      </BlackLayer>
+                    );
+                  }
+                  return <></>;
+                }}
+              </MediaQuery>
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 0 }}>
-              <EachTitleEntry color="rgba(137, 155, 206, 0.8)">
-                03#
-                <LittleTitle>Projects</LittleTitle>
-              </EachTitleEntry>
+              <EachLinkMob to="/projects">
+                <EachTitleEntry color="rgba(137, 155, 206, 0.8)">
+                  03#
+                  <LittleTitle>Projects</LittleTitle>
+                </EachTitleEntry>
+              </EachLinkMob>
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 0 }}>
               <EachTitleEntry color="rgba(160, 137, 169, 0.8)">
@@ -163,14 +208,23 @@ class Home extends Component {
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundNews} />
-              <BlackLayer
-                onMouseEnter={() => this.changeBackground(4)}
-                onMouseLeave={() => this.changeBackground(0)}
-              >
-                <EachLink to="/">
-                  <Text>News</Text>
-                </EachLink>
-              </BlackLayer>
+              <MediaQuery query={`(max-width: ${notebook})`}>
+                {matches => {
+                  if (!matches) {
+                    return (
+                      <BlackLayer
+                        onMouseEnter={() => this.changeBackground(4)}
+                        onMouseLeave={() => this.changeBackground(0)}
+                      >
+                        <EachLink to="/">
+                          <Text>News</Text>
+                        </EachLink>
+                      </BlackLayer>
+                    );
+                  }
+                  return <></>;
+                }}
+              </MediaQuery>
             </Col>
           </Row>
         </EntryLink>

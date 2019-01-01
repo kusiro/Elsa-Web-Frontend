@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router';
 
+import BackgroundHome from '../static/home/delta.jpg';
 import IconImg from '../static/icon.png';
 import {
   BackgroundColor,
@@ -40,6 +41,8 @@ const BackgroundImage = styled.div`
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(${BackgroundHome});
     height: 70vh;
   `};
 `;
