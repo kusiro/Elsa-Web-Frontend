@@ -30,10 +30,6 @@ const Blocks = styled.div`
   padding-top: 20vh;
 `;
 
-const OtherLink = styled(Col)`
-  margin-top: 5vh;
-`;
-
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
     height: 70vh;
@@ -83,7 +79,6 @@ const IconStyleImage = styled(IconImage)`
     width: 8vw;
   `};
 `;
-
 
 class Courses extends Component {
   state = {
@@ -194,9 +189,6 @@ class Courses extends Component {
                 <TitleStyleText>Courses</TitleStyleText>
               </BigTitle>
               <MedContent span={12} color="#8c8c8c" />
-              <OtherLink xs={{ span: 0 }} xl={{ span: 6 }}>
-                {this.renderOtherBlock()}
-              </OtherLink>
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
