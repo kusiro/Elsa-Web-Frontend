@@ -65,10 +65,6 @@ const IconStyleImage = styled(IconImage)`
   `};
 `;
 
-// const LogoStyleContent = styled(LogoContent)`
-//   margin-top: 4vh;
-// `;
-
 class FullPage extends Component {
   renderLogin = current => {
     const { token } = localStorage;

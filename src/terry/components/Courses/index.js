@@ -1,3 +1,4 @@
+import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -23,10 +24,14 @@ import {
   Title2,
   TitleText,
 } from '../Share';
-import { media } from '../size';
+import { media, notebook } from '../size';
 
 const Blocks = styled.div`
   padding-top: 20vh;
+`;
+
+const OtherLink = styled(Col)`
+  margin-top: 5vh;
 `;
 
 const BackgroundStyleColor = styled(BackgroundColor)`
@@ -66,6 +71,19 @@ const ImageArea = styled.div`
   background-size: cover;
   background-position: center center;
 `;
+
+const TitleStyleText = styled(TitleText)`
+  ${media.lessThan('notebook')`
+    font-size: 10vw;
+  `};
+`;
+
+const IconStyleImage = styled(IconImage)`
+  ${media.lessThan('notebook')`
+    width: 8vw;
+  `};
+`;
+
 
 class Courses extends Component {
   state = {
@@ -151,7 +169,7 @@ class Courses extends Component {
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
                   <Col>
-                    <IconImage src={IconImg} />
+                    <IconStyleImage src={IconImg} />
                   </Col>
                   <Col>
                     <Title1>NTHU</Title1>
@@ -173,16 +191,27 @@ class Courses extends Component {
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 20 }} xl={{ span: 18 }}>
-                <TitleText>Courses</TitleText>
+                <TitleStyleText>Courses</TitleStyleText>
               </BigTitle>
               <MedContent span={12} color="#8c8c8c" />
+              <OtherLink xs={{ span: 0 }} xl={{ span: 6 }}>
+                {this.renderOtherBlock()}
+              </OtherLink>
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
         </Col>
         <Col span={15}>
           <BackgroundColor color="white">
-            <Header fontColor="#9b9b9b" />
+            <MediaQuery query={`(max-width: ${notebook})`}>
+              {matches => {
+                if (matches) {
+                  return <Header fontColor="#9b9b9b" />;
+                }
+                return <></>;
+              }}
+            </MediaQuery>
+
             <Blocks>{this.renderClass()}</Blocks>
           </BackgroundColor>
         </Col>
