@@ -28,11 +28,21 @@ import { media, notebook } from '../size';
 
 const Blocks = styled.div`
   padding-top: 20vh;
+
+  ${media.lessThan('notebook')`
+    padding-top: 0;
+  `};
 `;
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 70vh;
+    height: 60vh;
+  `};
+`;
+
+const BackgroundStyleColor2 = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 100%;
   `};
 `;
 
@@ -43,6 +53,10 @@ const EachBlock = styled.div`
   margin-bottom: 5vh;
   color: white;
   font-size: 1.2vw;
+
+  ${media.lessThan('notebook')`
+    margin-bottom: 0;
+  `};
 `;
 
 const Year = styled.div`
@@ -52,12 +66,23 @@ const Year = styled.div`
 
 const Title = styled.div`
   font-size: 2vw;
+  padding-top: 1vh;
+
+  ${media.lessThan('notebook')`
+    font-size:5vw;
+  `};
 `;
 
 const TextArea = styled.div`
   padding-left: 2.5vw;
   padding-right: 4vw;
   padding-top: 4.5vh;
+
+  ${media.lessThan('notebook')`
+    padding-top: 3.5vh;
+    padding-left: 4vw;
+    font-size:4vw;
+  `};
 `;
 
 const ImageArea = styled.div`
@@ -104,27 +129,39 @@ class Courses extends Component {
 
   renderClass = () => {
     if (this.state.courses) {
-      return this.state.courses.map(({ id: courseId, title, contents }) =>
-        contents.map(({ id, season, year }) => (
-          <a key={id} href={`/courses/${courseId}/contents/${id}`}>
-            <EachBlock>
-              <Row>
-                <Col span={12}>
-                  <TextArea>
-                    <Year>
-                      {year} {season}
-                    </Year>
-                    <Title>{title}</Title>
-                  </TextArea>
-                </Col>
-                <Col span={12}>
-                  <ImageArea image={BackgroundImage} />
-                </Col>
-              </Row>
-            </EachBlock>
-          </a>
-        ))
-      );
+      return this.state.courses.map(({ id: courseId, title, contents }) => {
+        let isChangeOrder = false;
+        return contents.map(({ id, season, year }) => {
+          isChangeOrder = !isChangeOrder;
+          return (
+            <a key={id} href={`/courses/${courseId}/contents/${id}`}>
+              <EachBlock>
+                <Row type="flex">
+                  <Col
+                    span={12}
+                    xs={{ order: isChangeOrder ? 2 : 1 }}
+                    xl={{ order: 1 }}
+                  >
+                    <TextArea>
+                      <Year>
+                        {year} {season}
+                      </Year>
+                      <Title>{title}</Title>
+                    </TextArea>
+                  </Col>
+                  <Col
+                    span={12}
+                    xs={{ order: isChangeOrder ? 1 : 2 }}
+                    xl={{ order: 2 }}
+                  >
+                    <ImageArea image={BackgroundImage} />
+                  </Col>
+                </Row>
+              </EachBlock>
+            </a>
+          );
+        });
+      });
     }
   };
 
@@ -193,19 +230,18 @@ class Courses extends Component {
             </MainRow>
           </BackgroundStyleColor>
         </Col>
-        <Col span={15}>
-          <BackgroundColor color="white">
+        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+          <BackgroundStyleColor2 color="white">
             <MediaQuery query={`(max-width: ${notebook})`}>
               {matches => {
-                if (matches) {
+                if (!matches) {
                   return <Header fontColor="#9b9b9b" />;
                 }
                 return <></>;
               }}
             </MediaQuery>
-
             <Blocks>{this.renderClass()}</Blocks>
-          </BackgroundColor>
+          </BackgroundStyleColor2>
         </Col>
       </Row>
     );
