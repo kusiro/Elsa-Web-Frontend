@@ -1,4 +1,5 @@
-import React from 'react';
+import MediaQuery from 'react-responsive';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
@@ -13,17 +14,39 @@ import {
   LogoContent,
   MainRow,
   MedContent,
+  PageLink,
   SmallContent,
+  Text,
+  TextCol,
   Title1,
   Title2,
   TitleText,
 } from '../Share';
+import { media, notebook } from '../size';
 
 const TeachBlock = styled.div`
   width: 100%;
   float: right;
   margin-top: 10vh;
   padding-left: 5vw;
+`;
+
+const BackgroundStyleColor = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 70vh;
+  `};
+`;
+
+const BackgroundStyleColor2 = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 100%;
+  `};
+`;
+
+const IconStyleImage = styled(IconImage)`
+  ${media.lessThan('notebook')`
+    width: 8vw;
+  `};
 `;
 
 const TeacherImage = styled.img`
@@ -47,121 +70,176 @@ const ExperienceAndEducation = styled.div`
   color: white;
 `;
 
-const About = () => (
-  <Row>
-    <Col span={9}>
-      <BackgroundColor color="#ffbb87">
-        <MainRow type="flex" justify="center">
-          <LogoContent span={18}>
-            <Row type="flex" justify="start" align="middle" gutter={8}>
-              <Col>
-                <IconImage src={IconImg} />
-              </Col>
-              <Col>
-                <Title1>NTHU</Title1>
-                <Title2>ELSA</Title2>
-              </Col>
-            </Row>
-          </LogoContent>
-          <SmallContent span={18} color="#8c8c8c">
-            <Row type="flex" justify="start" align="bottom">
-              <Col span={6}>
-                <Hr color="#8c8c8c" />
-              </Col>
-              <Col span={12} offset={1}>
-                Professor : Chun-Yi Lee
-              </Col>
-            </Row>
-          </SmallContent>
-          <BigTitle span={18}>
-            <TitleText>
-              About
-              <br />
-              ELSA Lab
-            </TitleText>
-          </BigTitle>
-          <MedContent span={12} color="#8c8c8c">
-            <b>Address</b>
-            <br />
-            Department of Computer Science, National Tsing Hua University,
-            No.101, Sec .2, Kuang-Fu Road, Hsinchu, 30013, Taiwan
-            <br />
-            <br />
-            <b>Office</b>
-            <br />
-            Phone: +886-3-5731308 Email: cylee@cs.nthu.edu.tw Address: Delta
-            Building 606
-          </MedContent>
-          <Col span={6} />
-        </MainRow>
-      </BackgroundColor>
-    </Col>
-    <Col span={15}>
-      <BackgroundColor color="#9c8370">
-        <Header fontColor="white" />
-        <TeachBlock>
-          <Row type="flex" justify="center" align="top">
-            <Col span={10}>
-              <TeacherImage src={TeacherImageSrc} />
-              <Profile>
-                <b>
-                  Professor - <br />
-                  Chun-Yi Lee ( 李濬屹 ) <br />
-                  Ph.D. <br />
-                  cylee@cs.nthu.edu.tw
-                </b>
-              </Profile>
-            </Col>
-            <Col span={12}>
-              <ExperienceAndEducation>
-                <div>
-                  <b>Work Experience</b>
-                </div>
-                <br />
-                <div>
-                  <b>2015 ~ </b>
-                </div>
-                <div>Assistant Professor</div>
-                <div>Department of Computer Science</div>
-                <div>National Tsing Hua University</div>
-                <br />
-                <div>
-                  <b>2012 ~ 2015</b>
-                </div>
-                <div>Senior Hardware Engineer,</div>
-                <div> Oracle America, Inc. </div>
-                <br />
-                <div> _ </div>
-                <br />
-                <div>
-                  <b>Education</b>
-                </div>
-                <br />
-                <div>
-                  <b>2007 ~ 2012</b>
-                </div>
-                <div>Ph.D., Department of Electrical Engineering,</div>
-                <div>Princeton University</div>
-                <br />
-                <div>
-                  <b>2003 ~ 2005</b>
-                </div>
-                <div>M.S., Department of Electrical Engineering,</div>
-                <div>National Taiwan University</div>
-                <br />
-                <div>
-                  <b>1999 ~ 2003</b>
-                </div>
-                <div>B.S., Department of Electrical Engineering,</div>
-                <div>National Taiwan University</div>
-                <br />
-              </ExperienceAndEducation>
-            </Col>
-          </Row>
-        </TeachBlock>
-      </BackgroundColor>
-    </Col>
-  </Row>
-);
+const TitleStyleText = styled(TitleText)`
+  ${media.lessThan('notebook')`
+    font-size: 10vw;
+  `};
+`;
+
+const MedContentBlock = styled.div`
+  margin-bottom: 3vh;
+`;
+
+class About extends Component {
+  renderLogin = () => {
+    const { token } = localStorage;
+    if (token) {
+      return (
+        <PageLink to="/logout">
+          <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
+        </PageLink>
+      );
+    }
+    return (
+      <PageLink to="/login">
+        <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
+      </PageLink>
+    );
+  };
+
+  renderOtherBlock = () => (
+    <Row>
+      <TextCol span={24}>
+        <PageLink to="/about">
+          <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
+        </PageLink>
+      </TextCol>
+      <TextCol span={24}>{this.renderLogin()}</TextCol>
+    </Row>
+  );
+
+  render() {
+    return (
+      <Row>
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color="#ffbb87">
+            <MainRow type="flex" justify="center">
+              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
+                <Row type="flex" justify="start" align="middle" gutter={8}>
+                  <Col>
+                    <IconStyleImage src={IconImg} />
+                  </Col>
+                  <Col>
+                    <Title1>NTHU</Title1>
+                    <Title2>ELSA</Title2>
+                  </Col>
+                  <Col xs={{ span: 8 }} xl={{ span: 0 }} offset={10}>
+                    {this.renderOtherBlock()}
+                  </Col>
+                </Row>
+              </LogoContent>
+              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
+                <Row type="flex" justify="start" align="bottom">
+                  <Col span={6}>
+                    <Hr color="#8c8c8c" />
+                  </Col>
+                  <Col span={12} offset={1}>
+                    Home
+                  </Col>
+                </Row>
+              </SmallContent>
+              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
+                <TitleStyleText>
+                  About
+                  <br />
+                  ELSA Lab
+                </TitleStyleText>
+              </BigTitle>
+              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
+                <Row type="flex" justify="start" align="top">
+                  <Col xs={{ span: 11 }} xl={{ span: 24 }}>
+                    <MedContentBlock>
+                      <b>Address</b>
+                      <br />
+                      Department of Computer Science, National Tsing Hua
+                      University, No.101, Sec .2, Kuang-Fu Road, Hsinchu, 30013,
+                      Taiwan
+                    </MedContentBlock>
+                  </Col>
+                  <Col xs={{ span: 11 }} xl={{ span: 24 }}>
+                    <MedContentBlock>
+                      <b>Office</b>
+                      <br />
+                      Phone: +886-3-5731308 Email: cylee@cs.nthu.edu.tw Address:
+                      Delta Building 606
+                    </MedContentBlock>
+                  </Col>
+                </Row>
+              </MedContent>
+              <Col span={6} />
+            </MainRow>
+          </BackgroundStyleColor>
+        </Col>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+          <BackgroundStyleColor2 color="#9c8370">
+            <MediaQuery query={`(max-width: ${notebook})`}>
+              {matches => (!matches ? <Header fontColor="white" /> : <></>)}
+            </MediaQuery>
+            <TeachBlock>
+              <Row type="flex" justify="center" align="top">
+                <Col span={10}>
+                  <TeacherImage src={TeacherImageSrc} />
+                  <Profile>
+                    <b>
+                      Professor - <br />
+                      Chun-Yi Lee ( 李濬屹 ) <br />
+                      Ph.D. <br />
+                      cylee@cs.nthu.edu.tw
+                    </b>
+                  </Profile>
+                </Col>
+                <Col span={12}>
+                  <ExperienceAndEducation>
+                    <div>
+                      <b>Work Experience</b>
+                    </div>
+                    <br />
+                    <div>
+                      <b>2015 ~ </b>
+                    </div>
+                    <div>Assistant Professor</div>
+                    <div>Department of Computer Science</div>
+                    <div>National Tsing Hua University</div>
+                    <br />
+                    <div>
+                      <b>2012 ~ 2015</b>
+                    </div>
+                    <div>Senior Hardware Engineer,</div>
+                    <div> Oracle America, Inc. </div>
+                    <br />
+                    <div> _ </div>
+                    <br />
+                    <div>
+                      <b>Education</b>
+                    </div>
+                    <br />
+                    <div>
+                      <b>2007 ~ 2012</b>
+                    </div>
+                    <div>Ph.D., Department of Electrical Engineering,</div>
+                    <div>Princeton University</div>
+                    <br />
+                    <div>
+                      <b>2003 ~ 2005</b>
+                    </div>
+                    <div>M.S., Department of Electrical Engineering,</div>
+                    <div>National Taiwan University</div>
+                    <br />
+                    <div>
+                      <b>1999 ~ 2003</b>
+                    </div>
+                    <div>B.S., Department of Electrical Engineering,</div>
+                    <div>National Taiwan University</div>
+                    <br />
+                  </ExperienceAndEducation>
+                </Col>
+              </Row>
+            </TeachBlock>
+          </BackgroundStyleColor2>
+        </Col>
+      </Row>
+    );
+  }
+}
 
 export default About;
