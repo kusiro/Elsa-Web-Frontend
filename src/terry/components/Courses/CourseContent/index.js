@@ -50,7 +50,7 @@ const BackgroundStyleColor2 = styled(BackgroundColor)`
 const EachBlock = styled.div`
   width: 80%;
   height: 20vh;
-  background-color: ${props => props.color};
+  background-color: rgba(0, 0, 0, 0.3);
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5vh;
@@ -59,6 +59,7 @@ const EachBlock = styled.div`
 
   ${media.lessThan('notebook')`
     width: 100%;
+    background-color: ${props => props.color};
     margin-bottom: 0;
   `};
 `;
@@ -81,6 +82,12 @@ const TextArea = styled.div`
   padding-left: 2.5vw;
   padding-right: 4vw;
   padding-top: 3vh;
+
+  ${media.lessThan('notebook')`
+    padding-top: 3.5vh;
+    padding-left: 4vw;
+    font-size:4vw;
+  `};
 `;
 
 const ImageArea = styled.div`

@@ -30,7 +30,7 @@ const TeachBlock = styled.div`
 const UserInput = styled(Input)`
   background-color: #cfcfcf;
   width: 100%;
-  height: 3vh;
+  height: 4vh;
   box-shadow: 0 0 0 100px white inset;
   -webkit-box-shadow: 0 0 0 100px white inset;
 `;
