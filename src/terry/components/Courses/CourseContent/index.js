@@ -1,3 +1,4 @@
+import MediaQuery from 'react-responsive';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -16,25 +17,50 @@ import {
   LogoContent,
   MainRow,
   MedContent,
+  PageLink,
   SmallContent,
+  Text,
+  TextCol,
   Title1,
   Title2,
   TitleText,
 } from '../../Share';
+import { media, notebook } from '../../size';
 
 const Blocks = styled.div`
   padding-top: 20vh;
+
+  ${media.lessThan('notebook')`
+    padding-top: 0;
+  `};
+`;
+
+const BackgroundStyleColor = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 60vh;
+  `};
+`;
+
+const BackgroundStyleColor2 = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 100%;
+  `};
 `;
 
 const EachBlock = styled.div`
   width: 80%;
   height: 20vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: ${props => props.color};
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 5vh;
   color: white;
   font-size: 1.5vw;
+
+  ${media.lessThan('notebook')`
+    width: 100%;
+    margin-bottom: 0;
+  `};
 `;
 
 const Date = styled.span`
@@ -45,6 +71,10 @@ const Date = styled.span`
 const Title = styled.div`
   font-size: 2vw;
   line-height: 120%;
+
+  ${media.lessThan('notebook')`
+    font-size:5vw;
+  `};
 `;
 
 const TextArea = styled.div`
@@ -59,6 +89,18 @@ const ImageArea = styled.div`
   background: url(${props => props.image});
   background-size: cover;
   background-position: center center;
+`;
+
+const TitleStyleText = styled(TitleText)`
+  ${media.lessThan('notebook')`
+    font-size: 10vw;
+  `};
+`;
+
+const IconStyleImage = styled(IconImage)`
+  ${media.lessThan('notebook')`
+    width: 8vw;
+  `};
 `;
 
 const MidText = styled.div`
@@ -107,26 +149,93 @@ class CourseContent extends Component {
       });
   }
 
+  renderClassContent = contentId => {
+    if (this.state.lectures) {
+      let isChangeOrder = false;
+      return this.state.lectures.map(
+        ({ id: lectureId, title, lecture_number: lectureNumber, files }) => {
+          isChangeOrder = !isChangeOrder;
+          return (
+            <a
+              key={lectureId}
+              href={`${contentId}/lectures/${lectureId}/files/${files[0].id}`}
+            >
+              <EachBlock
+                color={
+                  isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
+                }
+              >
+                <Row>
+                  <Col xs={{ span: 12 }} xl={{ span: 8 }}>
+                    <ImageArea image={BackgroundImage} />
+                  </Col>
+                  <Col xs={{ span: 12 }} xl={{ span: 16 }}>
+                    <TextArea>
+                      <div>
+                        material #{lectureNumber} <Date>2019/01/01</Date>
+                      </div>
+                      <Title>{title}</Title>
+                    </TextArea>
+                  </Col>
+                </Row>
+              </EachBlock>
+            </a>
+          );
+        }
+      );
+    }
+  };
+
+  renderLogin = () => {
+    const { token } = localStorage;
+    if (token) {
+      return (
+        <PageLink to="/logout">
+          <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
+        </PageLink>
+      );
+    }
+    return (
+      <PageLink to="/login">
+        <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
+      </PageLink>
+    );
+  };
+
+  renderOtherBlock = () => (
+    <Row>
+      <TextCol span={24}>
+        <PageLink to="/about">
+          <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
+        </PageLink>
+      </TextCol>
+      <TextCol span={24}>{this.renderLogin()}</TextCol>
+    </Row>
+  );
+
   render() {
     const { contentId } = this.props;
 
     return (
       <Row>
-        <Col span={9}>
-          <BackgroundColor color="#f8d188">
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color="#f8d188">
             <MainRow type="flex" justify="center">
-              <LogoContent span={18}>
+              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col>
-                    <IconImage src={IconImg} />
+                  <Col span={2.5}>
+                    <IconStyleImage src={IconImg} />
                   </Col>
-                  <Col>
+                  <Col span={3}>
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
+                  <Col xs={{ span: 8 }} xl={{ span: 0 }} offset={10}>
+                    {this.renderOtherBlock()}
+                  </Col>
                 </Row>
               </LogoContent>
-              <SmallContent span={18} color="#8c8c8c">
+              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
                 <Row type="flex" justify="start" align="bottom">
                   <Col span={6}>
                     <Hr color="#8c8c8c" />
@@ -136,56 +245,26 @@ class CourseContent extends Component {
                   </Col>
                 </Row>
               </SmallContent>
-              <BigTitle span={18}>
-                <TitleText>
+              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
+                <TitleStyleText>
                   {this.state.year} {this.state.season}
-                </TitleText>
+                </TitleStyleText>
                 <MidText>{this.state.title}</MidText>
               </BigTitle>
-              <MedContent span={12} color="#8c8c8c">
+              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
                 {this.state.description}
               </MedContent>
               <Col span={6} />
             </MainRow>
-          </BackgroundColor>
+          </BackgroundStyleColor>
         </Col>
-        <Col span={15}>
-          <BackgroundColor color="white">
-            <Header fontColor="#9b9b9b" />
-            <Blocks>
-              {this.state.lectures.map(
-                ({
-                  id: lectureId,
-                  title,
-                  lecture_number: lectureNumber,
-                  files,
-                }) => (
-                  <a
-                    key={lectureId}
-                    href={`${contentId}/lectures/${lectureId}/files/${
-                      files[0].id
-                    }`}
-                  >
-                    <EachBlock>
-                      <Row>
-                        <Col span={8}>
-                          <ImageArea image={BackgroundImage} />
-                        </Col>
-                        <Col span={16}>
-                          <TextArea>
-                            <div>
-                              material #{lectureNumber} <Date>2019/01/01</Date>
-                            </div>
-                            <Title>{title}</Title>
-                          </TextArea>
-                        </Col>
-                      </Row>
-                    </EachBlock>
-                  </a>
-                )
-              )}
-            </Blocks>
-          </BackgroundColor>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+          <BackgroundStyleColor2 color="white">
+            <MediaQuery query={`(max-width: ${notebook})`}>
+              {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+            </MediaQuery>
+            <Blocks>{this.renderClassContent(contentId)}</Blocks>
+          </BackgroundStyleColor2>
         </Col>
       </Row>
     );

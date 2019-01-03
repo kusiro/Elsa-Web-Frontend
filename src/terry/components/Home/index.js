@@ -119,21 +119,20 @@ class Home extends Component {
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundCourses} />
               <MediaQuery query={`(max-width: ${notebook})`}>
-                {matches => {
-                  if (!matches) {
-                    return (
-                      <BlackLayer
-                        onMouseEnter={() => this.changeBackground(1)}
-                        onMouseLeave={() => this.changeBackground(0)}
-                      >
-                        <EachLink to="/courses">
-                          <Text>Courses</Text>
-                        </EachLink>
-                      </BlackLayer>
-                    );
-                  }
-                  return <></>;
-                }}
+                {matches =>
+                  !matches ? (
+                    <BlackLayer
+                      onMouseEnter={() => this.changeBackground(1)}
+                      onMouseLeave={() => this.changeBackground(0)}
+                    >
+                      <EachLink to="/courses">
+                        <Text>Courses</Text>
+                      </EachLink>
+                    </BlackLayer>
+                  ) : (
+                    <></>
+                  )
+                }
               </MediaQuery>
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 0 }}>
@@ -154,42 +153,39 @@ class Home extends Component {
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundPublications} />
               <MediaQuery query={`(max-width: ${notebook})`}>
-                {matches => {
-                  if (!matches) {
-                    return (
-                      <BlackLayer
-                        onMouseEnter={() => this.changeBackground(2)}
-                        onMouseLeave={() => this.changeBackground(0)}
-                      >
-                        <EachLink to="/">
-                          <Text>Publications</Text>
-                        </EachLink>
-                      </BlackLayer>
-                    );
-                  }
-                  return <></>;
-                }}
+                {matches =>
+                  !matches ? (
+                    <BlackLayer
+                      onMouseEnter={() => this.changeBackground(2)}
+                      onMouseLeave={() => this.changeBackground(0)}
+                    >
+                      <EachLink to="/">
+                        <Text>Publications</Text>
+                      </EachLink>
+                    </BlackLayer>
+                  ) : (
+                    <></>
+                  )
+                }
               </MediaQuery>
             </Col>
-
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundProjects} />
               <MediaQuery query={`(max-width: ${notebook})`}>
-                {matches => {
-                  if (!matches) {
-                    return (
-                      <BlackLayer
-                        onMouseEnter={() => this.changeBackground(3)}
-                        onMouseLeave={() => this.changeBackground(0)}
-                      >
-                        <EachLink to="/projects">
-                          <Text>Projects</Text>
-                        </EachLink>
-                      </BlackLayer>
-                    );
-                  }
-                  return <></>;
-                }}
+                {matches =>
+                  !matches ? (
+                    <BlackLayer
+                      onMouseEnter={() => this.changeBackground(3)}
+                      onMouseLeave={() => this.changeBackground(0)}
+                    >
+                      <EachLink to="/projects">
+                        <Text>Projects</Text>
+                      </EachLink>
+                    </BlackLayer>
+                  ) : (
+                    <></>
+                  )
+                }
               </MediaQuery>
             </Col>
             <Col xs={{ span: 12 }} xl={{ span: 0 }}>
@@ -209,21 +205,20 @@ class Home extends Component {
             <Col xs={{ span: 12 }} xl={{ span: 4 }}>
               <ImageEntry src={BackgroundNews} />
               <MediaQuery query={`(max-width: ${notebook})`}>
-                {matches => {
-                  if (!matches) {
-                    return (
-                      <BlackLayer
-                        onMouseEnter={() => this.changeBackground(4)}
-                        onMouseLeave={() => this.changeBackground(0)}
-                      >
-                        <EachLink to="/">
-                          <Text>News</Text>
-                        </EachLink>
-                      </BlackLayer>
-                    );
-                  }
-                  return <></>;
-                }}
+                {matches =>
+                  !matches ? (
+                    <BlackLayer
+                      onMouseEnter={() => this.changeBackground(4)}
+                      onMouseLeave={() => this.changeBackground(0)}
+                    >
+                      <EachLink to="/">
+                        <Text>News</Text>
+                      </EachLink>
+                    </BlackLayer>
+                  ) : (
+                    <></>
+                  )
+                }
               </MediaQuery>
             </Col>
           </Row>

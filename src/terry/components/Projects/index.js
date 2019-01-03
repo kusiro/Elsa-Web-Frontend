@@ -222,12 +222,7 @@ class Projects extends Component {
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
           <BackgroundStyleColor2 color="white">
             <MediaQuery query={`(max-width: ${notebook})`}>
-              {matches => {
-                if (!matches) {
-                  return <Header fontColor="#9b9b9b" />;
-                }
-                return <></>;
-              }}
+              {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
             </MediaQuery>
             <Blocks>{this.renderProject()}</Blocks>
           </BackgroundStyleColor2>
