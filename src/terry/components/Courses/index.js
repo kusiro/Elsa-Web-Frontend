@@ -200,14 +200,14 @@ class Courses extends Component {
             <MainRow type="flex" justify="center">
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col>
+                  <Col span={2.5}>
                     <IconStyleImage src={IconImg} />
                   </Col>
-                  <Col>
+                  <Col span={3}>
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
-                  <Col xs={{ span: 10 }} xl={{ span: 0 }} offset={8}>
+                  <Col xs={{ span: 8 }} xl={{ span: 0 }} offset={10}>
                     {this.renderOtherBlock()}
                   </Col>
                 </Row>
@@ -222,7 +222,7 @@ class Courses extends Component {
                   </Col>
                 </Row>
               </SmallContent>
-              <BigTitle xs={{ span: 20 }} xl={{ span: 18 }}>
+              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
                 <TitleStyleText>Courses</TitleStyleText>
               </BigTitle>
               <MedContent span={12} color="#8c8c8c" />
