@@ -39,7 +39,7 @@ const BackgroundStyleColor = styled(BackgroundColor)`
 
 const BackgroundStyleColor2 = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 100%;
+    height: 100vh;
   `};
 `;
 
@@ -55,6 +55,11 @@ const TeacherImage = styled.img`
   display: block;
   margin-left: auto;
   margin-right: auto;
+
+  ${media.lessThan('notebook')`
+    width: 35vw;
+    margin-top: -3vh;
+  `};
 `;
 
 const Profile = styled.div`
@@ -62,12 +67,21 @@ const Profile = styled.div`
   color: white;
   text-align: center;
   margin-top: 2vh;
+
+  ${media.lessThan('notebook')`
+    text-align: left;
+  `};
 `;
 
 const ExperienceAndEducation = styled.div`
-  font-size: 1vw;
+  font-size: 0.9vw;
   line-height: 140%;
   color: white;
+  margin-top: -2vh;
+
+  ${media.lessThan('notebook')`
+    margin-top: 3vh;
+  `};
 `;
 
 const TitleStyleText = styled(TitleText)`
@@ -177,18 +191,24 @@ class About extends Component {
             </MediaQuery>
             <TeachBlock>
               <Row type="flex" justify="center" align="top">
-                <Col span={10}>
-                  <TeacherImage src={TeacherImageSrc} />
-                  <Profile>
-                    <b>
-                      Professor - <br />
-                      Chun-Yi Lee ( 李濬屹 ) <br />
-                      Ph.D. <br />
-                      cylee@cs.nthu.edu.tw
-                    </b>
-                  </Profile>
+                <Col xs={{ span: 24 }} xl={{ span: 10 }}>
+                  <Row type="flex" justify="start">
+                    <Col xs={{ span: 12 }} xl={{ span: 24 }}>
+                      <TeacherImage src={TeacherImageSrc} />
+                    </Col>
+                    <Col xs={{ span: 12 }} xl={{ span: 24 }}>
+                      <Profile>
+                        <b>
+                          Professor - <br />
+                          Chun-Yi Lee ( 李濬屹 ) <br />
+                          Ph.D. <br />
+                          cylee@cs.nthu.edu.tw
+                        </b>
+                      </Profile>
+                    </Col>
+                  </Row>
                 </Col>
-                <Col span={12}>
+                <Col xs={{ span: 18 }} xl={{ span: 6 }}>
                   <ExperienceAndEducation>
                     <div>
                       <b>Work Experience</b>
