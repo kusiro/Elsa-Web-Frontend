@@ -1,3 +1,4 @@
+import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
@@ -14,17 +15,43 @@ import {
   LogoContent,
   MainRow,
   MedContent,
+  PageLink,
   SmallContent,
+  Text,
+  TextCol,
   Title1,
   Title2,
   TitleText,
 } from '../Share';
+import { media, notebook } from '../size';
 
 const TeachBlock = styled.div`
   width: 100%;
   float: right;
   margin-top: 20vh;
   padding-left: 5vw;
+
+  ${media.lessThan('notebook')`
+    margin-top: 3vh;
+  `};
+`;
+
+const BackgroundStyleColor = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 45vh;
+  `};
+`;
+
+const BackgroundStyleColor2 = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 55vh;
+  `};
+`;
+
+const IconStyleImage = styled(IconImage)`
+  ${media.lessThan('notebook')`
+    width: 8vw;
+  `};
 `;
 
 const UserInput = styled(Input)`
@@ -35,11 +62,17 @@ const UserInput = styled(Input)`
   -webkit-box-shadow: 0 0 0 100px white inset;
 `;
 
-const Text = styled.div`
+const InputText = styled.div`
   font-weight: bold;
   color: white;
   margin-top: 1vh;
   margin-bottom: 1vh;
+`;
+
+const TitleStyleText = styled(TitleText)`
+  ${media.lessThan('notebook')`
+    font-size: 10vw;
+  `};
 `;
 
 const SubmitButton = styled(Button)`
@@ -110,24 +143,54 @@ class Login extends Component {
     event.preventDefault();
   };
 
+  renderLogin = () => {
+    const { token } = localStorage;
+    if (token) {
+      return (
+        <PageLink to="/logout">
+          <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
+        </PageLink>
+      );
+    }
+    return (
+      <PageLink to="/login">
+        <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
+      </PageLink>
+    );
+  };
+
+  renderOtherBlock = () => (
+    <Row>
+      <TextCol span={24}>
+        <PageLink to="/about">
+          <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
+        </PageLink>
+      </TextCol>
+      <TextCol span={24}>{this.renderLogin()}</TextCol>
+    </Row>
+  );
+
   render() {
     return (
       <Row>
-        <Col span={9}>
-          <BackgroundColor color="#aac2ff">
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color="#aac2ff">
             <MainRow type="flex" justify="center">
-              <LogoContent span={18}>
+              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
                   <Col>
-                    <IconImage src={IconImg} />
+                    <IconStyleImage src={IconImg} />
                   </Col>
                   <Col>
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
+                  <Col xs={{ span: 8 }} xl={{ span: 0 }} offset={10}>
+                    {this.renderOtherBlock()}
+                  </Col>
                 </Row>
               </LogoContent>
-              <SmallContent span={18} color="#8c8c8c">
+              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
                 <Row type="flex" justify="start" align="bottom">
                   <Col span={6}>
                     <Hr color="#8c8c8c" />
@@ -137,31 +200,33 @@ class Login extends Component {
                   </Col>
                 </Row>
               </SmallContent>
-              <BigTitle span={18}>
-                <TitleText>Sign In</TitleText>
+              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
+                <TitleStyleText>Sign In</TitleStyleText>
               </BigTitle>
-              <MedContent span={12} color="#8c8c8c">
+              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
                 Sign in to get more informations
               </MedContent>
               <Col span={6} />
             </MainRow>
-          </BackgroundColor>
+          </BackgroundStyleColor>
         </Col>
-        <Col span={15}>
-          <BackgroundColor color="#6e7794">
-            <Header fontColor="white" />
+        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+          <BackgroundStyleColor2 color="#6e7794">
+            <MediaQuery query={`(max-width: ${notebook})`}>
+              {matches => (!matches ? <Header fontColor="white" /> : <></>)}
+            </MediaQuery>
             <TeachBlock>
               <Row type="flex" justify="start" align="top">
-                <Col span={8}>
+                <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
                   {this.renderMessage()}
-                  <Text>Account</Text>
+                  <InputText>Account</InputText>
                   <UserInput
                     size="large"
                     type="text"
                     value={this.state.account}
                     onChange={e => this.handleChange('account', e)}
                   />
-                  <Text>Password</Text>
+                  <InputText>Password</InputText>
                   <UserInput
                     size="large"
                     type="password"
@@ -174,7 +239,7 @@ class Login extends Component {
                 </Col>
               </Row>
             </TeachBlock>
-          </BackgroundColor>
+          </BackgroundStyleColor2>
         </Col>
       </Row>
     );
