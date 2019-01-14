@@ -196,7 +196,7 @@ class Comment extends Component {
     return (
       <div>
         <Row type="flex" justify="center" align="top">
-          <Col span={16}>
+          <Col xs={{ span: 21 }} xl={{ span: 16 }}>
             <AllCommentBlock>
               {this.renderCommentForm()}
               {comments && <CommentList comments={comments} />}

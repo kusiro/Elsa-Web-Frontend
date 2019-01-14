@@ -1,3 +1,4 @@
+import MediaQuery from 'react-responsive';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -13,26 +14,57 @@ import {
   IconImage,
   LogoContent,
   MainRow,
+  PageLink,
   SmallContent,
+  Text,
+  TextCol,
   Title1,
   Title2,
 } from '../../../Share';
+import { media, notebook } from '../../../size';
 
 import Comment from './Comment';
 
 const Blocks = styled.div`
   padding-top: 15vh;
+
+  ${media.lessThan('notebook')`
+    padding-top: 2vh;
+  `};
+`;
+
+const IconStyleImage = styled(IconImage)`
+  ${media.lessThan('notebook')`
+    width: 8vw;
+  `};
+`;
+
+const BackgroundStyleColor = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 70vh;
+  `};
+`;
+
+const BackgroundStyleColor2 = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 100%;
+  `};
 `;
 
 const EachPage = styled.img`
-  width: 45%;
+  width: 11vw;
   margin: 0.5vw;
 
   :hover {
     cursor: pointer;
   }
+
+  ${media.lessThan('notebook')`
+    width: 30vw;
+  `};
 `;
 
+// TODO: 還沒做完
 const PagesBlock = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
   margin-top: 5vh;
@@ -41,6 +73,12 @@ const PagesBlock = styled.div`
   padding-top: 0.5vh;
   height: 60vh;
   overflow-y: scroll;
+
+  ${media.lessThan('notebook')`
+    height:10vh;
+    overflow-y: hidden;
+    overflow-x: scroll;
+  `};
 `;
 
 const ImageShow = styled.img`
@@ -54,6 +92,10 @@ const ImageShow = styled.img`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  ${media.lessThan('notebook')`
+    margin-top: 2vh;
+  `};
 `;
 
 const ArrowIcon = styled(Icon)`
@@ -143,6 +185,33 @@ class PdfPage extends Component {
     this.setState({ allSlides: slides });
   };
 
+  renderLogin = () => {
+    const { token } = localStorage;
+    if (token) {
+      return (
+        <PageLink to="/logout">
+          <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
+        </PageLink>
+      );
+    }
+    return (
+      <PageLink to="/login">
+        <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
+      </PageLink>
+    );
+  };
+
+  renderOtherBlock = () => (
+    <Row>
+      <TextCol span={24}>
+        <PageLink to="/about">
+          <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
+        </PageLink>
+      </TextCol>
+      <TextCol span={24}>{this.renderLogin()}</TextCol>
+    </Row>
+  );
+
   render() {
     const {
       title,
@@ -155,21 +224,24 @@ class PdfPage extends Component {
 
     return (
       <Row>
-        <Col span={9}>
-          <BackgroundColor color="#f8d188">
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color="#f8d188">
             <MainRow type="flex" justify="center">
-              <LogoContent span={18}>
+              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col>
-                    <IconImage src={IconImg} />
+                  <Col span={2.5}>
+                    <IconStyleImage src={IconImg} />
                   </Col>
-                  <Col>
+                  <Col span={3}>
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
+                  <Col xs={{ span: 8 }} xl={{ span: 0 }} offset={10}>
+                    {this.renderOtherBlock()}
+                  </Col>
                 </Row>
               </LogoContent>
-              <SmallContent span={18} color="#8c8c8c">
+              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
                 <Row type="flex" justify="start" align="bottom">
                   <Col span={6}>
                     <Hr color="#8c8c8c" />
@@ -177,50 +249,90 @@ class PdfPage extends Component {
                   <Col span={12} offset={1}>
                     Home / Courses / {year} {season} - {title}
                   </Col>
-                  <PagesBlock span={24}>{allSlides}</PagesBlock>
+                  <Col span={24}>
+                    <PagesBlock>{allSlides}</PagesBlock>
+                  </Col>
+
+                  <MediaQuery query={`(max-width: ${notebook})`}>
+                    {matches =>
+                      matches ? (
+                        <Col span={24}>
+                          <ImageShow
+                            src={`${imageRootUrl}/page-${current}.jpeg`}
+                          />
+                        </Col>
+                      ) : (
+                        <></>
+                      )
+                    }
+                  </MediaQuery>
                 </Row>
               </SmallContent>
             </MainRow>
-          </BackgroundColor>
+          </BackgroundStyleColor>
         </Col>
-        <Col span={15}>
-          <BackgroundColor color="white">
-            <Header fontColor="#9b9b9b" />
+        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+          <BackgroundStyleColor2 color="white">
+            <MediaQuery query={`(max-width: ${notebook})`}>
+              {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+            </MediaQuery>
             <Blocks>
               <Row type="flex" justify="center" align="middle">
-                <Col span={4}>
-                  <ArrowIcon
-                    type="left"
-                    style={{ fontSize: '2vw' }}
-                    onClick={() =>
-                      current > 0 && this.setState({ current: current - 1 })
-                    }
-                  />
-                </Col>
-                <Col span={16}>
-                  <ImageShow src={`${imageRootUrl}/page-${current}.jpeg`} />
-                </Col>
-                <Col span={4}>
-                  <ArrowIcon
-                    type="right"
-                    style={{ fontSize: '2vw' }}
-                    onClick={() =>
-                      current + 1 < allSlides.length &&
-                      this.setState({ current: current + 1 })
-                    }
-                  />
-                </Col>
+                <MediaQuery query={`(max-width: ${notebook})`}>
+                  {matches =>
+                    !matches ? (
+                      <>
+                        <Col span={4}>
+                          <ArrowIcon
+                            type="left"
+                            style={{ fontSize: '2vw' }}
+                            onClick={() =>
+                              current > 0 &&
+                              this.setState({ current: current - 1 })
+                            }
+                          />
+                        </Col>
+                        <Col span={16}>
+                          <ImageShow
+                            src={`${imageRootUrl}/page-${current}.jpeg`}
+                          />
+                        </Col>
+                        <Col span={4}>
+                          <ArrowIcon
+                            type="right"
+                            style={{ fontSize: '2vw' }}
+                            onClick={() =>
+                              current + 1 < allSlides.length &&
+                              this.setState({ current: current + 1 })
+                            }
+                          />
+                        </Col>
+                      </>
+                    ) : (
+                      <></>
+                    )
+                  }
+                </MediaQuery>
               </Row>
             </Blocks>
-            <Row type="flex" justify="center" align="middle">
-              <Col span={8}>
-                <CountPages>
-                  Pages {current + 1}/{allSlides.length}
-                </CountPages>
-              </Col>
-            </Row>
+
+            <MediaQuery query={`(max-width: ${notebook})`}>
+              {matches =>
+                !matches ? (
+                  <Row type="flex" justify="center" align="middle">
+                    <Col span={8}>
+                      <CountPages>
+                        Pages {current + 1}/{allSlides.length}
+                      </CountPages>
+                    </Col>
+                  </Row>
+                ) : (
+                  <></>
+                )
+              }
+            </MediaQuery>
             <Comment fileId={this.props.fileId} nowPage={current} />
-          </BackgroundColor>
+          </BackgroundStyleColor2>
         </Col>
       </Row>
     );
