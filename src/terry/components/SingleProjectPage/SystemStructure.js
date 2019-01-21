@@ -80,11 +80,13 @@ const Square = styled.div`
 const imageMap = {
   'Virtual-to-Real': VirtualToRealImage,
   'Dynamic-Video-Segmentation-Network': DynamicVideoImage,
+  'A-Deep-Policy-Inference-Q-Network': DynamicVideoImage,
 };
 
 const colorBackgroundMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorBackGround,
+  'A-Deep-Policy-Inference-Q-Network': greenColorBackGround,
 };
 
 const colorMap = {
@@ -95,11 +97,13 @@ const colorMap = {
 const colorImageMap = {
   'Virtual-to-Real': BackgroundInvertImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
 };
 
 const colorSquareMap = {
   'Virtual-to-Real': 'white',
   'Dynamic-Video-Segmentation-Network': greenColorDark,
+  'A-Deep-Policy-Inference-Q-Network': greenColorDark,
 };
 
 const SystemStructure = ({ projectName }) => (

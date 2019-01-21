@@ -72,6 +72,7 @@ const Square = styled.div`
 const visableMap = {
   'Virtual-to-Real': true,
   'Dynamic-Video-Segmentation-Network': false,
+  'A-Deep-Policy-Inference-Q-Network': false,
 };
 
 const Awarding = ({ projectName }) =>

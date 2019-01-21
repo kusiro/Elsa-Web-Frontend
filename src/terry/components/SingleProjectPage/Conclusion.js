@@ -70,16 +70,19 @@ const Bar = styled.div`
 const backgroundMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorBackGround,
+  'A-Deep-Policy-Inference-Q-Network': greenColorBackGround,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': greenColorDark,
+  'A-Deep-Policy-Inference-Q-Network': greenColorDark,
 };
 
 const colorMapLight = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': greenColorMid,
+  'A-Deep-Policy-Inference-Q-Network': greenColorMid,
 };
 
 const Conclusion = ({ projectName, content }) => (

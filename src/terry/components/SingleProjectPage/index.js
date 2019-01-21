@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 
+import DeepPolicyInferenceQNetwork from '../Content/DeepPolicy';
 import DynamicVideoSegmentationNetwork from '../Content/DynamicVideo';
 import VirtualToReal from '../Content/VirtualToReal';
 
@@ -30,6 +31,7 @@ const eachBlockTag = [
 const projectNameMap = {
   'Virtual-to-Real': VirtualToReal,
   'Dynamic-Video-Segmentation-Network': DynamicVideoSegmentationNetwork,
+  'A-Deep-Policy-Inference-Q-Network': DeepPolicyInferenceQNetwork,
 };
 
 class SingleProjectPage extends Component {

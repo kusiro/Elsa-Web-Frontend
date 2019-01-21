@@ -75,16 +75,19 @@ const Square = styled.div`
 const imageMap = {
   'Virtual-to-Real': BackgroundImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': greenColorDark,
+  'A-Deep-Policy-Inference-Q-Network': greenColorDark,
 };
 
 const colorTextMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorLight,
+  'A-Deep-Policy-Inference-Q-Network': greenColorLight,
 };
 
 const Topic = ({ projectName, content }) => (

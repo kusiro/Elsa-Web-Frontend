@@ -58,6 +58,7 @@ const Title = styled.div`
 const backgroundMap = {
   'Virtual-to-Real': BackgroundImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
 };
 
 class ResultsModal extends Component {

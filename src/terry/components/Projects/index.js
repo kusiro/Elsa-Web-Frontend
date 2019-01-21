@@ -10,6 +10,7 @@ import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
 import project1 from '../Content/VirtualToReal';
 import project2 from '../Content/DynamicVideo';
+import project3 from '../Content/DeepPolicy';
 import {
   BackgroundColor,
   BigTitle,
@@ -117,6 +118,11 @@ const ProjectsContent = [
     content: project2.topic,
     image: BackgroundImageGreen,
     link: '/project/Dynamic-Video-Segmentation-Network',
+  },
+  {
+    content: project3.topic,
+    image: BackgroundImageGreen,
+    link: '/project/A-Deep-Policy-Inference-Q-Network',
   },
 ];
 

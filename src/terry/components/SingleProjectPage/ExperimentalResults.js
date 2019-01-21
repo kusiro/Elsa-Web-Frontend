@@ -62,16 +62,19 @@ const Square = styled.div`
 const backgroundMap = {
   'Virtual-to-Real': BackgroundInvertImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': greenColorDark,
+  'A-Deep-Policy-Inference-Q-Network': greenColorDark,
 };
 
 const colorBlockTitleMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': 'white',
+  'A-Deep-Policy-Inference-Q-Network': 'white',
 };
 
 class ExperimentalResults extends Component {

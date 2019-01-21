@@ -63,11 +63,13 @@ const Bar = styled.div`
 const colorBackgroundMap = {
   'Virtual-to-Real': BackgroundInvertVerticalImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorLight,
+  'A-Deep-Policy-Inference-Q-Network': greenColorLight,
 };
 
 const Abstract = ({ projectName, content }) => (

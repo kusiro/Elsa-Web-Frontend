@@ -63,21 +63,25 @@ const Square = styled.div`
 const colorBackgroundMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorBackGround,
+  'A-Deep-Policy-Inference-Q-Network': greenColorBackGround,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': 'white',
+  'A-Deep-Policy-Inference-Q-Network': 'white',
 };
 
 const colorBlockTitleMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': 'white',
+  'A-Deep-Policy-Inference-Q-Network': 'white',
 };
 
 const colorImageMap = {
   'Virtual-to-Real': BackgroundImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
 };
 
 class ProposedMethodology extends Component {

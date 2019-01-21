@@ -111,16 +111,20 @@ const TransparentLayer = styled.div`
 const backgroundMap = {
   'Virtual-to-Real': BackgroundInvertVerticalVerticalImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorMid,
   'Dynamic-Video-Segmentation-Network': greenColorBackGround,
+  'A-Deep-Policy-Inference-Q-Network': greenColorBackGround,
 };
 
 const videoMap = {
   'Virtual-to-Real': 'https://www.youtube.com/embed/_OqdnG4AII8',
   'Dynamic-Video-Segmentation-Network':
+    'https://www.youtube.com/embed/vadYHOyUVXs',
+  'A-Deep-Policy-Inference-Q-Network':
     'https://www.youtube.com/embed/vadYHOyUVXs',
 };
 
