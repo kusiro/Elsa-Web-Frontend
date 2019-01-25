@@ -4,10 +4,14 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
 import BackgroundImageGreen from '../static/background_image_green.jpg';
+import BackgroundImagePurple from '../static/background_image_purple.jpg';
 import BackgroundInvertImage from '../static/background_image_invert.jpg';
+import DeepPolicyImage from '../static/System_structure_img_purple.png';
 import DynamicVideoImage from '../static/System_structure_img_green.png';
 import VirtualToRealImage from '../static/System_structure_img.jpg';
 import {
+  blueColorDark,
+  blueColorLightMore,
   greenColorBackGround,
   greenColorDark,
   pinkColorDark,
@@ -80,30 +84,31 @@ const Square = styled.div`
 const imageMap = {
   'Virtual-to-Real': VirtualToRealImage,
   'Dynamic-Video-Segmentation-Network': DynamicVideoImage,
-  'A-Deep-Policy-Inference-Q-Network': DynamicVideoImage,
+  'A-Deep-Policy-Inference-Q-Network': DeepPolicyImage,
 };
 
 const colorBackgroundMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorBackGround,
-  'A-Deep-Policy-Inference-Q-Network': greenColorBackGround,
+  'A-Deep-Policy-Inference-Q-Network': blueColorLightMore,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': greenColorDark,
+  'A-Deep-Policy-Inference-Q-Network': blueColorDark,
 };
 
 const colorImageMap = {
   'Virtual-to-Real': BackgroundInvertImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
-  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImagePurple,
 };
 
 const colorSquareMap = {
   'Virtual-to-Real': 'white',
   'Dynamic-Video-Segmentation-Network': greenColorDark,
-  'A-Deep-Policy-Inference-Q-Network': greenColorDark,
+  'A-Deep-Policy-Inference-Q-Network': blueColorDark,
 };
 
 const SystemStructure = ({ projectName }) => (

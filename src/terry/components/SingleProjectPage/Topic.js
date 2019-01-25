@@ -5,8 +5,11 @@ import { Col, Row } from 'antd';
 
 import BackgroundImage from '../static/background_image.jpg';
 import BackgroundImageGreen from '../static/background_image_green.jpg';
+import BackgroundImagePurple from '../static/background_image_purple.jpg';
 import Header from '../Header';
 import {
+  blueColorDark,
+  blueColorLight,
   greenColorDark,
   greenColorLight,
   pinkColorDark,
@@ -54,12 +57,12 @@ const Year = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 7vmin;
+  font-size: 6vmin;
   font-weight: bold;
   color: white;
 
   ${media.lessThan('notebook')`
-    font-size: 9vmin;
+    font-size: 8vmin;
   `};
 `;
 
@@ -75,19 +78,19 @@ const Square = styled.div`
 const imageMap = {
   'Virtual-to-Real': BackgroundImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
-  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImagePurple,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': greenColorDark,
-  'A-Deep-Policy-Inference-Q-Network': greenColorDark,
+  'A-Deep-Policy-Inference-Q-Network': blueColorDark,
 };
 
 const colorTextMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorLight,
-  'A-Deep-Policy-Inference-Q-Network': greenColorLight,
+  'A-Deep-Policy-Inference-Q-Network': blueColorLight,
 };
 
 const Topic = ({ projectName, content }) => (

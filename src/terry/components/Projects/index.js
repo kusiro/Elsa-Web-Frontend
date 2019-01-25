@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 
 import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import BackgroundImageGreen from '../static/background_image_green.jpg';
+import BackgroundImagePurple from '../static/background_image_purple.jpg';
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
 import project1 from '../Content/VirtualToReal';
@@ -68,11 +69,12 @@ const Year = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 2vw;
+  font-size: 1.6vw;
+  padding-top: 1vh;
 
   ${media.lessThan('notebook')`
     padding-top: 1vh;
-    font-size:5vw;
+    font-size:4vw;
   `};
 `;
 
@@ -121,7 +123,7 @@ const ProjectsContent = [
   },
   {
     content: project3.topic,
-    image: BackgroundImageGreen,
+    image: BackgroundImagePurple,
     link: '/project/A-Deep-Policy-Inference-Q-Network',
   },
 ];
