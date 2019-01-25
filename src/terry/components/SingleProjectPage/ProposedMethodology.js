@@ -5,7 +5,14 @@ import { Col, Row } from 'antd';
 
 import BackgroundImage from '../static/background_image.jpg';
 import BackgroundImageGreen from '../static/background_image_green.jpg';
-import { greenColorBackGround, pinkColorDark, pinkColorLight } from '../color';
+import BackgroundImagePurple from '../static/background_image_purple.jpg';
+import {
+  blueColorLightMore,
+  blueColorMid,
+  greenColorBackGround,
+  pinkColorDark,
+  pinkColorLight,
+} from '../color';
 import { media } from '../size';
 
 import ResultsModal from './ResultsModal';
@@ -63,7 +70,7 @@ const Square = styled.div`
 const colorBackgroundMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorBackGround,
-  'A-Deep-Policy-Inference-Q-Network': greenColorBackGround,
+  'A-Deep-Policy-Inference-Q-Network': blueColorMid,
 };
 
 const colorMap = {
@@ -75,13 +82,13 @@ const colorMap = {
 const colorBlockTitleMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': 'white',
-  'A-Deep-Policy-Inference-Q-Network': 'white',
+  'A-Deep-Policy-Inference-Q-Network': blueColorLightMore,
 };
 
 const colorImageMap = {
   'Virtual-to-Real': BackgroundImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
-  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImagePurple,
 };
 
 class ProposedMethodology extends Component {

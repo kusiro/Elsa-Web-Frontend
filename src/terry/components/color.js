@@ -8,4 +8,5 @@ export const greenColorBackGround = '#beede4';
 export const greenColorMid = '#4acbad';
 export const blueColorDark = '#364b8b';
 export const blueColorLight = '#7f9dff';
+export const blueColorMid = '#9fb5ff';
 export const blueColorLightMore = '#d7e0ff';

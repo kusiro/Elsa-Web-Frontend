@@ -5,8 +5,9 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
 import BackgroundImageGreen from '../static/background_image_green.jpg';
+import BackgroundImagePurple from '../static/background_image_purple.jpg';
 import BackgroundInvertVerticalVerticalImage from '../static/background_image_invert_vertical_2.jpg';
-import { greenColorBackGround, pinkColorMid } from '../color';
+import { blueColorMid, greenColorBackGround, pinkColorMid } from '../color';
 import { media } from '../size';
 
 const videoConfig = {
@@ -111,13 +112,13 @@ const TransparentLayer = styled.div`
 const backgroundMap = {
   'Virtual-to-Real': BackgroundInvertVerticalVerticalImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
-  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImagePurple,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorMid,
   'Dynamic-Video-Segmentation-Network': greenColorBackGround,
-  'A-Deep-Policy-Inference-Q-Network': greenColorBackGround,
+  'A-Deep-Policy-Inference-Q-Network': blueColorMid,
 };
 
 const videoMap = {

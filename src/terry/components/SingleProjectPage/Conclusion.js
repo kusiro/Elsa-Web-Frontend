@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
 import {
+  blueColorDark,
+  blueColorLightMore,
+  blueColorMid,
   greenColorBackGround,
   greenColorDark,
   greenColorMid,
@@ -70,19 +73,19 @@ const Bar = styled.div`
 const backgroundMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorBackGround,
-  'A-Deep-Policy-Inference-Q-Network': greenColorBackGround,
+  'A-Deep-Policy-Inference-Q-Network': blueColorLightMore,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': greenColorDark,
-  'A-Deep-Policy-Inference-Q-Network': greenColorDark,
+  'A-Deep-Policy-Inference-Q-Network': blueColorDark,
 };
 
 const colorMapLight = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': greenColorMid,
-  'A-Deep-Policy-Inference-Q-Network': greenColorMid,
+  'A-Deep-Policy-Inference-Q-Network': blueColorMid,
 };
 
 const Conclusion = ({ projectName, content }) => (

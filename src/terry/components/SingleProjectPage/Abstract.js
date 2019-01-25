@@ -4,8 +4,9 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
 import BackgroundImageGreen from '../static/background_image_green.jpg';
+import BackgroundImagePurple from '../static/background_image_purple.jpg';
 import BackgroundInvertVerticalImage from '../static/background_image_invert_vertical.jpg';
-import { greenColorLight, pinkColorLight } from '../color';
+import { blueColorLight, greenColorLight, pinkColorLight } from '../color';
 import { media } from '../size';
 
 const Background = styled.div`
@@ -63,13 +64,13 @@ const Bar = styled.div`
 const colorBackgroundMap = {
   'Virtual-to-Real': BackgroundInvertVerticalImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
-  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImagePurple,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorLight,
   'Dynamic-Video-Segmentation-Network': greenColorLight,
-  'A-Deep-Policy-Inference-Q-Network': greenColorLight,
+  'A-Deep-Policy-Inference-Q-Network': blueColorLight,
 };
 
 const Abstract = ({ projectName, content }) => (

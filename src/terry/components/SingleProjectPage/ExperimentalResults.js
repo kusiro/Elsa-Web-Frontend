@@ -4,8 +4,14 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
 import BackgroundImageGreen from '../static/background_image_green.jpg';
+import BackgroundImagePurple from '../static/background_image_purple.jpg';
 import BackgroundInvertImage from '../static/background_image_invert.jpg';
-import { greenColorDark, pinkColorDark, pinkColorLight } from '../color';
+import {
+  blueColorDark,
+  greenColorDark,
+  pinkColorDark,
+  pinkColorLight,
+} from '../color';
 import { media } from '../size';
 
 import ResultsModal from './ResultsModal';
@@ -62,13 +68,13 @@ const Square = styled.div`
 const backgroundMap = {
   'Virtual-to-Real': BackgroundInvertImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
-  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImagePurple,
 };
 
 const colorMap = {
   'Virtual-to-Real': pinkColorDark,
   'Dynamic-Video-Segmentation-Network': greenColorDark,
-  'A-Deep-Policy-Inference-Q-Network': greenColorDark,
+  'A-Deep-Policy-Inference-Q-Network': blueColorDark,
 };
 
 const colorBlockTitleMap = {
