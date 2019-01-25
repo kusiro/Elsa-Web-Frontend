@@ -116,6 +116,23 @@ const CountPages = styled.div`
   user-select: none;
 `;
 
+const PagesBlockMobileWrapper = styled.div`
+  margin-top: 3vh;
+  width: 100%;
+  height: 12vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  overflow: hidden;
+  overflow-x: scroll;
+  text-align: justify;
+`;
+
+const PagesBlockMobile = styled.div`
+  width: 16%;
+  margin: 1.5vw;
+  display: inline-block;
+`;
+
 class PdfPage extends Component {
   state = {
     title: '',
@@ -249,9 +266,22 @@ class PdfPage extends Component {
                   <Col span={12} offset={1}>
                     Home / Courses / {year} {season} - {title}
                   </Col>
-                  <Col span={24}>
-                    <PagesBlock>{allSlides}</PagesBlock>
-                  </Col>
+
+                  <MediaQuery query={`(max-width: ${notebook})`}>
+                    {matches =>
+                      matches ? (
+                        <Col span={24}>
+                          <PagesBlockMobileWrapper>
+                            <PagesBlockMobile>{allSlides}</PagesBlockMobile>
+                          </PagesBlockMobileWrapper>
+                        </Col>
+                      ) : (
+                        <Col span={24}>
+                          <PagesBlock>{allSlides}</PagesBlock>
+                        </Col>
+                      )
+                    }
+                  </MediaQuery>
 
                   <MediaQuery query={`(max-width: ${notebook})`}>
                     {matches =>
