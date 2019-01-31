@@ -5,6 +5,7 @@ import { Modal } from 'antd';
 
 import BackgroundImage from '../static/background_image_invert_vertical_2.jpg';
 import BackgroundImageGreen from '../static/background_image_green.jpg';
+import BackgroundImagePurple from '../static/background_image_purple.jpg';
 import MethodImage1 from '../static/Method1.jpg';
 import MethodImage2 from '../static/Method2.jpg';
 import MethodImage3 from '../static/Method3.jpg';
@@ -58,7 +59,7 @@ const Title = styled.div`
 const backgroundMap = {
   'Virtual-to-Real': BackgroundImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
-  'A-Deep-Policy-Inference-Q-Network': BackgroundImageGreen,
+  'A-Deep-Policy-Inference-Q-Network': BackgroundImagePurple,
 };
 
 class ResultsModal extends Component {
