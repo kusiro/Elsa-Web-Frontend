@@ -2,22 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router';
+// import { Link } from 'react-router';
 
 import IconImg from './static/icon.png';
-import { media } from './size';
+// import { media } from './size';
 
 const NabItemCol = styled(Col)`
   padding: 5vmin 4vmin 2vmin 4vmin;
   color: ${props => props.color};
-`;
-
-const NabItemColRight = styled(NabItemCol)`
-  :hover {
-    cursor: pointer;
-    background-color: black;
-    opacity: 0.5;
-  }
 `;
 
 const Icon = styled.img`
@@ -28,31 +20,39 @@ const NavBarLeftCol = styled(Col)`
   margin-top: -2vmin;
 `;
 
-const NavBarRightCol = styled(Col)`
-  font-size: 2.5vmin;
-
-  ${media.lessThan('notebook')`
-    font-size: 4vmin;
-    padding-right: 2vmin;
-  `};
-`;
-
-const Entry = styled.div`
-  color: ${props => props.color};
-
-  ${NabItemColRight}:hover & {
-    color: white;
-  }
-`;
-
 const Title = styled.p`
   font-size: ${props => props.size};
   margin: 0;
 `;
 
-const EachLink = styled(Link)`
-  text-decoration: none !important;
-`;
+// const NabItemColRight = styled(NabItemCol)`
+//   :hover {
+//     cursor: pointer;
+//     background-color: black;
+//     opacity: 0.5;
+//   }
+// `;
+
+// const NavBarRightCol = styled(Col)`
+//   font-size: 2.5vmin;
+
+//   ${media.lessThan('notebook')`
+//     font-size: 4vmin;
+//     padding-right: 2vmin;
+//   `};
+// `;
+
+// const Entry = styled.div`
+//   color: ${props => props.color};
+
+//   ${NabItemColRight}:hover & {
+//     color: white;
+//   }
+// `;
+
+// const EachLink = styled(Link)`
+//   text-decoration: none !important;
+// `;
 
 const Header = ({ color }) => (
   <div>
@@ -68,7 +68,7 @@ const Header = ({ color }) => (
           </NabItemCol>
         </Row>
       </NavBarLeftCol>
-      <NavBarRightCol xs={{ span: 15 }} xl={{ span: 8, offset: 6 }}>
+      {/* <NavBarRightCol xs={{ span: 15 }} xl={{ span: 8, offset: 6 }}>
         <Row type="flex" justify="end" align="top">
           <Col>
             <EachLink to="/">
@@ -92,7 +92,7 @@ const Header = ({ color }) => (
             </EachLink>
           </Col>
         </Row>
-      </NavBarRightCol>
+      </NavBarRightCol> */}
     </Row>
   </div>
 );
