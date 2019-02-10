@@ -12,6 +12,8 @@ module.exports = {
     'jsx-a11y/mouse-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
     'react/destructuring-assignment': 'off',
+    'react/jsx-no-comment-textnodes': 'off',
+    'react/no-unescaped-entities': 'off',
     'react/sort-prop-types': [
       'error',
       {

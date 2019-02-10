@@ -6,27 +6,47 @@ import { Modal } from 'antd';
 import BackgroundImage from '../static/background_image_invert_vertical_2.jpg';
 import BackgroundImageGreen from '../static/background_image_green.jpg';
 import BackgroundImagePurple from '../static/background_image_purple.jpg';
-import MethodImage1 from '../static/Method1.jpg';
-import MethodImage2 from '../static/Method2.jpg';
-import MethodImage3 from '../static/Method3.jpg';
-import ResultImage11 from '../static/Result11.jpg';
-import ResultImage12 from '../static/Result12.jpg';
-import ResultImage2 from '../static/Result2.jpg';
-import ResultImage31 from '../static/Result31.jpg';
-import ResultImage32 from '../static/Result32.jpg';
-import ResultImage41 from '../static/Result41.jpg';
-import ResultImage42 from '../static/Result42.jpg';
+import DeepMethodImage2 from '../static/Deep/Method2.png';
+import DeepResultImage1 from '../static/Deep/Result1.png';
+import DeepResultImage2 from '../static/Deep/Result2.png';
+import DeepResultImage3 from '../static/Deep/Result3.png';
+import DynamicMethodImage1 from '../static/Dynamic/Method1.jpg';
+import DynamicMethodImage2 from '../static/Dynamic/Method2.jpg';
+import DynamicMethodImage3 from '../static/Dynamic/Method3.jpg';
+import DynamicResultImage11 from '../static/Dynamic/Result11.jpg';
+import DynamicResultImage12 from '../static/Dynamic/Result12.jpg';
+import DynamicResultImage2 from '../static/Dynamic/Result2.jpg';
+import DynamicResultImage31 from '../static/Dynamic/Result31.jpg';
+import DynamicResultImage32 from '../static/Dynamic/Result32.jpg';
+import DynamicResultImage41 from '../static/Dynamic/Result41.jpg';
+import DynamicResultImage42 from '../static/Dynamic/Result42.jpg';
+import VirtualMethodImage1 from '../static/Virtual/Method1.png';
+import VirtualMethodImage2 from '../static/Virtual/Method2.png';
+import VirtualMethodImage31 from '../static/Virtual/Method31.png';
+import VirtualMethodImage32 from '../static/Virtual/Method32.png';
 import { media } from '../size';
 
 import {
-  Method1,
-  Method2,
-  Method3,
-  Result1,
-  Result2,
-  Result3,
-  Result4,
+  DeepMethod1,
+  DeepMethod2,
+  DeepResult1,
+  DeepResult2,
+  DeepResult3,
+} from './Modal/DeepPolicy';
+import {
+  DynamicMethod1,
+  DynamicMethod2,
+  DynamicMethod3,
+  DynamicResult1,
+  DynamicResult2,
+  DynamicResult3,
+  DynamicResult4,
 } from './Modal/DynamicVideo';
+import {
+  VirtualMethod1,
+  VirtualMethod2,
+  VirtualMethod3,
+} from './Modal/VirtualToReal';
 
 const BodyCSS = {
   height: '80vmin',
@@ -63,22 +83,81 @@ const backgroundMap = {
 };
 
 class ResultsModal extends Component {
-  renderModalContent = modalId => {
+  renderModalContentVirtual = modalId => {
     switch (modalId) {
       case 1:
-        return <Method1 image={MethodImage1} />;
+        return <VirtualMethod1 image={VirtualMethodImage1} />;
       case 2:
-        return <Method2 image={MethodImage2} />;
+        return <VirtualMethod2 image={VirtualMethodImage2} />;
       case 3:
-        return <Method3 image={MethodImage3} />;
+        return (
+          <VirtualMethod3
+            image={[VirtualMethodImage31, VirtualMethodImage32]}
+          />
+        );
+      default:
+        return <></>;
+    }
+  };
+
+  renderModalContentDynamic = modalId => {
+    switch (modalId) {
+      case 1:
+        return <DynamicMethod1 image={DynamicMethodImage1} />;
+      case 2:
+        return <DynamicMethod2 image={DynamicMethodImage2} />;
+      case 3:
+        return <DynamicMethod3 image={DynamicMethodImage3} />;
       case 4:
-        return <Result1 image={[ResultImage11, ResultImage12]} />;
+        return (
+          <DynamicResult1
+            image={[DynamicResultImage11, DynamicResultImage12]}
+          />
+        );
       case 5:
-        return <Result2 image={ResultImage2} />;
+        return <DynamicResult2 image={DynamicResultImage2} />;
       case 6:
-        return <Result3 image={[ResultImage31, ResultImage32]} />;
+        return (
+          <DynamicResult3
+            image={[DynamicResultImage31, DynamicResultImage32]}
+          />
+        );
       case 7:
-        return <Result4 image={[ResultImage41, ResultImage42]} />;
+        return (
+          <DynamicResult4
+            image={[DynamicResultImage41, DynamicResultImage42]}
+          />
+        );
+      default:
+        return <></>;
+    }
+  };
+
+  renderModalContentDeep = modalId => {
+    switch (modalId) {
+      case 1:
+        return <DeepMethod1 />;
+      case 2:
+        return <DeepMethod2 image={DeepMethodImage2} />;
+      case 4:
+        return <DeepResult1 image={DeepResultImage1} />;
+      case 5:
+        return <DeepResult2 image={DeepResultImage2} />;
+      case 6:
+        return <DeepResult3 image={DeepResultImage3} />;
+      default:
+        return <></>;
+    }
+  };
+
+  renderWhichProjectContent = (projectName, modalId) => {
+    switch (projectName) {
+      case 'Virtual-to-Real':
+        return <>{this.renderModalContentVirtual(modalId)}</>;
+      case 'Dynamic-Video-Segmentation-Network':
+        return <>{this.renderModalContentDynamic(modalId)}</>;
+      case 'A-Deep-Policy-Inference-Q-Network':
+        return <>{this.renderModalContentDeep(modalId)}</>;
       default:
         return <></>;
     }
@@ -99,7 +178,7 @@ class ResultsModal extends Component {
       >
         <Background background={backgroundMap[projectName]}>
           <Title>{title}</Title>
-          {this.renderModalContent(modalId)}
+          {this.renderWhichProjectContent(projectName, modalId)}
         </Background>
       </Modal>
     );
