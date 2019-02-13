@@ -2,7 +2,7 @@ import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Button, Col, Input, Row } from 'antd';
+import { Col, Row } from 'antd';
 
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
@@ -54,96 +54,42 @@ const IconStyleImage = styled(IconImage)`
   `};
 `;
 
-const UserInput = styled(Input)`
-  background-color: #cfcfcf;
-  width: 100%;
-  height: 4vh;
-  box-shadow: 0 0 0 100px white inset;
-  -webkit-box-shadow: 0 0 0 100px white inset;
-`;
-
-const InputText = styled.div`
-  font-weight: bold;
-  color: white;
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-`;
-
 const TitleStyleText = styled(TitleText)`
   ${media.lessThan('notebook')`
     font-size: 10vw;
   `};
 `;
 
-const SubmitButton = styled(Button)`
-  float: right;
-  margin-top: 2vh;
+const InfoTextArea = styled.div`
+  font-size: 1vw;
+  color: white;
 `;
 
-class Login extends Component {
-  state = {
-    account: '',
-    password: '',
-    message: '',
-  };
+class Account extends Component {
+  state = {};
 
-  renderMessage = () => {
-    if (this.state.message) {
-      return <div className="message">{this.state.message}</div>;
-    }
-  };
-
-  handleChange = (id, event) => {
-    if (id === 'account') {
-      this.setState({ account: event.target.value });
-    } else if (id === 'password') {
-      this.setState({ password: event.target.value });
-    }
-  };
-
-  handleSubmit = event => {
-    const reactIns = this;
-    axios
-      .post(`${settings.backend_url}/api-token-auth/`, {
-        username: this.state.account,
-        password: this.state.password,
-      })
-      .then(response => {
-        console.log(response);
-        const userId = response.data.user.id;
-        localStorage.token = response.data.token;
-        localStorage.user_id = userId;
-        // redirect to user page
-        if (
-          settings.root_user_types.includes(
-            response.data.user.profile.studentType
-          )
-        ) {
-          window.location = `${settings.root_url}/management/users`;
-        } else {
-          // const url = new URL(window.location.href);
-          // const redirectUrl = url.searchParams.get('redirect_url');
-          // if (redirectUrl) {
-          //   window.location = redirectUrl;
-          // } else {
-          //   window.location = '/';
-          // }
-          // FIXME: 要加 Account
-          window.location = `${settings.root_url}/account`;
-        }
-      })
-      .catch(error => {
-        console.log(error.response);
-        // handle login error
-        if (error) {
-          // set error message or fade out after 2s.
-          reactIns.setState({ message: 'Account or Password error.' }, () =>
-            setTimeout(() => reactIns.setState({ message: '' }), 2000)
-          );
-        }
+  componentWillMount() {
+    const { user_id: userId, token } = localStorage;
+    if (token) {
+      const ins = axios.create({
+        baseURL: settings.backend_url,
+        timeout: 1000,
+        headers: {
+          Authorization: `JWT${token}`,
+        },
       });
-    event.preventDefault();
-  };
+
+      ins
+        .get(`user/${userId}`)
+        .then(res => {
+          console.log(res);
+          this.setState({ user: res.data });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
 
   renderLogin = () => {
     const { token } = localStorage;
@@ -172,11 +118,19 @@ class Login extends Component {
     </Row>
   );
 
+  renderProfile = () => {
+    const { user } = this.state;
+    if (user) {
+      return user.profile.nick_name;
+    }
+    return <></>;
+  };
+
   render() {
     return (
       <Row>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-          <BackgroundStyleColor color="#aac2ff">
+          <BackgroundStyleColor color="#ffaaad">
             <MainRow type="flex" justify="center">
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
@@ -203,41 +157,28 @@ class Login extends Component {
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>Sign In</TitleStyleText>
+                <TitleStyleText>Hello, {this.renderProfile()}</TitleStyleText>
               </BigTitle>
               <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
-                Sign in to get more informations
+                Here's your informations
               </MedContent>
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="#6e7794">
+          <BackgroundStyleColor2 color="#906262">
             <MediaQuery query={`(max-width: ${notebook})`}>
               {matches => (!matches ? <Header fontColor="white" /> : <></>)}
             </MediaQuery>
             <TeachBlock>
               <Row type="flex" justify="start" align="top">
                 <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
-                  {this.renderMessage()}
-                  <InputText>Account</InputText>
-                  <UserInput
-                    size="large"
-                    type="text"
-                    value={this.state.account}
-                    onChange={e => this.handleChange('account', e)}
-                  />
-                  <InputText>Password</InputText>
-                  <UserInput
-                    size="large"
-                    type="password"
-                    value={this.state.password}
-                    onChange={e => this.handleChange('password', e)}
-                  />
-                  <SubmitButton onClick={e => this.handleSubmit(e)} href="#">
-                    Submit
-                  </SubmitButton>
+                  <InfoTextArea>
+                    <div>Your Cources</div>
+                    <div>Your Messages</div>
+                    <div>Your News</div>
+                  </InfoTextArea>
                 </Col>
               </Row>
             </TeachBlock>
@@ -248,4 +189,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Account;

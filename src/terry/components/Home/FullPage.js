@@ -70,8 +70,8 @@ class FullPage extends Component {
     const { token } = localStorage;
     if (token) {
       return (
-        <PageLink to="/logout">
-          <Text color={otherColorMap[current]}>Sign out</Text>
+        <PageLink to="/account">
+          <Text color={otherColorMap[current]}>Account</Text>
         </PageLink>
       );
     }
