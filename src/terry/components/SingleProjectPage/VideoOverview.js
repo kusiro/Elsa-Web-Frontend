@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ReactPlayer from 'react-player';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
 import BackgroundImageGreen from '../static/background_image_green.jpg';
-import BackgroundImagePurple from '../static/background_image_purple.jpg';
 import BackgroundInvertVerticalVerticalImage from '../static/background_image_invert_vertical_2.jpg';
-import { blueColorMid, greenColorBackGround, pinkColorMid } from '../color';
+import { greenColorBackGround, pinkColorMid } from '../color';
 import { media } from '../size';
 
 const videoConfig = {
@@ -112,20 +111,18 @@ const TransparentLayer = styled.div`
 const backgroundMap = {
   'Virtual-to-Real': BackgroundInvertVerticalVerticalImage,
   'Dynamic-Video-Segmentation-Network': BackgroundImageGreen,
-  'A-Deep-Policy-Inference-Q-Network': BackgroundImagePurple,
 };
+
+// 'A-Deep-Policy-Inference-Q-Network': BackgroundImagePurple,
 
 const colorMap = {
   'Virtual-to-Real': pinkColorMid,
   'Dynamic-Video-Segmentation-Network': greenColorBackGround,
-  'A-Deep-Policy-Inference-Q-Network': blueColorMid,
 };
 
 const videoMap = {
   'Virtual-to-Real': 'https://www.youtube.com/embed/_OqdnG4AII8',
   'Dynamic-Video-Segmentation-Network':
-    'https://www.youtube.com/embed/vadYHOyUVXs',
-  'A-Deep-Policy-Inference-Q-Network':
     'https://www.youtube.com/embed/vadYHOyUVXs',
 };
 
@@ -149,33 +146,37 @@ class VideoOverview extends Component {
     const { projectName } = this.props;
 
     return (
-      <div className="section">
-        <Background background={backgroundMap[projectName]}>
-          <Row type="flex" justify="center" gutter={24}>
-            <SystemColMedia xs={{ span: 24 }} xl={{ span: 2, offset: 1 }}>
-              <MediaTitleBlock color={colorMap[projectName]}>
-                <Title color={colorMap[projectName]}>Video Overview</Title>
-                <Square color={colorMap[projectName]} />
-              </MediaTitleBlock>
-            </SystemColMedia>
-            <SystemCol xs={{ span: 24 }} xl={{ span: 15, offset: 1 }}>
-              <Wrapper>
-                <ReactPlayer
-                  url={videoMap[projectName]}
-                  playing={isPlaying}
-                  width={videoSize.width}
-                  height={videoSize.height}
-                  config={videoConfig}
-                  onPause={this.onPause}
-                />
-                {!isPlaying ? (
-                  <TransparentLayer onClick={this.playVideo} />
-                ) : null}
-              </Wrapper>
-            </SystemCol>
-          </Row>
-        </Background>
-      </div>
+      <Fragment>
+        {projectName !== 'A-Deep-Policy-Inference-Q-Network' && (
+          <div className="section">
+            <Background background={backgroundMap[projectName]}>
+              <Row type="flex" justify="center" gutter={24}>
+                <SystemColMedia xs={{ span: 24 }} xl={{ span: 2, offset: 1 }}>
+                  <MediaTitleBlock color={colorMap[projectName]}>
+                    <Title color={colorMap[projectName]}>Video Overview</Title>
+                    <Square color={colorMap[projectName]} />
+                  </MediaTitleBlock>
+                </SystemColMedia>
+                <SystemCol xs={{ span: 24 }} xl={{ span: 15, offset: 1 }}>
+                  <Wrapper>
+                    <ReactPlayer
+                      url={videoMap[projectName]}
+                      playing={isPlaying}
+                      width={videoSize.width}
+                      height={videoSize.height}
+                      config={videoConfig}
+                      onPause={this.onPause}
+                    />
+                    {!isPlaying ? (
+                      <TransparentLayer onClick={this.playVideo} />
+                    ) : null}
+                  </Wrapper>
+                </SystemCol>
+              </Row>
+            </Background>
+          </div>
+        )}
+      </Fragment>
     );
   }
 }

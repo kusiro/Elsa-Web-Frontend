@@ -1,23 +1,8 @@
 const topic = ['2017', 'Dynamic Video Segmentation Network', ''];
 
 const abstract = [
-  `Collecting training data from the physical world is usually
-  time-consuming and even dangerous for fragile robots, and
-  therefore, recent advances in robot learning propose to use
-  simulators as the training platform. Unfortunately, the reality
-  gap between synthetic and real visual data prohibits directly
-  migrating the models trained in virtual worlds to the real
-  world. This paper proposes a modular architecture for tackling
-  simulation- to-reality problem. The architecture separates the
-  learning model into a perception module and a control policy
-  module, and uses semantic image segmentation as the meta
-  representation for relating these two modules. The perception
-  module translates RGB images to semantic image segmentations.
-  The control policy module employs deep reinforcement learning
-  (RL) methods and takes image segmentations as its inputs.
-  Experimental results show that our architecture outperforms all
-  baseline methods in the virtual and real environments, and
-  learns faster than them.`,
+  `In this paper, we present a detailed design of the dynamic video segmentation network (DVSNet) for fast and efficient semantic video segmentation. DVSNet consists of two convolutional neural networks: a segmentation network and a flow network. The former generates highly accurate semantic segmentations, but is deeper and slower.  The latter is much faster than the former, but its output requires further processing to generate less accurate semantic segmentations.  We explore the use of a decision network (DN) to adaptively assign different frame regions to different networks based on a metric called “expected confidence score”.  Frame regions with a higher expected confidence score traverse the flow network. Frame regions with a lower expected confidence score have to pass through the segmentation network.  The experimental results show that our DVSNet is able to achieve up to 70.4% mIoU at 19.8 fps on the Cityscape dataset.  A high speed version of DVSNet is able to deliver an fps of 30.4 with 63.2% mIoU on the same dataset.  DVSNet is also able to reduce up to 95% of the computational workloads.
+  `,
 ];
 
 const proposedMethodology = [
