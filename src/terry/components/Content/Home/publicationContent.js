@@ -8,7 +8,7 @@ const smallContentPublications = '02 #';
 
 const bigTitlePublications = 'Publications';
 
-const medContentPublications = `About some conference papers`;
+const medContentPublications = `About some conference papers.`;
 
 export {
   backgroundColorPublications,
