@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
 import axios from 'axios';
@@ -32,6 +34,9 @@ class Front extends Component {
         headers: {
           Authorization: 'JWT ' + token,
         },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
       });
 
       ins

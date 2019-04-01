@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Main.css';
@@ -34,10 +36,18 @@ class loginMain extends Component {
   handleSubmit(event) {
     let react_ins = this;
     axios
-      .post(settings.backend_url + '/api-token-auth/', {
-        username: this.state.account,
-        password: this.state.password,
-      })
+      .post(
+        settings.backend_url + '/api-token-auth/',
+        {
+          username: this.state.account,
+          password: this.state.password,
+        },
+        {
+          httpsAgent: new https.Agent({
+            rejectUnauthorized: false,
+          }),
+        }
+      )
       .then(function(response) {
         console.log(response);
         const user_id = response.data.user.id;

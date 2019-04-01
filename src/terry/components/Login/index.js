@@ -1,3 +1,5 @@
+import https from 'https';
+
 import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -104,10 +106,18 @@ class Login extends Component {
   handleSubmit = event => {
     const reactIns = this;
     axios
-      .post(`${settings.backend_url}/api-token-auth/`, {
-        username: this.state.account,
-        password: this.state.password,
-      })
+      .post(
+        `${settings.backend_url}/api-token-auth/`,
+        {
+          username: this.state.account,
+          password: this.state.password,
+        },
+        {
+          httpsAgent: new https.Agent({
+            rejectUnauthorized: false,
+          }),
+        }
+      )
       .then(response => {
         console.log(response);
         const userId = response.data.user.id;

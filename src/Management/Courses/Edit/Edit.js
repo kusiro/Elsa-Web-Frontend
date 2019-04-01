@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Edit.css'
@@ -22,7 +24,10 @@ class courseEdit extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
 
         ins.get('courses/' + course_id)
@@ -65,7 +70,10 @@ class courseEdit extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
         ins.put('courses/' + course_id, this.state)
         .then((res) => {

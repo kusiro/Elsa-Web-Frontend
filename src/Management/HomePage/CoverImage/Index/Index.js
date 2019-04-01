@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import axios from 'axios';
@@ -18,7 +20,10 @@ class CoverImageIndex extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
 
         ins.get('home_cover_image')

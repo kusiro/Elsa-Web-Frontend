@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 // import PDFJS from 'pdfjs-dist';
 import axios from 'axios';
@@ -16,6 +18,9 @@ class Attachments extends Component {
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
     });
 
     ins

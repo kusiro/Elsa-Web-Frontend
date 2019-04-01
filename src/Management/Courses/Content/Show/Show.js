@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert2'
@@ -26,7 +28,10 @@ class contentShow extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
 
         ins.get('courses/' + course_id + '/contents/' + content_id)
@@ -56,7 +61,10 @@ class contentShow extends Component {
                 timeout: 1000,
                 headers: {
                     Authorization: "JWT " + token,
-                }
+                },
+                httpsAgent: new https.Agent({
+                    rejectUnauthorized: false,
+                }),
             })
 
             ins.delete('courses/' + course_id + '/contents/' + content_id)

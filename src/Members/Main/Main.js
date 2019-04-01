@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import './Main.css';
 import axios from 'axios';
@@ -18,6 +20,9 @@ class membersMain extends Component {
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
     })
 
     ins.get('users')

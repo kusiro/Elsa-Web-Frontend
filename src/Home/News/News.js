@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, {Component} from 'react';
 import './News.css';
 import axios from 'axios';
@@ -17,6 +19,9 @@ class News extends Component {
     const ins = axios.create({
         baseURL: settings.backend_url,
         timeout: 1000,
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
     })
 
     ins.get(`news?order=-created_at`)

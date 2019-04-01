@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Edit.css';
@@ -28,6 +30,9 @@ class lectureEdit extends Component {
       headers: {
         Authorization: 'JWT ' + token,
       },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+    }),
     });
 
     ins
@@ -67,6 +72,9 @@ class lectureEdit extends Component {
       headers: {
         Authorization: 'JWT ' + token,
       },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+    }),
     });
     ins
       .put(
@@ -114,6 +122,9 @@ class lectureEdit extends Component {
         headers: {
           Authorization: 'JWT ' + token,
         },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+      }),
       });
 
       ins

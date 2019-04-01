@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import showdown from 'showdown';
 import axios from 'axios';
@@ -51,7 +53,10 @@ class newsNew extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
         ins.post('news', this.state)
         .then((res) => {

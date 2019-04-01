@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import './Register.css';
 import axios from 'axios';
@@ -60,6 +62,10 @@ class Register extends Component {
             password: this.state.password,
             student_id: this.state.student_id,
             nick_name: this.state.nick_name,
+        },{
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
         .then(function (response) {
             console.log(response);

@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import './Comment.css';
 import axios from 'axios';
@@ -56,6 +58,9 @@ class Comment extends Component {
         const ins = axios.create({
             baseURL: settings.backend_url,
             timeout: 1000,
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
         ins.get('files/' + fileId + '/pages/' + nowPage)
         .then((res) => {
@@ -90,7 +95,10 @@ class Comment extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
         
         ins.post(`files/${fileId}/pages/${nowPage}`, this.state)

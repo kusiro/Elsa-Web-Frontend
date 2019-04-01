@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import settings from '../../../settings.js'
@@ -20,7 +22,10 @@ class userShow extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
 
         ins.get(`user/${user_id}`)

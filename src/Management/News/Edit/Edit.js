@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import showdown from 'showdown';
 import axios from 'axios';
@@ -27,6 +29,9 @@ class newsEdit extends Component {
         const ins = axios.create({
             baseURL: settings.backend_url,
             timeout: 1000,
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
     
         ins.get(`news/${this.newId}`)
@@ -70,7 +75,10 @@ class newsEdit extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
         ins.put(`news/${this.newId}`, this.state)
         .then((res) => {

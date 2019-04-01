@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import './Edit.css'
@@ -26,7 +28,10 @@ class publicationEdit extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
 
         ins.get('publications/' + publication_id)
@@ -58,7 +63,10 @@ class publicationEdit extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
         ins.put(`publications/${publication_id}`, this.state)
         .then((res) => {
@@ -102,7 +110,10 @@ class publicationEdit extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
 
         ins.delete('publications/' + publication_id + '/file')

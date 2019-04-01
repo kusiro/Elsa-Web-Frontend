@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import showdown from 'showdown';
 import axios from 'axios';
@@ -22,7 +24,10 @@ class newsShow extends Component {
             timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
-            }
+            },
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
 
         ins.get('news/' + news_id)
@@ -51,7 +56,10 @@ class newsShow extends Component {
                 timeout: 1000,
                 headers: {
                     Authorization: "JWT " + token,
-                }
+                },
+                httpsAgent: new https.Agent({
+                    rejectUnauthorized: false,
+                }),
             })
 
             ins.delete('news/' + news_id)

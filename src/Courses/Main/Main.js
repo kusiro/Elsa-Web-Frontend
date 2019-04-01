@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import digital from './img/hardware.jpeg'
@@ -15,6 +17,9 @@ class courseMain extends Component {
         const ins = axios.create({
             baseURL: settings.backend_url,
             timeout: 1000,
+            httpsAgent: new https.Agent({
+                rejectUnauthorized: false,
+            }),
         })
 
         ins.get('/courses')

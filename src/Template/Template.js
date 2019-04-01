@@ -1,3 +1,5 @@
+import https from 'https';
+
 import React, { Component } from 'react';
 import Front from './Front/Front';
 import Management from './Management/Management';
@@ -23,6 +25,9 @@ class Template extends Component {
         headers: {
           Authorization: 'JWT ' + token,
         },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
       });
 
       ins
