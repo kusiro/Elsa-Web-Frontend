@@ -120,26 +120,30 @@ class Login extends Component {
       )
       .then(response => {
         console.log(response);
-        const userId = response.data.user.id;
-        localStorage.token = response.data.token;
-        localStorage.user_id = userId;
-        // redirect to user page
-        if (
-          settings.root_user_types.includes(
-            response.data.user.profile.studentType
-          )
-        ) {
-          window.location = `${settings.root_url}/management/users`;
+        if (response.status !== 200) {
+          alert(`Please Try Again ! (${response.status})`);
         } else {
-          // const url = new URL(window.location.href);
-          // const redirectUrl = url.searchParams.get('redirect_url');
-          // if (redirectUrl) {
-          //   window.location = redirectUrl;
-          // } else {
-          //   window.location = '/';
-          // }
-          // FIXME: 要加 Account
-          window.location = `${settings.root_url}/account`;
+          const userId = response.data.user.id;
+          localStorage.token = response.data.token;
+          localStorage.user_id = userId;
+          // redirect to user page
+          if (
+            settings.root_user_types.includes(
+              response.data.user.profile.studentType
+            )
+          ) {
+            window.location = `${settings.root_url}/management/users`;
+          } else {
+            // const url = new URL(window.location.href);
+            // const redirectUrl = url.searchParams.get('redirect_url');
+            // if (redirectUrl) {
+            //   window.location = redirectUrl;
+            // } else {
+            //   window.location = '/';
+            // }
+            // FIXME: 要加 Account
+            window.location = `${settings.root_url}/account`;
+          }
         }
       })
       .catch(error => {
