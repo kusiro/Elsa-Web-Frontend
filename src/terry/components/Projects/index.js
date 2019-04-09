@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import BackgroundImageGreen from '../static/background_image_green.jpg';
 import BackgroundImagePurple from '../static/background_image_purple.jpg';
+import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
 import project1 from '../Content/VirtualToReal';
@@ -179,13 +180,18 @@ class Projects extends Component {
   };
 
   renderOtherBlock = () => (
-    <Row>
-      <TextCol span={24}>
-        <PageLink to="/about">
-          <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
-        </PageLink>
-      </TextCol>
-      <TextCol span={24}>{this.renderLogin()}</TextCol>
+    <Row type="flex" justify="end">
+      <Col span={14}>
+        <TextCol>
+          <PageLink to="/about">
+            <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
+          </PageLink>
+        </TextCol>
+        <TextCol>{this.renderLogin()}</TextCol>
+      </Col>
+      <Col span={5}>
+        <Drawer />
+      </Col>
     </Row>
   );
 
@@ -204,7 +210,7 @@ class Projects extends Component {
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
-                  <Col xs={{ span: 8 }} xl={{ span: 0 }} offset={10}>
+                  <Col xs={{ span: 14 }} xl={{ span: 0 }} offset={4}>
                     {this.renderOtherBlock()}
                   </Col>
                 </Row>

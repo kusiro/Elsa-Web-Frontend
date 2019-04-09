@@ -6,6 +6,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Button, Col, Input, Row } from 'antd';
 
+import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
 import settings from '../../../settings';
@@ -176,13 +177,18 @@ class Login extends Component {
   };
 
   renderOtherBlock = () => (
-    <Row>
-      <TextCol span={24}>
-        <PageLink to="/about">
-          <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
-        </PageLink>
-      </TextCol>
-      <TextCol span={24}>{this.renderLogin()}</TextCol>
+    <Row type="flex" justify="end">
+      <Col span={14}>
+        <TextCol>
+          <PageLink to="/about">
+            <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
+          </PageLink>
+        </TextCol>
+        <TextCol>{this.renderLogin()}</TextCol>
+      </Col>
+      <Col span={5}>
+        <Drawer />
+      </Col>
     </Row>
   );
 
@@ -201,7 +207,7 @@ class Login extends Component {
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
-                  <Col xs={{ span: 8 }} xl={{ span: 0 }} offset={10}>
+                  <Col xs={{ span: 14 }} xl={{ span: 0 }} offset={4}>
                     {this.renderOtherBlock()}
                   </Col>
                 </Row>
