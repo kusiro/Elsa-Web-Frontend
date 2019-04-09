@@ -63,7 +63,8 @@ const EachPage = styled.img`
   }
 
   ${media.lessThan('notebook')`
-    width: 30vw;
+    width: auto;
+    height: 80%;
   `};
 `;
 
@@ -71,7 +72,6 @@ const EachPage = styled.img`
 const PagesBlock = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
   margin-top: 5vh;
-  margin-left: -1vw;
   padding-left: 0.5vw;
   padding-top: 0.5vh;
   height: 60vh;
@@ -85,8 +85,8 @@ const PagesBlock = styled.div`
 `;
 
 const ImageShow = styled.img`
-  width: 100%;
-  height: 50%;
+  width: 80%;
+  display: block;
   margin: auto;
 
   -webkit-touch-callout: none;
@@ -132,6 +132,7 @@ const PagesBlockMobileWrapper = styled.div`
 
 const PagesBlockMobile = styled.div`
   width: 16%;
+  height: 100%;
   margin: 1.5vw;
   display: inline-block;
 `;
@@ -333,7 +334,7 @@ class PdfPage extends Component {
                             }
                           />
                         </Col>
-                        <Col span={16}>
+                        <Col span={12}>
                           <ImageShow
                             src={`${imageRootUrl}/page-${current}.jpeg`}
                           />
