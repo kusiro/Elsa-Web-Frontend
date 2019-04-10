@@ -48,6 +48,7 @@ class lectureNew extends Component {
         window.location.href = `/management/courses/${course_id}/contents/${content_id}`;
       })
       .catch(error => {
+        alert('請確認資料格式正確!')
         console.log(error);
       });
   }

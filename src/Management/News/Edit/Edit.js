@@ -61,6 +61,9 @@ class newsEdit extends Component {
         if (!this.state.title) {
             reqCol += 'title '
         }
+        if(!this.state.description){
+            reqCol += 'description '
+        }
         if (reqCol) {
             reqCol += 'is required.'
             window.alert(reqCol);
@@ -86,6 +89,7 @@ class newsEdit extends Component {
             window.location.href='/management/news';
         })
         .catch((error) => {
+            alert('請確認資料格式正確!')
             console.log(error)
         })
     }

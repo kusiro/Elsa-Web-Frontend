@@ -55,6 +55,9 @@ class courseEdit extends Component {
         if (!this.state.title) {
             reqCol += 'title '
         }
+        if(!this.state.description){
+            reqCol += 'description '
+        }
         if (reqCol) {
             reqCol += 'is required.'
             window.alert(reqCol);
@@ -81,6 +84,7 @@ class courseEdit extends Component {
             window.location.href='/management/courses/' + course_id;
         })
         .catch((error) => {
+            alert('請確認資料格式正確!')
             console.log(error)
         })
     }
