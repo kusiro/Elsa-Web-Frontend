@@ -30,7 +30,10 @@ import {
 import { media, notebook } from '../size';
 
 const Blocks = styled.div`
-  padding-top: 20vh;
+  padding-top: 15vh;
+  width: 100%;
+  height: 92vh;
+  overflow-y: scroll;
 
   ${media.lessThan('notebook')`
     padding-top: 0;

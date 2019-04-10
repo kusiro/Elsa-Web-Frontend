@@ -8,6 +8,7 @@ const Layout = styled.div`
   width: 100%;
   float: right;
   margin-right: 2vw;
+  height: 8vh;
 `;
 
 const EachLink = styled(Link)`
