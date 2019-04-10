@@ -26,7 +26,7 @@ const EntryLink = styled.div`
 
 const ImageEntry = styled.img`
   width: 100%;
-  height: 100%;
+  height: 20vh;
   border: 5px white solid;
 
   ${media.lessThan('notebook')`
