@@ -4,10 +4,6 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import Template from './Template/Template';
 
 import Members from './Members/Members';
-
-import News from './News/Index/Index';
-import newsFrontShow from './News/Show/Show';
-
 import Contact from './Contact/Contact';
 
 import Register from './Register/Register';
@@ -52,14 +48,16 @@ import lectureEdit from './Management/Courses/Content/Lecture/Edit/Edit';
 //   AccountPage,
 // } from './terry/route/DynamicLoad';
 
-import AboutPage from './terry/route/Pages/AboutPage';
-import CourseContent from './terry/route/Pages/CourseContent';
-import CoursesPage from './terry/route/Pages/CoursesPage';
 import HomePage from './terry/route/Pages/HomePage';
+import AboutPage from './terry/route/Pages/AboutPage';
+import CoursesPage from './terry/route/Pages/CoursesPage';
+import CourseContent from './terry/route/Pages/CourseContent';
+import PdfPage from './terry/route/Pages/PdfPage';
+import PublicationsPage from './terry/route/Pages/PublicationsPage';
 import Project from './terry/route/Pages/Project';
 import ProjectsPage from './terry/route/Pages/ProjectsPage';
-import PublicationsPage from './terry/route/Pages/PublicationsPage';
-import PdfPage from './terry/route/Pages/PdfPage';
+import NewsPage from './terry/route/Pages/NewsPage';
+import NewContent from './terry/route/Pages/NewContent';
 import LoginPage from './terry/route/Pages/LoginPage';
 import Logout from './terry/route/Pages/Logout';
 import AccountPage from './terry/route/Pages/AccountPage';
@@ -83,6 +81,8 @@ ReactDOM.render(
       <Route path="/publications" component={PublicationsPage} />
       <Route path="/projects" component={ProjectsPage} />
       <Route path="/project(/:name)" component={Project} />
+      <Route path="/news" component={NewsPage} />
+      <Route path="/news(/:news_id)" component={NewContent} />
       <Route path="/about" component={AboutPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/logout" component={Logout} />
@@ -90,11 +90,8 @@ ReactDOM.render(
 
       {/* Origin */}
       <Route path="/members" component={Members} />
-      <Route path="/news" component={News} />
-      <Route path="/news(/:news_id)" component={newsFrontShow} />
       <Route path="/contact" component={Contact} />
       <Route path="/register" component={Register} />
-
       <Route path="/management" component={userIndex} />
       <Route path="/management/news" component={newsIndex} />
       <Route path="/management/news/new" component={newsNew} />
