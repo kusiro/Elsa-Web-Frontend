@@ -37,6 +37,7 @@ const Blocks = styled.div`
 
   ${media.lessThan('notebook')`
     padding-top: 0;
+    height: 100%;
   `};
 `;
 

@@ -49,13 +49,13 @@ class Drawer extends Component {
           <EachLink to="/courses">
             <LinkBlock color="dark">Course</LinkBlock>
           </EachLink>
-          <EachLink to="/">
+          <EachLink to="/publications">
             <LinkBlock>Publications</LinkBlock>
           </EachLink>
           <EachLink to="/projects">
             <LinkBlock color="dark">Projects</LinkBlock>
           </EachLink>
-          <EachLink to="/">
+          <EachLink to="/news">
             <LinkBlock>News</LinkBlock>
           </EachLink>
         </DrawerAntd>

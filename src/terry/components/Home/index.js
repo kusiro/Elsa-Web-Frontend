@@ -159,7 +159,7 @@ class Home extends Component {
                       onMouseEnter={() => this.changeBackground(2)}
                       onMouseLeave={() => this.changeBackground(0)}
                     >
-                      <EachLink to="/">
+                      <EachLink to="/publications">
                         <Text>Publications</Text>
                       </EachLink>
                     </BlackLayer>
@@ -211,7 +211,7 @@ class Home extends Component {
                       onMouseEnter={() => this.changeBackground(4)}
                       onMouseLeave={() => this.changeBackground(0)}
                     >
-                      <EachLink to="/">
+                      <EachLink to="/news">
                         <Text>News</Text>
                       </EachLink>
                     </BlackLayer>

@@ -5,8 +5,6 @@ import Template from './Template/Template';
 
 import Members from './Members/Members';
 
-import Publications from './Publications/Publications';
-
 import News from './News/Index/Index';
 import newsFrontShow from './News/Show/Show';
 
@@ -60,6 +58,7 @@ import CoursesPage from './terry/route/Pages/CoursesPage';
 import HomePage from './terry/route/Pages/HomePage';
 import Project from './terry/route/Pages/Project';
 import ProjectsPage from './terry/route/Pages/ProjectsPage';
+import PublicationsPage from './terry/route/Pages/PublicationsPage';
 import PdfPage from './terry/route/Pages/PdfPage';
 import LoginPage from './terry/route/Pages/LoginPage';
 import Logout from './terry/route/Pages/Logout';
@@ -81,6 +80,7 @@ ReactDOM.render(
         path="/courses(/:course_id)/contents(/:content_id)/lectures(/:lecture_id)/files(/:file_id)"
         component={PdfPage}
       />
+      <Route path="/publications" component={PublicationsPage} />
       <Route path="/projects" component={ProjectsPage} />
       <Route path="/project(/:name)" component={Project} />
       <Route path="/about" component={AboutPage} />
@@ -90,7 +90,6 @@ ReactDOM.render(
 
       {/* Origin */}
       <Route path="/members" component={Members} />
-      <Route path="/publications" component={Publications} />
       <Route path="/news" component={News} />
       <Route path="/news(/:news_id)" component={newsFrontShow} />
       <Route path="/contact" component={Contact} />

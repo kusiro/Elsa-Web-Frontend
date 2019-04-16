@@ -62,7 +62,7 @@ class Header extends Component {
             </EachLink>
           </Col>
           <Col span={3}>
-            <EachLink color={this.props.fontColor} to="/">
+            <EachLink color={this.props.fontColor} to="/publications">
               <LinkCol>Publications</LinkCol>
             </EachLink>
           </Col>
@@ -72,7 +72,7 @@ class Header extends Component {
             </EachLink>
           </Col>
           <Col span={2}>
-            <EachLink color={this.props.fontColor} to="/">
+            <EachLink color={this.props.fontColor} to="/news">
               <LinkCol>News</LinkCol>
             </EachLink>
           </Col>
