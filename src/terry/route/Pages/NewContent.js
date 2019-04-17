@@ -17,7 +17,7 @@ class NewContent extends Component {
 
 NewContent.propTypes = {
   params: PropTypes.shape({
-    newsId: PropTypes.string.isRequired,
+    news_id: PropTypes.string.isRequired,
   }).isRequired,
 };
 

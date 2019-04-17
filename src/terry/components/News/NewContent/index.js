@@ -4,6 +4,7 @@ import MediaQuery from 'react-responsive';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
+import showdown from 'showdown';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
@@ -54,39 +55,39 @@ const BackgroundStyleColor2 = styled(BackgroundColor)`
   `};
 `;
 
-const EachBlock = styled.div`
-  width: 100%;
-  height: 20vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  margin-bottom: 5vh;
-  color: white;
-  font-size: 1.2vw;
+// const EachBlock = styled.div`
+//   width: 100%;
+//   height: 20vh;
+//   background-color: rgba(0, 0, 0, 0.3);
+//   margin-bottom: 5vh;
+//   color: white;
+//   font-size: 1.2vw;
 
-  ${media.lessThan('notebook')`
-    margin-bottom: 0;
-  `};
-`;
+//   ${media.lessThan('notebook')`
+//     margin-bottom: 0;
+//   `};
+// `;
 
-const Title = styled.div`
-  font-size: 2vw;
-  padding-top: 1vh;
+// const Title = styled.div`
+//   font-size: 2vw;
+//   padding-top: 1vh;
 
-  ${media.lessThan('notebook')`
-    font-size:5vw;
-  `};
-`;
+//   ${media.lessThan('notebook')`
+//     font-size:5vw;
+//   `};
+// `;
 
-const TextArea = styled.div`
-  padding-left: 2.5vw;
-  padding-right: 4vw;
-  padding-top: 4.5vh;
+// const TextArea = styled.div`
+//   padding-left: 2.5vw;
+//   padding-right: 4vw;
+//   padding-top: 4.5vh;
 
-  ${media.lessThan('notebook')`
-    padding-top: 3.5vh;
-    padding-left: 4vw;
-    font-size:4vw;
-  `};
-`;
+//   ${media.lessThan('notebook')`
+//     padding-top: 3.5vh;
+//     padding-left: 4vw;
+//     font-size:4vw;
+//   `};
+// `;
 
 const ImageArea = styled.div`
   width: 100%;
@@ -110,7 +111,7 @@ const IconStyleImage = styled(IconImage)`
 
 class NewContent extends Component {
   state = {
-    news: [],
+    news: '',
   };
 
   componentWillMount() {
@@ -135,29 +136,20 @@ class NewContent extends Component {
       });
   }
 
-  // renderNews = () => {
-  //   if (this.state.news) {
-  //     return this.state.news.map(
-  //       ({ id: newsId, title, description, image_url: imageUrl }) => (
-  //         <a key={newsId} href={`/news/${newsId}`}>
-  //           <EachBlock>
-  //             <Row type="flex">
-  //               <Col span={12} xs={{ order: 2 }} xl={{ order: 1 }}>
-  //                 <TextArea>
-  //                   <Title>title: {title}</Title>
-  //                   description: {description}
-  //                 </TextArea>
-  //               </Col>
-  //               <Col span={12} xs={{ order: 1 }} xl={{ order: 2 }}>
-  //                 <ImageArea image={imageUrl} />
-  //               </Col>
-  //             </Row>
-  //           </EachBlock>
-  //         </a>
-  //       )
-  //     );
-  //   }
-  // };
+  renderNewContent = () => {
+    const converter = new showdown.Converter();
+    const previewHTML = converter.makeHtml(this.state.news.content);
+
+    if (this.state.news) {
+      return (
+        <div>
+          <h1>Title: {this.state.news.title}</h1>
+          <ImageArea image={this.state.news.image_url} />
+          <div dangerouslySetInnerHTML={{ __html: previewHTML }} />
+        </div>
+      );
+    }
+  };
 
   renderLogin = () => {
     const { token } = localStorage;
@@ -193,52 +185,51 @@ class NewContent extends Component {
 
   render() {
     return (
-      <div>TODO</div>
-      // <Row>
-      //   <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-      //     <BackgroundStyleColor color="#b3a1ba">
-      //       <MainRow type="flex" justify="center">
-      //         <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
-      //           <Row type="flex" justify="start" align="middle" gutter={8}>
-      //             <Col span={2.5}>
-      //               <IconStyleImage src={IconImg} />
-      //             </Col>
-      //             <Col span={3}>
-      //               <Title1>NTHU</Title1>
-      //               <Title2>ELSA</Title2>
-      //             </Col>
-      //             <Col xs={{ span: 14 }} xl={{ span: 0 }} offset={4}>
-      //               {this.renderOtherBlock()}
-      //             </Col>
-      //           </Row>
-      //         </LogoContent>
-      //         <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
-      //           <Row type="flex" justify="start" align="bottom">
-      //             <Col span={6}>
-      //               <Hr color="#8c8c8c" />
-      //             </Col>
-      //             <Col span={12} offset={1}>
-      //               Home
-      //             </Col>
-      //           </Row>
-      //         </SmallContent>
-      //         <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-      //           <TitleStyleText>News</TitleStyleText>
-      //         </BigTitle>
-      //         <MedContent span={12} color="#8c8c8c" />
-      //         <Col span={6} />
-      //       </MainRow>
-      //     </BackgroundStyleColor>
-      //   </Col>
-      //   <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-      //     <BackgroundStyleColor2 color="white">
-      //       <MediaQuery query={`(max-width: ${notebook})`}>
-      //         {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-      //       </MediaQuery>
-      //       <Blocks>{this.renderNews()}</Blocks>
-      //     </BackgroundStyleColor2>
-      //   </Col>
-      // </Row>
+      <Row>
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color="#b3a1ba">
+            <MainRow type="flex" justify="center">
+              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
+                <Row type="flex" justify="start" align="middle" gutter={8}>
+                  <Col span={2.5}>
+                    <IconStyleImage src={IconImg} />
+                  </Col>
+                  <Col span={3}>
+                    <Title1>NTHU</Title1>
+                    <Title2>ELSA</Title2>
+                  </Col>
+                  <Col xs={{ span: 14 }} xl={{ span: 0 }} offset={4}>
+                    {this.renderOtherBlock()}
+                  </Col>
+                </Row>
+              </LogoContent>
+              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
+                <Row type="flex" justify="start" align="bottom">
+                  <Col span={6}>
+                    <Hr color="#8c8c8c" />
+                  </Col>
+                  <Col span={12} offset={1}>
+                    Home
+                  </Col>
+                </Row>
+              </SmallContent>
+              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
+                <TitleStyleText>News</TitleStyleText>
+              </BigTitle>
+              <MedContent span={12} color="#8c8c8c" />
+              <Col span={6} />
+            </MainRow>
+          </BackgroundStyleColor>
+        </Col>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+          <BackgroundStyleColor2 color="white">
+            <MediaQuery query={`(max-width: ${notebook})`}>
+              {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+            </MediaQuery>
+            <Blocks>{this.renderNewContent()}</Blocks>
+          </BackgroundStyleColor2>
+        </Col>
+      </Row>
     );
   }
 }
