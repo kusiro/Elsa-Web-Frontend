@@ -190,7 +190,7 @@ class contentEdit extends Component {
                                 <div className="input-label">location</div>
                                 <input value={this.state.location} className='content-new-input' type="text" onChange={(e) => this.handleChange('location', e)}/>
                             </div>
-                            <div className='input-group-left-60'>
+                            {/* <div className='input-group-left-60'>
                                 <div className="content-new-ta">
                                     <div className="content-new-ta-title">
                                         Add TA: {this.chosenTaNames()}
@@ -199,7 +199,7 @@ class contentEdit extends Component {
                                         {users}
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div>
                             <input onClick={this.handleSubmit} className='content-new-submit-btn' type="submit"/>

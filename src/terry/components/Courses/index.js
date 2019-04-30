@@ -141,7 +141,7 @@ class Courses extends Component {
     if (this.state.courses) {
       return this.state.courses.map(({ id: courseId, title, contents }) => {
         let isChangeOrder = false;
-        return contents.map(({ id, season, year }) => {
+        return contents.map(({ id, season, year, course_no }) => {
           isChangeOrder = !isChangeOrder;
           return (
             <a key={id} href={`/courses/${courseId}/contents/${id}`}>
@@ -157,6 +157,7 @@ class Courses extends Component {
                         {year} {season}
                       </Year>
                       <Title>{title}</Title>
+                      course_no: {course_no}
                     </TextArea>
                   </Col>
                   <Col

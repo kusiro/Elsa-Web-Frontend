@@ -50,9 +50,9 @@ class userIndex extends Component {
         return(
             <div className='user-index-bg'>
                 <div className='user-index-main'>
-                    <div className='user-index-btn-group'>
+                    {/* <div className='user-index-btn-group'>
                         <Link className='user-index-link-btn' to="/management/user/new">add user</Link>
-                    </div>
+                    </div> */}
                     <div className='user-index-users'>
                         {users}
                     </div>

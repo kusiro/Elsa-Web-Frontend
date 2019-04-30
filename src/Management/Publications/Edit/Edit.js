@@ -25,7 +25,6 @@ class publicationEdit extends Component {
         const token = localStorage.token;
         const ins = axios.create({
             baseURL: settings.backend_url,
-            timeout: 1000,
             headers: {
                 Authorization: "JWT " + token,
             },
@@ -60,7 +59,7 @@ class publicationEdit extends Component {
         const token = localStorage.token;
         const ins = axios.create({
             baseURL: settings.backend_url,
-            timeout: 1000,
+            timeout: 10000,
             headers: {
                 Authorization: "JWT " + token,
             },
