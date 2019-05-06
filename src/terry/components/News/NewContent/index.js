@@ -143,7 +143,6 @@ class NewContent extends Component {
     if (this.state.news) {
       return (
         <div>
-          <h1>Title: {this.state.news.title}</h1>
           <ImageArea image={this.state.news.image_url} />
           <div dangerouslySetInnerHTML={{ __html: previewHTML }} />
         </div>
@@ -214,7 +213,7 @@ class NewContent extends Component {
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>News</TitleStyleText>
+                <TitleStyleText>{this.state.news.title}</TitleStyleText>
               </BigTitle>
               <MedContent span={12} color="#8c8c8c" />
               <Col span={6} />

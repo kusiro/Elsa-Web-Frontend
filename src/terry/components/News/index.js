@@ -63,6 +63,7 @@ const EachBlock = styled.div`
 
   ${media.lessThan('notebook')`
     margin-bottom: 0;
+    margin-top: 2vh;
   `};
 `;
 
@@ -142,8 +143,8 @@ class News extends Component {
               <Row type="flex">
                 <Col span={12} xs={{ order: 2 }} xl={{ order: 1 }}>
                   <TextArea>
-                    <Title>title: {title}</Title>
-                    description: {description}
+                    <Title>{title}</Title>
+                    {description}
                   </TextArea>
                 </Col>
                 <Col span={12} xs={{ order: 1 }} xl={{ order: 2 }}>

@@ -12,7 +12,7 @@ class publicationEdit extends Component {
         super(props);
         this.state = {
             title: '',
-            code_url: '',
+            code_url: 'empty',
             arXiv_url: '',
             files: ''
         }

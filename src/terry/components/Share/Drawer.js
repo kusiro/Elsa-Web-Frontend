@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Drawer as DrawerAntd, Icon } from 'antd';
+import { Drawer as DrawerAntd } from 'antd';
 import { Link } from 'react-router';
 
-const MenuIcon = styled(Icon)`
+const MenuIcon = styled.i`
   font-size: 10vw;
+  margin-left: 2vw;
 `;
 
 const EachLink = styled(Link)`
@@ -35,16 +36,16 @@ class Drawer extends Component {
   render() {
     return (
       <div>
-        <MenuIcon type="menu-fold" onClick={this.showDrawer} />
+        <MenuIcon className="fas fa-bars" onClick={this.showDrawer} />
         <DrawerAntd
-          title="Drawer"
+          title="Elsa Lab"
           placement="right"
           closable={false}
           onClose={this.onClose}
           visible={this.state.visible}
         >
           <EachLink to="/">
-            <LinkBlock>Home </LinkBlock>
+            <LinkBlock>Home</LinkBlock>
           </EachLink>
           <EachLink to="/courses">
             <LinkBlock color="dark">Course</LinkBlock>

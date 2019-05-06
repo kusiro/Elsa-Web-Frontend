@@ -63,7 +63,7 @@ const EachBlock = styled.div`
 
   ${media.lessThan('notebook')`
     margin-bottom: 0;
-    margin-top: 5vh;
+    margin-top: 2vh;
   `};
 `;
 
