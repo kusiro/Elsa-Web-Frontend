@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-// import { Link } from 'react-router';
 
 // import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import Drawer from '../Share/Drawer';
@@ -80,13 +79,26 @@ const TextArea = styled.div`
   `};
 `;
 
-// const ImageArea = styled.div`
-//   width: 100%;
-//   height: 20vh;
-//   background: url(${props => props.image});
-//   background-size: cover;
-//   background-position: center center;
-// `;
+const Title = styled.div`
+  font-size: 2vw;
+  padding-top: 1vh;
+
+  ${media.lessThan('notebook')`
+    font-size:5vw;
+  `};
+`;
+
+const LinkArea = styled.div`
+  width: 100%;
+  height: 20vh;
+`;
+
+const LinkBlock = styled.div`
+  width: 100%;
+  height: 50%;
+  background-color: ${props => props.color};
+  display: flex;
+`;
 
 const TitleStyleText = styled(TitleText)`
   ${media.lessThan('notebook')`
@@ -98,6 +110,15 @@ const IconStyleImage = styled(IconImage)`
   ${media.lessThan('notebook')`
     width: 8vw;
   `};
+`;
+
+const LinkText = styled.a`
+  margin: auto;
+  color: white;
+
+  :hover {
+    color: white;
+  }
 `;
 
 class Publications extends Component {
@@ -146,19 +167,27 @@ class Publications extends Component {
       ({
         id: publicationId,
         title,
-        code_url: codeUrl,
+        // code_url: codeUrl,
         arXiv_url: arXivUrl,
-        // files,
+        files,
       }) => (
         <EachBlock key={publicationId}>
           <Row type="flex">
-            <Col span={12}>
-              <TextArea>Title: {title}</TextArea>
+            <Col span={20}>
               <TextArea>
-                code_url: {codeUrl} / arXiv_url: {arXivUrl} / files: ???
+                <Title>{title}</Title>
               </TextArea>
             </Col>
-            <Col span={12}>{/* <ImageArea image={image} /> */}</Col>
+            <Col span={4}>
+              <LinkArea>
+                <LinkBlock color="rgba(0, 0, 0, 0.3)">
+                  <LinkText href={arXivUrl}>arXiv</LinkText>
+                </LinkBlock>
+                <LinkBlock color="rgba(0, 0, 0, 0.4)">
+                  <LinkText href={files.url}>PDF</LinkText>
+                </LinkBlock>
+              </LinkArea>
+            </Col>
           </Row>
         </EachBlock>
       )

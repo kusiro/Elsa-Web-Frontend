@@ -162,8 +162,8 @@ class publicationEdit extends Component {
                     <div className="lecture-new-form">
                         <div className="input-label">title</div>
                         <input value={this.state.title} className='content-new-input' type="text" onChange={(e) => this.handleChange('title', e)}/>
-                        <div className="input-label">code url</div>
-                        <input value={this.state.code_url} className='content-new-input' type="text" onChange={(e) => this.handleChange('code_url', e)}/>
+                        {/* <div className="input-label">code url</div>
+                        <input value={this.state.code_url} className='content-new-input' type="text" onChange={(e) => this.handleChange('code_url', e)}/> */}
                         <div className="input-label">arXiv url</div>
                         <input value={this.state.arXiv_url} className='content-new-input' type="text" onChange={(e) => this.handleChange('arXiv_url', e)}/>
                         <div className="input-label">Upload File: by dropping file into the block or clicking button</div>

@@ -134,8 +134,8 @@ class publicationNew extends Component {
                     <div className="lecture-new-form">
                         <div className="input-label">title</div>
                         <input className='content-new-input' type="text" onChange={(e) => this.handleChange('title', e)}/>
-                        <div className="input-label">code_url</div>
-                        <input className='content-new-input' type="text" onChange={(e) => this.handleChange('code_url', e)}/>
+                        {/* <div className="input-label">code_url</div>
+                        <input className='content-new-input' type="text" onChange={(e) => this.handleChange('code_url', e)}/> */}
                         <div className="input-label">arxiv_url</div>
                         <input className='content-new-input' type="text" onChange={(e) => this.handleChange('arXiv_url', e)}/>
                         <div className="input-label">Upload one File: by dropping file into the block or clicking button</div>

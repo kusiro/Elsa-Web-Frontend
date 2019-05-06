@@ -85,7 +85,7 @@ const PagesBlock = styled.div`
 `;
 
 const ImageShow = styled.img`
-  width: 80%;
+  width: 100%;
   display: block;
   margin: auto;
 
@@ -324,7 +324,7 @@ class PdfPage extends Component {
                   {matches =>
                     !matches ? (
                       <>
-                        <Col span={4}>
+                        <Col span={3}>
                           <ArrowIcon
                             type="left"
                             style={{ fontSize: '2vw' }}
@@ -334,12 +334,12 @@ class PdfPage extends Component {
                             }
                           />
                         </Col>
-                        <Col span={12}>
+                        <Col span={14}>
                           <ImageShow
                             src={`${imageRootUrl}/page-${current}.jpeg`}
                           />
                         </Col>
-                        <Col span={4}>
+                        <Col span={3}>
                           <ArrowIcon
                             type="right"
                             style={{ fontSize: '2vw' }}

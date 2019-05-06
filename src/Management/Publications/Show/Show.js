@@ -101,7 +101,7 @@ class publicationShow extends Component {
                         </div>
                     </div>
                     <div className="content-show-main-info">
-                        <div>code url: {this.state.code_url}</div>
+                        {/* <div>code url: {this.state.code_url}</div> */}
                         <div>arXiv url: {this.state.arXiv_url}</div>
                         pdf: <a href={this.state.files.url} className="">{this.state.title}</a>
                     </div>

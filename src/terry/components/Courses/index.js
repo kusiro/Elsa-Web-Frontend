@@ -157,7 +157,7 @@ class Courses extends Component {
                         {year} {season}
                       </Year>
                       <Title>{title}</Title>
-                      course_no: {course_no}
+                      course no : {course_no}
                     </TextArea>
                   </Col>
                   <Col
