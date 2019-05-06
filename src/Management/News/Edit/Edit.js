@@ -115,7 +115,7 @@ class newsEdit extends Component {
                                 <textarea className='news-new-description-textarea' name="" id="" cols="30" rows="5" value={this.state.description} onChange={(e) => this.handleChange('description', e)}>
                                 </textarea>
                             </div>
-                            <div className="input-label">content</div>
+                            <div className="input-label">content ( can use HTML )</div>
                             <div className='news-new-content'>
                                 <textarea className='news-new-content-textarea' name="" id="" cols="30" rows="5" value={this.state.content}onChange={(e) => this.handleChange('content', e)}>
                                 </textarea>

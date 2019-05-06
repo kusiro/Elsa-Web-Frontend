@@ -16,6 +16,7 @@ const EntryLink = styled.div`
   position: absolute;
   padding-left: 3.5vw;
   padding-right: 3.5vw;
+  width: 100%;
   top: 70%;
   left: 0;
 

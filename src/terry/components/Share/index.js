@@ -35,6 +35,7 @@ export const Hr = styled.hr`
   width: 100%;
   height: 2px;
   border: 0;
+  background-color: #a9a9a9;
 `;
 
 export const SmallContent = styled(Col)`
