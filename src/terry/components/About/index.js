@@ -29,7 +29,34 @@ const TeachBlock = styled.div`
   width: 100%;
   float: right;
   margin-top: 10vh;
-  padding-left: 5vw;
+`;
+
+const MemberBlock = styled.div`
+  width: 100%;
+  height: 20vh;
+  text-align: center;
+  margin-top: 10vh;
+`;
+
+const MemberImageArea = styled.div`
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3vh;
+`;
+
+const MemberImage = styled.img`
+  display: inline-block;
+  height: auto;
+  width: 18%;
+  margin: 2%;
+
+  ${media.lessThan('notebook')`
+  `};
+`;
+
+const MemberYear = styled.div`
+  margin-top: 3vh;
 `;
 
 const BackgroundStyleColor = styled(BackgroundColor)`
@@ -39,9 +66,8 @@ const BackgroundStyleColor = styled(BackgroundColor)`
 `;
 
 const BackgroundStyleColor2 = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
-    height: 100vh;
-  `};
+  overflow: auto;
+  height: 100vh;
 `;
 
 const IconStyleImage = styled(IconImage)`
@@ -260,6 +286,32 @@ class About extends Component {
                   </ExperienceAndEducation>
                 </Col>
               </Row>
+              <MemberBlock>
+                <MemberYear>
+                  ———————————————————————— 2018 ————————————————————————
+                </MemberYear>
+                <MemberImageArea>
+                  <MemberImage src={TeacherImageSrc} />
+                  <MemberImage src={TeacherImageSrc} />
+                  <MemberImage src={TeacherImageSrc} />
+                </MemberImageArea>
+                <MemberYear>
+                  ———————————————————————— 2017 ————————————————————————
+                </MemberYear>
+                <MemberImageArea>
+                  <MemberImage src={TeacherImageSrc} />
+                  <MemberImage src={TeacherImageSrc} />
+                  <MemberImage src={TeacherImageSrc} />
+                </MemberImageArea>
+                <MemberYear>
+                  ———————————————————————— 2016 ————————————————————————
+                </MemberYear>
+                <MemberImageArea>
+                  <MemberImage src={TeacherImageSrc} />
+                  <MemberImage src={TeacherImageSrc} />
+                  <MemberImage src={TeacherImageSrc} />
+                </MemberImageArea>
+              </MemberBlock>
             </TeachBlock>
           </BackgroundStyleColor2>
         </Col>
