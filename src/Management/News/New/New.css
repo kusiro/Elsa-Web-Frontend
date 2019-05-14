@@ -20,6 +20,7 @@
 
 .news-new-preview {
     width: 50%;
+    height: 560px;
     margin: 0px 30px;
 }
 
@@ -55,9 +56,14 @@
     transition: .5s;
     font-size: 15px;
     outline: none;
+    float: right;
 }
 
 .news-new-submit-btn:hover {
     background-color: #81D8D0;
     color: white;
+}
+
+.news-new-editor{
+    margin-top:20px;
 }

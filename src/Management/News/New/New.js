@@ -9,6 +9,8 @@ import swal from 'sweetalert2'
 import  '../../../../node_modules/sweetalert2/dist/sweetalert2.css'
 import settings from '../../../settings.js'
 
+import RichTextEditor from '../../..//terry/components/Share/RichTextEditor';
+
 class newsNew extends Component {
     constructor(props) {
         super(props);
@@ -29,8 +31,6 @@ class newsNew extends Component {
             this.setState({description: event.target.value})
         } else if (id === 'image_url') {
             this.setState({image_url: event.target.value})
-        } else if (id === 'content') {
-            this.setState({content: event.target.value})
         }
     }
 
@@ -61,7 +61,7 @@ class newsNew extends Component {
                 rejectUnauthorized: false,
             }),
         })
-        ins.post('news', this.state)
+        ins.post('news', {...this.state, content: this.state.content.toString()})
         .then((res) => {
             console.log(res)
             window.location.href='/management/news';
@@ -72,9 +72,12 @@ class newsNew extends Component {
         })
     }
 
+    handleChangeFromParent = (value) => {
+        this.setState({content: value})
+    }
+
     render() {
         let converter = new showdown.Converter()
-        let previewHTML = converter.makeHtml(this.state.content);
         
         return (
             <div className="lecture-new-bg">
@@ -93,21 +96,19 @@ class newsNew extends Component {
                                 <textarea className='news-new-description-textarea' name="" id="" cols="30" rows="5" onChange={(e) => this.handleChange('description', e)}>
                                 </textarea>
                             </div>
-                            <div className="input-label">content ( can use HTML )</div>
+                            {/* <div className="input-label">content ( can use HTML )</div>
                             <div className='news-new-content'>
                                 <textarea className='news-new-content-textarea' name="" id="" cols="30" rows="5" onChange={(e) => this.handleChange('content', e)}>
                                 </textarea>
-                            </div>
+                            </div> */}
                             <div>
                                 <input onClick={this.handleSubmit} className='news-new-submit-btn' type="submit"/>
                             </div>
                         </div>
                         <div className='news-new-preview'>
-                            <div className='input-label'>
-                                content preview
-                            </div>
-                            <div className='news-new-preview-main'>
-                                <div dangerouslySetInnerHTML={{ __html: previewHTML }} />
+                            <div className="input-label">content</div>
+                            <div className='news-new-editor'>
+                                <RichTextEditor handleChangeFromParent={this.handleChangeFromParent}/>
                             </div>
                         </div>
                     </div>
