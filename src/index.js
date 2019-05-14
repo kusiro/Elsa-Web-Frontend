@@ -6,8 +6,6 @@ import Template from './Template/Template';
 import Members from './Members/Members';
 import Contact from './Contact/Contact';
 
-import Register from './Register/Register';
-
 import newsIndex from './Management/News/Index/Index';
 import newsNew from './Management/News/New/New';
 import newsShow from './Management/News/Show/Show';
@@ -60,6 +58,7 @@ import NewsPage from './terry/route/Pages/NewsPage';
 import NewContent from './terry/route/Pages/NewContent';
 import LoginPage from './terry/route/Pages/LoginPage';
 import Logout from './terry/route/Pages/Logout';
+import RegisterPage from './terry/route/Pages/RegisterPage';
 import AccountPage from './terry/route/Pages/AccountPage';
 
 // router setting
@@ -86,12 +85,12 @@ ReactDOM.render(
       <Route path="/about" component={AboutPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/logout" component={Logout} />
+      <Route path="/register" component={RegisterPage} />
       <Route path="/account" component={AccountPage} />
 
       {/* Origin */}
       <Route path="/members" component={Members} />
       <Route path="/contact" component={Contact} />
-      <Route path="/register" component={Register} />
       <Route path="/management" component={userIndex} />
       <Route path="/management/news" component={newsIndex} />
       <Route path="/management/news/new" component={newsNew} />

@@ -106,7 +106,7 @@ const SignUpLink = styled(Link)`
   text-decoration: none !important;
 `;
 
-class Login extends Component {
+class Register extends Component {
   state = {
     account: '',
     password: '',
@@ -246,10 +246,10 @@ class Login extends Component {
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>Sign In</TitleStyleText>
+                <TitleStyleText>Sign Up</TitleStyleText>
               </BigTitle>
               <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
-                Sign in to get more informations
+                Sign up to get more informations
               </MedContent>
               <Col span={6} />
             </MainRow>
@@ -280,7 +280,7 @@ class Login extends Component {
                   />
 
                   <SubmitButton onClick={e => this.handleSubmit(e)} href="#">
-                    Sign In
+                    Sign Up
                   </SubmitButton>
                   <SignUpLink to="/register">
                     <SignUpLinkBlock color="dark">
@@ -297,4 +297,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default Register;
