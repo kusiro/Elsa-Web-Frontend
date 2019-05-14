@@ -8,6 +8,8 @@ import  '../../../../node_modules/sweetalert2/dist/sweetalert2.css'
 import './Show.css'
 import settings from '../../../settings.js'
 
+import RichTextEditor from '../../../terry/components/Share/RichTextEditor';
+
 class newsShow extends Component {
     constructor(props) {
         super(props);
@@ -87,9 +89,6 @@ class newsShow extends Component {
     render() {
         const news_id = this.props.params.news_id
         
-        let converter = new showdown.Converter()
-        const contentHTML = converter.makeHtml(this.state.content);
-        
         function outpageImageStyle(imageUrl) {
             return ({
                 position: 'relative',
@@ -133,7 +132,7 @@ class newsShow extends Component {
                             mainpage preview:
                         </div> */}
                         <div className="news-show-mainpage-preview-content">
-                            <div dangerouslySetInnerHTML={{ __html: contentHTML }} />
+                            <RichTextEditor content={this.state.content} readOnly />
                         </div>
                     </div>
                 </div>

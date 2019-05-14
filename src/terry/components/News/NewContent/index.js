@@ -4,10 +4,10 @@ import MediaQuery from 'react-responsive';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
-import showdown from 'showdown';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
+import RichTextEditor from '../../Share/RichTextEditor';
 // import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import Drawer from '../../Share/Drawer';
 import Header from '../../Share/Header';
@@ -136,20 +136,6 @@ class NewContent extends Component {
       });
   }
 
-  renderNewContent = () => {
-    const converter = new showdown.Converter();
-    const previewHTML = converter.makeHtml(this.state.news.content);
-
-    if (this.state.news) {
-      return (
-        <div>
-          <ImageArea image={this.state.news.image_url} />
-          <div dangerouslySetInnerHTML={{ __html: previewHTML }} />
-        </div>
-      );
-    }
-  };
-
   renderLogin = () => {
     const { token } = localStorage;
     if (token) {
@@ -225,7 +211,10 @@ class NewContent extends Component {
             <MediaQuery query={`(max-width: ${notebook})`}>
               {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
             </MediaQuery>
-            <Blocks>{this.renderNewContent()}</Blocks>
+            <Blocks>
+              <ImageArea image={this.state.news.image_url} />
+              <RichTextEditor content={this.state.news.content} readOnly />
+            </Blocks>
           </BackgroundStyleColor2>
         </Col>
       </Row>

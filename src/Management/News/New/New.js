@@ -9,7 +9,7 @@ import swal from 'sweetalert2'
 import  '../../../../node_modules/sweetalert2/dist/sweetalert2.css'
 import settings from '../../../settings.js'
 
-import RichTextEditor from '../../..//terry/components/Share/RichTextEditor';
+import RichTextEditor from '../../../terry/components/Share/RichTextEditor';
 
 class newsNew extends Component {
     constructor(props) {

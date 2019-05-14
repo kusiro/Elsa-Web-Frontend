@@ -11,6 +11,7 @@ module.exports = {
     'no-useless-escape': 'off',
     'no-else-return': 'off',
     'no-nested-ternary': 'off',
+    'no-unneeded-ternary': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/mouse-events-have-key-events': 'off',

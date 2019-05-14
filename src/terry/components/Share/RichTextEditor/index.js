@@ -46,10 +46,13 @@ class RichTextEditor extends React.Component {
     const { content } = this.props;
 
     if (this.props.content !== prevProps.content) {
-      console.log(content);
       if (typeof content === 'string' || content instanceof String) {
         this.setState({
           value: Value.fromJSON(JSON.parse(content)),
+        });
+      } else {
+        this.setState({
+          value: content,
         });
       }
     }
@@ -202,7 +205,10 @@ class RichTextEditor extends React.Component {
 
   onChange = ({ value }) => {
     this.setState({ value });
-    this.props.handleChangeFromParent(value);
+
+    if (this.props.handleChangeFromParent) {
+      this.props.handleChangeFromParent(value);
+    }
   };
 
   /**
@@ -303,19 +309,23 @@ class RichTextEditor extends React.Component {
    */
 
   render() {
+    const { readOnly } = this.props;
+
     return (
       <div>
-        <Toolbar>
-          {this.renderMarkButton('bold', 'format_bold')}
-          {this.renderMarkButton('italic', 'format_italic')}
-          {this.renderMarkButton('underlined', 'format_underlined')}
-          {this.renderMarkButton('code', 'code')}
-          {this.renderBlockButton('heading-one', 'looks_one')}
-          {this.renderBlockButton('heading-two', 'looks_two')}
-          {this.renderBlockButton('block-quote', 'format_quote')}
-          {this.renderBlockButton('numbered-list', 'format_list_numbered')}
-          {this.renderBlockButton('bulleted-list', 'format_list_bulleted')}
-        </Toolbar>
+        {!readOnly && (
+          <Toolbar>
+            {this.renderMarkButton('bold', 'format_bold')}
+            {this.renderMarkButton('italic', 'format_italic')}
+            {this.renderMarkButton('underlined', 'format_underlined')}
+            {this.renderMarkButton('code', 'code')}
+            {this.renderBlockButton('heading-one', 'looks_one')}
+            {this.renderBlockButton('heading-two', 'looks_two')}
+            {this.renderBlockButton('block-quote', 'format_quote')}
+            {this.renderBlockButton('numbered-list', 'format_list_numbered')}
+            {this.renderBlockButton('bulleted-list', 'format_list_bulleted')}
+          </Toolbar>
+        )}
         <Editor
           spellCheck
           autoFocus
@@ -326,6 +336,7 @@ class RichTextEditor extends React.Component {
           onKeyDown={this.onKeyDown}
           renderBlock={this.renderBlock}
           renderMark={this.renderMark}
+          readOnly={readOnly}
         />
       </div>
     );
