@@ -264,7 +264,7 @@ class Login extends Component {
               <Row type="flex" justify="start" align="top">
                 <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
                   {this.renderMessage()}
-                  <InputText>Account</InputText>
+                  <InputText>Email</InputText>
                   <UserInput
                     size="large"
                     type="text"
