@@ -112,7 +112,7 @@ class newsShow extends Component {
                             <a href={"./" + news_id + '/edit'} className="content-show-edit-btn" >edit</a>
                         </div>
                     </div>
-                    <div className="news-show-outpage-preview">
+                    {/* <div className="news-show-outpage-preview">
                         <div className="news-show-main-title">
                             outpage preview:
                         </div>
@@ -127,11 +127,11 @@ class newsShow extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="news-show-mainpage-preview">
-                        <div className="news-show-main-title">
+                        {/* <div className="news-show-main-title">
                             mainpage preview:
-                        </div>
+                        </div> */}
                         <div className="news-show-mainpage-preview-content">
                             <div dangerouslySetInnerHTML={{ __html: contentHTML }} />
                         </div>

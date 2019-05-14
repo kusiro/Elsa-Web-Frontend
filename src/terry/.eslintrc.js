@@ -18,6 +18,7 @@ module.exports = {
     'react/destructuring-assignment': 'off',
     'react/jsx-no-comment-textnodes': 'off',
     'react/no-unescaped-entities': 'off',
+    'react/no-did-update-set-state': 'off',
     'react/sort-prop-types': [
       'error',
       {

@@ -42,6 +42,19 @@ class RichTextEditor extends React.Component {
     value: Value.fromJSON(initialValue),
   };
 
+  componentDidUpdate(prevProps) {
+    const { content } = this.props;
+
+    if (this.props.content !== prevProps.content) {
+      console.log(content);
+      if (typeof content === 'string' || content instanceof String) {
+        this.setState({
+          value: Value.fromJSON(JSON.parse(content)),
+        });
+      }
+    }
+  }
+
   /**
    * Check if the current selection has a mark with `type` in it.
    *

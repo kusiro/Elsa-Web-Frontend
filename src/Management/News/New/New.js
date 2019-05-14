@@ -61,7 +61,7 @@ class newsNew extends Component {
                 rejectUnauthorized: false,
             }),
         })
-        ins.post('news', {...this.state, content: this.state.content.toString()})
+        ins.post('news', {...this.state, content: JSON.stringify(this.state.content.toJSON())})
         .then((res) => {
             console.log(res)
             window.location.href='/management/news';
@@ -77,8 +77,6 @@ class newsNew extends Component {
     }
 
     render() {
-        let converter = new showdown.Converter()
-        
         return (
             <div className="lecture-new-bg">
                 <div className="news-new-main">

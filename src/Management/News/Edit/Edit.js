@@ -9,6 +9,8 @@ import swal from 'sweetalert2'
 import  '../../../../node_modules/sweetalert2/dist/sweetalert2.css'
 import settings from '../../../settings.js'
 
+import RichTextEditor from '../../..//terry/components/Share/RichTextEditor';
+
 class newsEdit extends Component {
     constructor(props) {
         super(props);
@@ -51,8 +53,6 @@ class newsEdit extends Component {
             this.setState({description: event.target.value})
         } else if (id === 'image_url') {
             this.setState({image_url: event.target.value})
-        } else if (id === 'content') {
-            this.setState({content: event.target.value})
         }
     }
 
@@ -83,7 +83,7 @@ class newsEdit extends Component {
                 rejectUnauthorized: false,
             }),
         })
-        ins.put(`news/${this.newId}`, this.state)
+        ins.put(`news/${this.newId}`,  {...this.state, content: JSON.stringify(this.state.content.toJSON())})
         .then((res) => {
             console.log(res)
             window.location.href='/management/news';
@@ -94,15 +94,16 @@ class newsEdit extends Component {
         })
     }
 
+    handleChangeFromParent = (value) => {
+        this.setState({content: value})
+    }
+
     render() {
-        let converter = new showdown.Converter()
-        let previewHTML = converter.makeHtml(this.state.content);
-        
         return (
             <div className="lecture-new-bg">
                 <div className="news-new-main">
                     <div className="lecture-new-title">
-                        Create a news
+                        Edit a news
                     </div>
                     <div className='news-new-flex-box'>
                         <div className="news-new-form">
@@ -115,21 +116,19 @@ class newsEdit extends Component {
                                 <textarea className='news-new-description-textarea' name="" id="" cols="30" rows="5" value={this.state.description} onChange={(e) => this.handleChange('description', e)}>
                                 </textarea>
                             </div>
-                            <div className="input-label">content ( can use HTML )</div>
+                            {/* <div className="input-label">content ( can use HTML )</div>
                             <div className='news-new-content'>
                                 <textarea className='news-new-content-textarea' name="" id="" cols="30" rows="5" value={this.state.content}onChange={(e) => this.handleChange('content', e)}>
                                 </textarea>
-                            </div>
+                            </div> */}
                             <div>
                                 <input onClick={this.handleSubmit} className='news-new-submit-btn' type="submit"/>
                             </div>
                         </div>
                         <div className='news-new-preview'>
-                            <div className='input-label'>
-                                content preview
-                            </div>
-                            <div className='news-new-preview-main'>
-                                <div dangerouslySetInnerHTML={{ __html: previewHTML }} />
+                            <div className="input-label">content</div>
+                            <div className='news-new-editor'>
+                                <RichTextEditor handleChangeFromParent={this.handleChangeFromParent} content={this.state.content}/>
                             </div>
                         </div>
                     </div>
