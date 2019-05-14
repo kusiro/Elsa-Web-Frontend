@@ -47,7 +47,7 @@ const BackgroundStyleColor = styled(BackgroundColor)`
 
 const BackgroundStyleColor2 = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 55vh;
+    height: 70vh;
   `};
 `;
 
@@ -231,7 +231,7 @@ class Register extends Component {
     return (
       <Row>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-          <BackgroundStyleColor color="#aac2ff">
+          <BackgroundStyleColor color="#b0d4b6">
             <MainRow type="flex" justify="center">
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
@@ -268,7 +268,7 @@ class Register extends Component {
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="#6e7794">
+          <BackgroundStyleColor2 color="#98c8a0">
             <MediaQuery query={`(max-width: ${notebook})`}>
               {matches => (!matches ? <Header fontColor="white" /> : <></>)}
             </MediaQuery>
