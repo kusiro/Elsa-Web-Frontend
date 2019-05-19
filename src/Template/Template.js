@@ -71,8 +71,6 @@ class Template extends Component {
   }
 }
 
-Template.propTypes = {};
-
 Template.propTypes = {
   children: PropTypes.object.isRequired,
   location: PropTypes.shape({

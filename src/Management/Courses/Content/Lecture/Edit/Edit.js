@@ -1,11 +1,14 @@
 import https from 'https';
 
-import React, { Component } from 'react';
-import axios from 'axios';
-import './Edit.css';
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
-import settings from '../../../../../settings.js';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import axios from 'axios';
+
+import settings from '../../../../../settings';
+
+import './Edit.css';
 
 class lectureEdit extends Component {
   constructor(props) {
@@ -15,35 +18,27 @@ class lectureEdit extends Component {
       description: '',
       files: [],
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
-    const course_id = this.props.params.course_id;
-    const content_id = this.props.params.content_id;
-    const lecture_id = this.props.params.lecture_id;
-    const token = localStorage.token;
+    const {
+      params: { course_id, content_id, lecture_id },
+    } = this.props;
+
+    const { token } = localStorage;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
       headers: {
-        Authorization: 'JWT ' + token,
+        Authorization: `JWT ${token}`,
       },
       httpsAgent: new https.Agent({
         rejectUnauthorized: false,
-    }),
+      }),
     });
 
     ins
-      .get(
-        'courses/' +
-          course_id +
-          '/contents/' +
-          content_id +
-          '/lectures/' +
-          lecture_id
-      )
+      .get(`courses/${course_id}/contents/${content_id}/lectures/${lecture_id}`)
       .then(res => {
         console.log(res);
         this.setState(res.data);
@@ -53,49 +48,11 @@ class lectureEdit extends Component {
       });
   }
 
-  handleChange(id, event) {
-    if (id === 'title') {
-      this.setState({ title: event.target.value });
-    } else if (id === 'description') {
-      this.setState({ description: event.target.value });
-    }
-  }
-
-  handleSubmit(event) {
-    const course_id = this.props.params.course_id;
-    const content_id = this.props.params.content_id;
-    const lecture_id = this.props.params.lecture_id;
-    const token = localStorage.token;
-    const ins = axios.create({
-      baseURL: settings.backend_url,
-      timeout: 1000,
-      headers: {
-        Authorization: 'JWT ' + token,
-      },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-    }),
-    });
-    ins
-      .put(
-        `courses/${course_id}/contents/${content_id}/lectures/${lecture_id}`,
-        this.state
-      )
-      .then(res => {
-        console.log(res);
-        window.location.href = `/management/courses/${course_id}/contents/${content_id}`;
-      })
-      .catch(error => {
-        alert('請確認資料格式正確!')
-        console.log(error);
-      });
-  }
-
   onDrop(file) {
-    let files = this.state.files;
-    let reader = new FileReader();
-    let rea = this;
-    reader.onload = function() {
+    const { files } = this.state;
+    const reader = new FileReader();
+    const rea = this;
+    reader.onload = () => {
       files.push({
         title: file[0].name,
         preview: file[0].preview,
@@ -110,26 +67,65 @@ class lectureEdit extends Component {
     reader.readAsDataURL(file[0]);
   }
 
-  delFile(index, event) {
+  handleSubmit = () => {
+    const {
+      params: { course_id, content_id, lecture_id },
+    } = this.props;
+
+    const { token } = localStorage;
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    });
+    ins
+      .put(
+        `courses/${course_id}/contents/${content_id}/lectures/${lecture_id}`,
+        this.state
+      )
+      .then(res => {
+        console.log(res);
+        window.location.href = `/management/courses/${course_id}/contents/${content_id}`;
+      })
+      .catch(error => {
+        alert('請確認資料格式正確!');
+        console.log(error);
+      });
+  };
+
+  handleChange = (id, event) => {
+    if (id === 'title') {
+      this.setState({ title: event.target.value });
+    } else if (id === 'description') {
+      this.setState({ description: event.target.value });
+    }
+  };
+
+  delFile(index) {
     let file_id;
-    let files = this.state.files;
+    const { files } = this.state;
     // delete file from backend
     if (files[index].id) {
       file_id = files[index].id;
-      const token = localStorage.token;
+      const { token } = localStorage;
       const ins = axios.create({
         baseURL: settings.backend_url,
         timeout: 1000,
         headers: {
-          Authorization: 'JWT ' + token,
+          Authorization: `JWT ${token}`,
         },
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,
-      }),
+        }),
       });
 
       ins
-        .delete('files/' + file_id)
+        .delete(`files/${file_id}`)
         .then(res => {
           console.log(res);
         })
@@ -214,5 +210,13 @@ class lectureEdit extends Component {
     );
   }
 }
+
+lectureEdit.propTypes = {
+  params: PropTypes.shape({
+    course_id: PropTypes.string.isRequired,
+    content_id: PropTypes.string.isRequired,
+    lecture_id: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default lectureEdit;

@@ -8,6 +8,7 @@ module.exports = {
   rules: {
     'no-param-reassign': 0,
     camelcase: 'off',
+    'no-sequences': 'off',
     'no-useless-escape': 'off',
     'no-else-return': 'off',
     'no-nested-ternary': 'off',
@@ -31,6 +32,9 @@ module.exports = {
     'react/no-deprecated': ['warn'],
     'react/prefer-stateless-function': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
-    'react/forbid-prop-types': 'off'
+    'react/forbid-prop-types': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
+    'react/no-array-index-key': 'off',
+    'react/jsx-no-bind': 'off',
   },
 };

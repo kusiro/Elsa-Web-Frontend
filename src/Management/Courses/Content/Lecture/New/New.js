@@ -1,11 +1,13 @@
 import https from 'https';
 
-import React, { Component } from 'react';
-import axios from 'axios';
-import './New.css';
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
-import settings from '../../../../../settings.js';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import axios from 'axios';
+
+import settings from '../../../../../settings';
+import './New.css';
 
 class lectureNew extends Component {
   constructor(props) {
@@ -15,49 +17,13 @@ class lectureNew extends Component {
       description: '',
       files: [],
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(id, event) {
-    if (id === 'title') {
-      this.setState({ title: event.target.value });
-    } else if (id === 'description') {
-      this.setState({ description: event.target.value });
-    }
-  }
-
-  handleSubmit(event) {
-    const course_id = this.props.params.course_id;
-    const content_id = this.props.params.content_id;
-    const token = localStorage.token;
-    const ins = axios.create({
-      baseURL: settings.backend_url,
-      timeout: 10000,
-      headers: {
-        Authorization: 'JWT ' + token,
-      },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-    }),
-    });
-    ins
-      .post(`courses/${course_id}/contents/${content_id}/lectures`, this.state)
-      .then(res => {
-        console.log(res);
-        window.location.href = `/management/courses/${course_id}/contents/${content_id}`;
-      })
-      .catch(error => {
-        alert('請確認資料格式正確!')
-        console.log(error);
-      });
   }
 
   onDrop(file) {
-    let files = this.state.files;
-    let reader = new FileReader();
-    let rea = this;
-    reader.onload = function() {
+    const { files } = this.state;
+    const reader = new FileReader();
+    const rea = this;
+    reader.onload = () => {
       files.push({
         title: file[0].name,
         preview: file[0].preview,
@@ -72,8 +38,43 @@ class lectureNew extends Component {
     reader.readAsDataURL(file[0]);
   }
 
-  delFile(index, event) {
-    let files = this.state.files;
+  handleChange = (id, event) => {
+    if (id === 'title') {
+      this.setState({ title: event.target.value });
+    } else if (id === 'description') {
+      this.setState({ description: event.target.value });
+    }
+  };
+
+  handleSubmit = () => {
+    const {
+      params: { course_id, content_id },
+    } = this.props;
+    const { token } = localStorage;
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 10000,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    });
+    ins
+      .post(`courses/${course_id}/contents/${content_id}/lectures`, this.state)
+      .then(res => {
+        console.log(res);
+        window.location.href = `/management/courses/${course_id}/contents/${content_id}`;
+      })
+      .catch(error => {
+        alert('請確認資料格式正確!');
+        console.log(error);
+      });
+  };
+
+  delFile(index) {
+    const { files } = this.state;
     files.splice(index, 1);
     this.setState({
       files,
@@ -152,5 +153,12 @@ class lectureNew extends Component {
     );
   }
 }
+
+lectureNew.propTypes = {
+  params: PropTypes.shape({
+    course_id: PropTypes.string.isRequired,
+    content_id: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default lectureNew;
