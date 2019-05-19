@@ -3,21 +3,26 @@ import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import Template from './Template/Template';
 
+// FIXME: 新頁面尚未連 server 資料
 import Members from './Members/Members';
-import Contact from './Contact/Contact';
 
-import newsIndex from './Management/News/Index/Index';
-import newsNew from './Management/News/New/New';
-import newsShow from './Management/News/Show/Show';
-import newsEdit from './Management/News/Edit/Edit';
+import HomePage from './terry/route/HomePage';
+import AboutPage from './terry/route/AboutPage';
+import CoursesPage from './terry/route/CoursesPage';
+import CourseContent from './terry/route/CourseContent';
+import PdfPage from './terry/route/PdfPage';
+import PublicationsPage from './terry/route/PublicationsPage';
+import Project from './terry/route/Project';
+import ProjectsPage from './terry/route/ProjectsPage';
+import NewsPage from './terry/route/NewsPage';
+import NewContent from './terry/route/NewContent';
+import LoginPage from './terry/route/LoginPage';
+import Logout from './terry/route/Logout';
+import RegisterPage from './terry/route/RegisterPage';
+import AccountPage from './terry/route/AccountPage';
 
-import publicationIndex from './Management/Publications/Index/Index';
-import publicationNew from './Management/Publications/New/New';
-import publicationShow from './Management/Publications/Show/Show';
-import publicationEdit from './Management/Publications/Edit/Edit';
-
+// Management
 import homeSetting from './Management/HomePage/Index';
-
 import userIndex from './Management/Users/Index/Index';
 import userNew from './Management/Users/New/New';
 import userShow from './Management/Users/Show/Show';
@@ -33,39 +38,20 @@ import lectureNew from './Management/Courses/Content/Lecture/New/New';
 import lectureShow from './Management/Courses/Content/Lecture/Show/Show';
 import lectureEdit from './Management/Courses/Content/Lecture/Edit/Edit';
 
-// import {
-//   AboutPage,
-//   CourseContent,
-//   CoursesPage,
-//   PdfPage,
-//   HomePage,
-//   Project,
-//   ProjectsPage,
-//   LoginPage,
-//   Logout,
-//   AccountPage,
-// } from './terry/route/DynamicLoad';
+import publicationIndex from './Management/Publications/Index/Index';
+import publicationNew from './Management/Publications/New/New';
+import publicationShow from './Management/Publications/Show/Show';
+import publicationEdit from './Management/Publications/Edit/Edit';
 
-import HomePage from './terry/route/Pages/HomePage';
-import AboutPage from './terry/route/Pages/AboutPage';
-import CoursesPage from './terry/route/Pages/CoursesPage';
-import CourseContent from './terry/route/Pages/CourseContent';
-import PdfPage from './terry/route/Pages/PdfPage';
-import PublicationsPage from './terry/route/Pages/PublicationsPage';
-import Project from './terry/route/Pages/Project';
-import ProjectsPage from './terry/route/Pages/ProjectsPage';
-import NewsPage from './terry/route/Pages/NewsPage';
-import NewContent from './terry/route/Pages/NewContent';
-import LoginPage from './terry/route/Pages/LoginPage';
-import Logout from './terry/route/Pages/Logout';
-import RegisterPage from './terry/route/Pages/RegisterPage';
-import AccountPage from './terry/route/Pages/AccountPage';
+import newsIndex from './Management/News/Index/Index';
+import newsNew from './Management/News/New/New';
+import newsShow from './Management/News/Show/Show';
+import newsEdit from './Management/News/Edit/Edit';
 
 // router setting
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={Template}>
-      {/* New */}
       <IndexRoute component={HomePage} />
       <Route exact path="/" component={HomePage} />
       <Route path="/courses" component={CoursesPage} />
@@ -88,9 +74,6 @@ ReactDOM.render(
       <Route path="/register" component={RegisterPage} />
       <Route path="/account" component={AccountPage} />
 
-      {/* Origin */}
-      <Route path="/members" component={Members} />
-      <Route path="/contact" component={Contact} />
       <Route path="/management" component={userIndex} />
       <Route path="/management/news" component={newsIndex} />
       <Route path="/management/news/new" component={newsNew} />

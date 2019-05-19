@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import AllPdfPage from '../../components/Courses/CourseContent/PdfPage';
+import AllPdfPage from '../components/Courses/CourseContent/PdfPage';
 
 class PdfPage extends Component {
   render() {

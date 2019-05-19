@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Publications from '../../components/Publications';
+import Publications from '../components/Publications';
 
 class PublicationsPage extends Component {
   render() {

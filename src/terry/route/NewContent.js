@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import EachNewContent from '../../components/News/NewContent';
+import EachNewContent from '../components/News/NewContent';
 
 class NewContent extends Component {
   render() {
