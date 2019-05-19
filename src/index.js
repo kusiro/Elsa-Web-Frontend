@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import Template from './Template/Template';
-
-// FIXME: 新頁面尚未連 server 資料
-import Members from './Members/Members';
 
 import HomePage from './terry/route/HomePage';
 import AboutPage from './terry/route/AboutPage';
@@ -22,6 +18,7 @@ import RegisterPage from './terry/route/RegisterPage';
 import AccountPage from './terry/route/AccountPage';
 
 // Management
+import Template from './Template/Template';
 import homeSetting from './Management/HomePage/Index';
 import userIndex from './Management/Users/Index/Index';
 import userNew from './Management/Users/New/New';

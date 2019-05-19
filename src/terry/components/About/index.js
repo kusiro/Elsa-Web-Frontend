@@ -286,6 +286,7 @@ class About extends Component {
                   </ExperienceAndEducation>
                 </Col>
               </Row>
+              {/* FIXME: api 呼叫 users 可得到真實資料 */}
               <MemberBlock>
                 <MemberYear>
                   ———————————————————————— 2018 ————————————————————————
