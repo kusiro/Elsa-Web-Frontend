@@ -31,8 +31,6 @@ module.exports = {
     'react/no-deprecated': ['warn'],
     'react/prefer-stateless-function': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
-    'react/forbid-prop-types': 'off',
-    // 'sort-imports-es6-autofix/sort-imports-es6': 'off',
-    // 'import/order': 'off',
+    'react/forbid-prop-types': 'off'
   },
 };
