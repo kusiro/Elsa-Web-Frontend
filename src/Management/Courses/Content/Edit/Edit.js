@@ -20,9 +20,6 @@ class contentEdit extends Component {
       ta_names: [],
       users: '',
     };
-    this.test = {};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -81,7 +78,7 @@ class contentEdit extends Component {
     }
   }
 
-  handleChange(id, event) {
+  handleChange = (id, event) => {
     if (id === 'location') {
       this.setState({ location: event.target.value });
     } else if (id === 'year') {
@@ -93,9 +90,9 @@ class contentEdit extends Component {
     } else if (id === 'time') {
       this.setState({ time: event.target.value });
     }
-  }
+  };
 
-  handleSubmit() {
+  handleSubmit = () => {
     const {
       params: { course_id, content_id },
     } = this.props;
@@ -120,7 +117,7 @@ class contentEdit extends Component {
         alert('請確認資料格式正確!');
         console.log(error);
       });
-  }
+  };
 
   addTaToggle(user_id, user_name) {
     const { ta_ids, ta_names } = this.state;
