@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { IndexRoute, Route, Router, browserHistory } from 'react-router';
 
+/* eslint-disable */
 import HomePage from './route/HomePage';
 import AboutPage from './route/AboutPage';
 import CoursesPage from './route/CoursesPage';

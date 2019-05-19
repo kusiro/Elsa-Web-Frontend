@@ -1,12 +1,15 @@
 import https from 'https';
 
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import Front from './Front/Front';
-import Management from './Management/Management';
-import './Template.css';
-import '../../node_modules/font-awesome/css/font-awesome.min.css';
-import settings from '../settings.js';
 import axios from 'axios';
+
+import settings from '../settings';
+
+import Management from './Management';
+import '../../node_modules/font-awesome/css/font-awesome.min.css';
+
+import './Template.css';
 
 class Template extends Component {
   constructor(props) {
@@ -15,15 +18,18 @@ class Template extends Component {
   }
 
   componentWillMount() {
-    const user_id = localStorage.user_id;
-    const token = localStorage.token;
-    const path = this.props.location.pathname;
+    const { user_id } = localStorage;
+    const { token } = localStorage;
+    const {
+      location: { pathname: path },
+    } = this.props;
+
     if (token) {
       const ins = axios.create({
         baseURL: settings.backend_url,
         timeout: 1000,
         headers: {
-          Authorization: 'JWT ' + token,
+          Authorization: `JWT ${token}`,
         },
         httpsAgent: new https.Agent({
           rejectUnauthorized: false,
@@ -31,10 +37,10 @@ class Template extends Component {
       });
 
       ins
-        .get('user/' + user_id)
+        .get(`user/${user_id}`)
         .then(res => {
           console.log(res);
-          this.setState({ user: res.data, logIn: true });
+          // this.setState({ user: res.data, logIn: true });
           // if user not in root_user_types redirect to '/'
           if (
             path.includes('management') &&
@@ -45,7 +51,7 @@ class Template extends Component {
         })
         .catch(error => {
           console.log(error);
-          this.setState({ logIn: false });
+          // this.setState({ logIn: false });
         });
     } else if (path.includes('management')) {
       // if user not in root_user_types redirect to '/'
@@ -54,35 +60,24 @@ class Template extends Component {
   }
 
   render() {
-    let header;
     const path = this.props.location.pathname;
-    if (path.includes('management')) {
-      header = <Management />;
-    } else {
-      header = <Front />;
-    }
 
     return (
-      // <div>
-      //   {header}
-      //   <div className="main">{this.props.children}</div>
-      //   <div className="footer">
-      //     <div className="content">
-      //       <div className="copyright">© 2017 Elsa Lab Limited</div>
-      //     </div>
-      //   </div>
-      // </div>
       <div>
-        {header}
+        {path.includes('management') && <Management />}
         {this.props.children}
       </div>
     );
   }
 }
 
+Template.propTypes = {};
+
 Template.propTypes = {
-  // FIXME: comment
-  // params: React.PropTypes.object,
+  children: PropTypes.object.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Template;
