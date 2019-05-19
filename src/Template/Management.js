@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { IndexLink, Link } from 'react-router';
 
+import './Management.css';
+
 class Management extends Component {
   //   constructor(props) {
   //     super(props);

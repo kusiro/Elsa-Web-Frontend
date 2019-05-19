@@ -9,8 +9,6 @@ import settings from '../settings';
 import Management from './Management';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
-import './Template.css';
-
 class Template extends Component {
   constructor(props) {
     super(props);
