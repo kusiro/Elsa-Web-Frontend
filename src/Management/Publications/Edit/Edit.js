@@ -1,5 +1,3 @@
-import https from 'https';
-
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
@@ -31,9 +29,6 @@ class publicationEdit extends Component {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
 
     ins
@@ -91,9 +86,6 @@ class publicationEdit extends Component {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
     ins
       .put(`publications/${publication_id}`, this.state)
@@ -119,9 +111,6 @@ class publicationEdit extends Component {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
 
     ins

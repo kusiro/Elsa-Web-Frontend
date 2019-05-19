@@ -1,5 +1,3 @@
-import https from 'https';
-
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
@@ -57,9 +55,6 @@ class lectureNew extends Component {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
     ins
       .post(`courses/${course_id}/contents/${content_id}/lectures`, this.state)

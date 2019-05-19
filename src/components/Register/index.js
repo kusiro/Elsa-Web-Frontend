@@ -1,5 +1,3 @@
-import https from 'https';
-
 import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -160,20 +158,12 @@ class Register extends Component {
 
     const react_ins = this;
     axios
-      .post(
-        `${settings.backend_url}/users`,
-        {
-          username: this.state.account,
-          password: this.state.password,
-          student_id: this.state.student_id,
-          nick_name: this.state.nick_name,
-        },
-        {
-          httpsAgent: new https.Agent({
-            rejectUnauthorized: false,
-          }),
-        }
-      )
+      .post(`${settings.backend_url}/users`, {
+        username: this.state.account,
+        password: this.state.password,
+        student_id: this.state.student_id,
+        nick_name: this.state.nick_name,
+      })
       .then(response => {
         console.log(response);
         // redirect to user page

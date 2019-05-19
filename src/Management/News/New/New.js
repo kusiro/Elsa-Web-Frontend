@@ -1,5 +1,3 @@
-import https from 'https';
-
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -52,9 +50,6 @@ class newsNew extends Component {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
     ins
       .post('news', {

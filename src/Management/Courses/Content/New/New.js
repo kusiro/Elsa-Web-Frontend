@@ -1,5 +1,3 @@
-import https from 'https';
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -30,9 +28,6 @@ class contentNew extends Component {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
 
     ins
@@ -71,9 +66,6 @@ class contentNew extends Component {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
     ins
       .post(`courses/${course_id}/contents`, this.state)

@@ -1,5 +1,3 @@
-import https from 'https';
-
 import MediaQuery from 'react-responsive';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -152,9 +150,6 @@ class PdfPage extends Component {
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
 
     ins

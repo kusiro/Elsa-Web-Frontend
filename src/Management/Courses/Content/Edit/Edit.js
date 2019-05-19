@@ -1,5 +1,3 @@
-import https from 'https';
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -32,10 +30,7 @@ class contentEdit extends Component {
       timeout: 1000,
       headers: {
         Authorization: `JWT ${token}`,
-      },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
+      }
     });
 
     ins
@@ -103,9 +98,6 @@ class contentEdit extends Component {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
     ins
       .put(`courses/${course_id}/contents/${content_id}`, this.state)

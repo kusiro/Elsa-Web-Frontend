@@ -1,5 +1,3 @@
-import https from 'https';
-
 import Dropzone from 'react-dropzone';
 import FontAwesome from 'react-fontawesome';
 import React, { Component } from 'react';
@@ -75,9 +73,6 @@ class publicationNew extends Component {
       headers: {
         Authorization: `JWT ${token}`,
       },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
     });
     ins
       .post('publications', this.state)
