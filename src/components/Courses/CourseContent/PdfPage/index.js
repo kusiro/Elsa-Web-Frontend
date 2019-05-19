@@ -10,7 +10,7 @@ import { Col, Icon, Row } from 'antd';
 import Drawer from '../../../Share/Drawer';
 import Header from '../../../Share/Header';
 import IconImg from '../../../static/icon.png';
-import settings from '../../../../../settings';
+import settings from '../../../../settings';
 import {
   BackgroundColor,
   Hr,

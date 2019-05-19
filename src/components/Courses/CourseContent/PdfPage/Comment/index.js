@@ -6,7 +6,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Comment as AntComment, Avatar, Col, Row } from 'antd';
 
-import settings from '../../../../../../settings';
+import settings from '../../../../../settings';
 
 import CommentList from './CommentList';
 import Editor from './Editor';

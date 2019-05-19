@@ -10,7 +10,7 @@ import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
-import settings from '../../../settings';
+import settings from '../../settings';
 import {
   BackgroundColor,
   BigTitle,

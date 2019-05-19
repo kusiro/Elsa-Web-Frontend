@@ -5,11 +5,12 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Input, Row } from 'antd';
+import { Link } from 'react-router';
 
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
-import settings from '../../../settings';
+import settings from '../../settings';
 import {
   BackgroundColor,
   BigTitle,
@@ -47,7 +48,7 @@ const BackgroundStyleColor = styled(BackgroundColor)`
 
 const BackgroundStyleColor2 = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 70vh;
+    height: 55vh;
   `};
 `;
 
@@ -90,14 +91,26 @@ const SubmitButton = styled.div`
   cursor: pointer;
 `;
 
-class Register extends Component {
+const SignUpLinkBlock = styled.div`
+  background-color: rgba(161, 161, 161, 0.6);
+  color: white;
+  width: 100%;
+  height: 4vh;
+  line-height: 4vh;
+  margin-top: 2vh;
+  text-align: center;
+  cursor: pointer;
+`;
+
+const SignUpLink = styled(Link)`
+  text-decoration: none !important;
+`;
+
+class Login extends Component {
   state = {
     account: '',
     password: '',
-    confirm_password: '',
     message: '',
-    nick_name: '',
-    student_id: '',
   };
 
   renderMessage = () => {
@@ -112,61 +125,16 @@ class Register extends Component {
     } else if (id === 'password') {
       this.setState({ password: event.target.value });
     }
-
-    switch (id) {
-      case 'account':
-        this.setState({ account: event.target.value });
-        break;
-      case 'password':
-        this.setState({ password: event.target.value });
-        break;
-      case 'confirm_password':
-        this.setState({ confirm_password: event.target.value });
-        break;
-      case 'nick_name':
-        this.setState({ nick_name: event.target.value });
-        break;
-      case 'student_id':
-        this.setState({ student_id: event.target.value });
-        break;
-      default:
-    }
-  };
-
-  validateEmail = () => {
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(this.state.account);
-  };
-
-  validatePassword = () => this.state.password === this.state.confirm_password;
-
-  validateForm = () => {
-    const { account, password, student_id, nick_name } = this.state;
-    if (!(account && password && student_id && nick_name)) {
-      this.setState({ message: '有資料未填' });
-      return false;
-    } else if (!this.validateEmail()) {
-      this.setState({ message: '不正確的 Email 格式' });
-      return false;
-    } else if (!this.validatePassword()) {
-      this.setState({ message: '密碼不一致' });
-      return false;
-    }
-    return true;
   };
 
   handleSubmit = event => {
-    if (!this.validateForm()) return;
-
-    const react_ins = this;
+    const reactIns = this;
     axios
       .post(
-        `${settings.backend_url}/users`,
+        `${settings.backend_url}/api-token-auth/`,
         {
           username: this.state.account,
           password: this.state.password,
-          student_id: this.state.student_id,
-          nick_name: this.state.nick_name,
         },
         {
           httpsAgent: new https.Agent({
@@ -176,21 +144,41 @@ class Register extends Component {
       )
       .then(response => {
         console.log(response);
-        // redirect to user page
-        if (response.data.type === 'error') {
-          react_ins.setState({ message: response.data.message }, () =>
-            setTimeout(() => react_ins.setState({ message: '' }), 2000)
-          );
+        if (response.status !== 200) {
+          alert(`Please Try Again ! (${response.status})`);
         } else {
-          window.location = `${settings.root_url}/login`;
+          const userId = response.data.user.id;
+          localStorage.token = response.data.token;
+          localStorage.user_id = userId;
+          // redirect to user page
+          if (
+            settings.root_user_types.includes(
+              response.data.user.profile.studentType
+            )
+          ) {
+            window.location = `${settings.root_url}/management/users`;
+          } else {
+            // const url = new URL(window.location.href);
+            // const redirectUrl = url.searchParams.get('redirect_url');
+            // if (redirectUrl) {
+            //   window.location = redirectUrl;
+            // } else {
+            //   window.location = '/';
+            // }
+            // FIXME: 要加 Account
+            window.location = `${settings.root_url}/account`;
+          }
         }
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
         // handle login error
-        react_ins.setState({ message: 'Unknown error.' }, () =>
-          setTimeout(() => react_ins.setState({ message: '' }), 2000)
-        );
+        if (error) {
+          // set error message or fade out after 2s.
+          reactIns.setState({ message: 'Account or Password error.' }, () =>
+            setTimeout(() => reactIns.setState({ message: '' }), 2000)
+          );
+        }
       });
     event.preventDefault();
   };
@@ -231,7 +219,7 @@ class Register extends Component {
     return (
       <Row>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-          <BackgroundStyleColor color="#b0d4b6">
+          <BackgroundStyleColor color="#aac2ff">
             <MainRow type="flex" justify="center">
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
@@ -258,17 +246,17 @@ class Register extends Component {
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>Sign Up</TitleStyleText>
+                <TitleStyleText>Sign In</TitleStyleText>
               </BigTitle>
               <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
-                Sign Up to get new account for ELSA Lab
+                Sign in to get more informations
               </MedContent>
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="#98c8a0">
+          <BackgroundStyleColor2 color="#6e7794">
             <MediaQuery query={`(max-width: ${notebook})`}>
               {matches => (!matches ? <Header fontColor="white" /> : <></>)}
             </MediaQuery>
@@ -283,37 +271,22 @@ class Register extends Component {
                     value={this.state.account}
                     onChange={e => this.handleChange('account', e)}
                   />
-                  <InputText>New Password</InputText>
+                  <InputText>Password</InputText>
                   <UserInput
                     size="large"
                     type="password"
                     value={this.state.password}
                     onChange={e => this.handleChange('password', e)}
                   />
-                  <InputText>Confirm Password</InputText>
-                  <UserInput
-                    size="large"
-                    type="password"
-                    value={this.state.confirm_password}
-                    onChange={e => this.handleChange('confirm_password', e)}
-                  />
-                  <InputText>Student ID</InputText>
-                  <UserInput
-                    size="large"
-                    type="text"
-                    value={this.state.student_id}
-                    onChange={e => this.handleChange('student_id', e)}
-                  />
-                  <InputText>Nick Name</InputText>
-                  <UserInput
-                    size="large"
-                    type="text"
-                    value={this.state.nick_name}
-                    onChange={e => this.handleChange('nick_name', e)}
-                  />
+
                   <SubmitButton onClick={e => this.handleSubmit(e)} href="#">
-                    Sign Up
+                    Sign In
                   </SubmitButton>
+                  <SignUpLink to="/register">
+                    <SignUpLinkBlock color="dark">
+                      Do not have an acoount ? Create one !
+                    </SignUpLinkBlock>
+                  </SignUpLink>
                 </Col>
               </Row>
             </TeachBlock>
@@ -324,4 +297,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default Login;

@@ -6,11 +6,10 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
-// import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
-import settings from '../../../settings';
+import settings from '../../settings';
 import {
   BackgroundColor,
   BigTitle,
@@ -29,76 +28,26 @@ import {
 } from '../Share';
 import { media, notebook } from '../size';
 
-const Blocks = styled.div`
-  padding-top: 15vh;
+const TeachBlock = styled.div`
   width: 100%;
-  height: 92vh;
-  overflow-y: scroll;
+  float: right;
+  margin-top: 20vh;
+  padding-left: 5vw;
 
   ${media.lessThan('notebook')`
-    padding-top: 0;
-    height: 100%;
+    margin-top: 3vh;
   `};
 `;
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 60vh;
+    height: 45vh;
   `};
 `;
 
 const BackgroundStyleColor2 = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 100%;
-  `};
-`;
-
-const EachBlock = styled.div`
-  width: 100%;
-  height: 20vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  margin-bottom: 5vh;
-  color: white;
-  font-size: 1.2vw;
-
-  ${media.lessThan('notebook')`
-    margin-bottom: 0;
-    margin-top: 2vh;
-  `};
-`;
-
-const Title = styled.div`
-  font-size: 2vw;
-  padding-top: 1vh;
-
-  ${media.lessThan('notebook')`
-    font-size:5vw;
-  `};
-`;
-
-const TextArea = styled.div`
-  padding-left: 2.5vw;
-  padding-right: 4vw;
-  padding-top: 4.5vh;
-
-  ${media.lessThan('notebook')`
-    padding-top: 3.5vh;
-    padding-left: 4vw;
-    font-size:4vw;
-  `};
-`;
-
-const ImageArea = styled.div`
-  width: 100%;
-  height: 20vh;
-  background: url(${props => props.image});
-  background-size: cover;
-  background-position: center center;
-`;
-
-const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
-    font-size: 10vw;
+    height: 55vh;
   `};
 `;
 
@@ -108,55 +57,45 @@ const IconStyleImage = styled(IconImage)`
   `};
 `;
 
-class News extends Component {
-  state = {
-    news: [],
-  };
+const TitleStyleText = styled(TitleText)`
+  ${media.lessThan('notebook')`
+    font-size: 10vw;
+  `};
+`;
+
+const InfoTextArea = styled.div`
+  font-size: 1vw;
+  color: white;
+`;
+
+class Account extends Component {
+  state = {};
 
   componentWillMount() {
-    // const { token } = localStorage;
-    const ins = axios.create({
-      baseURL: settings.backend_url,
-      timeout: 1000,
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
-    });
-
-    ins
-      .get('news')
-      .then(res => {
-        console.log(res);
-        this.setState({ news: res.data });
-      })
-      .catch(error => {
-        console.log(error);
+    const { user_id: userId, token } = localStorage;
+    if (token) {
+      const ins = axios.create({
+        baseURL: settings.backend_url,
+        timeout: 1000,
+        headers: {
+          Authorization: `JWT${token}`,
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
       });
-  }
 
-  renderNews = () => {
-    if (this.state.news) {
-      return this.state.news.map(
-        ({ id: newsId, title, description, image_url: imageUrl }) => (
-          <a key={newsId} href={`/news/${newsId}`}>
-            <EachBlock>
-              <Row type="flex">
-                <Col span={12} xs={{ order: 2 }} xl={{ order: 1 }}>
-                  <TextArea>
-                    <Title>{title}</Title>
-                    {description}
-                  </TextArea>
-                </Col>
-                <Col span={12} xs={{ order: 1 }} xl={{ order: 2 }}>
-                  <ImageArea image={imageUrl} />
-                </Col>
-              </Row>
-            </EachBlock>
-          </a>
-        )
-      );
+      ins
+        .get(`user/${userId}`)
+        .then(res => {
+          console.log(res);
+          this.setState({ user: res.data });
+        })
+        .catch(error => {
+          console.log(error);
+        });
     }
-  };
+  }
 
   renderLogin = () => {
     const { token } = localStorage;
@@ -190,18 +129,26 @@ class News extends Component {
     </Row>
   );
 
+  renderProfile = () => {
+    const { user } = this.state;
+    if (user) {
+      return user.profile.nick_name;
+    }
+    return <></>;
+  };
+
   render() {
     return (
       <Row>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-          <BackgroundStyleColor color="#b3a1ba">
+          <BackgroundStyleColor color="#ffaaad">
             <MainRow type="flex" justify="center">
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col span={2.5}>
+                  <Col>
                     <IconStyleImage src={IconImg} />
                   </Col>
-                  <Col span={3}>
+                  <Col>
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
@@ -221,19 +168,31 @@ class News extends Component {
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>News</TitleStyleText>
+                <TitleStyleText>Hello, {this.renderProfile()}</TitleStyleText>
               </BigTitle>
-              <MedContent span={12} color="#8c8c8c" />
+              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
+                Here's your informations
+              </MedContent>
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="white">
+          <BackgroundStyleColor2 color="#906262">
             <MediaQuery query={`(max-width: ${notebook})`}>
-              {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+              {matches => (!matches ? <Header fontColor="white" /> : <></>)}
             </MediaQuery>
-            <Blocks>{this.renderNews()}</Blocks>
+            <TeachBlock>
+              <Row type="flex" justify="start" align="top">
+                <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
+                  <InfoTextArea>
+                    <div>Your Cources</div>
+                    <div>Your Messages</div>
+                    <div>Your News</div>
+                  </InfoTextArea>
+                </Col>
+              </Row>
+            </TeachBlock>
           </BackgroundStyleColor2>
         </Col>
       </Row>
@@ -241,4 +200,4 @@ class News extends Component {
   }
 }
 
-export default News;
+export default Account;

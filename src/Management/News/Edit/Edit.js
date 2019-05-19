@@ -1,16 +1,14 @@
 import https from 'https';
 
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import showdown from 'showdown';
 import axios from 'axios';
 import { Value } from 'slate';
-import './Edit.css';
-import FontAwesome from 'react-fontawesome';
-import swal from 'sweetalert2';
-import '../../../../node_modules/sweetalert2/dist/sweetalert2.css';
-import settings from '../../../settings.js';
 
-import RichTextEditor from '../../../terry/components/Share/RichTextEditor';
+import RichTextEditor from '../../../components/Share/RichTextEditor';
+import settings from '../../../settings';
+import '../../../../node_modules/sweetalert2/dist/sweetalert2.css';
+import './Edit.css';
 
 class newsEdit extends Component {
   constructor(props) {
@@ -21,14 +19,13 @@ class newsEdit extends Component {
       content: '',
       image_url: '',
     };
-    this.newId = this.props.params.news_id;
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
-    // const newsId = this.props.params.news_id
-    const token = localStorage.token;
+    const {
+      params: { news_id },
+    } = this.props;
+    // const { token } = localStorage;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
@@ -38,7 +35,7 @@ class newsEdit extends Component {
     });
 
     ins
-      .get(`news/${this.newId}`)
+      .get(`news/${news_id}`)
       .then(res => {
         console.log(res);
         this.setState({
@@ -51,7 +48,11 @@ class newsEdit extends Component {
       });
   }
 
-  handleChange(id, event) {
+  handleChangeFromParent = value => {
+    this.setState({ content: value });
+  };
+
+  handleChange = (id, event) => {
     if (id === 'title') {
       this.setState({ title: event.target.value });
     } else if (id === 'description') {
@@ -59,9 +60,9 @@ class newsEdit extends Component {
     } else if (id === 'image_url') {
       this.setState({ image_url: event.target.value });
     }
-  }
+  };
 
-  checkForm(event) {
+  checkForm = () => {
     let reqCol = '';
     if (!this.state.title) {
       reqCol += 'title ';
@@ -73,16 +74,19 @@ class newsEdit extends Component {
       reqCol += 'is required.';
       window.alert(reqCol);
     }
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     this.checkForm(event);
-    const token = localStorage.token;
+    const { token } = localStorage;
+    const {
+      params: { news_id },
+    } = this.props;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
       headers: {
-        Authorization: 'JWT ' + token,
+        Authorization: `JWT ${token}`,
       },
       httpsAgent: new https.Agent({
         rejectUnauthorized: false,
@@ -90,7 +94,7 @@ class newsEdit extends Component {
     });
 
     ins
-      .put(`news/${this.newId}`, {
+      .put(`news/${news_id}`, {
         ...this.state,
         content: JSON.stringify(this.state.content.toJSON()),
       })
@@ -102,10 +106,6 @@ class newsEdit extends Component {
         alert('請確認資料格式正確!');
         console.log(error);
       });
-  }
-
-  handleChangeFromParent = value => {
-    this.setState({ content: value });
   };
 
   render() {
@@ -142,10 +142,17 @@ class newsEdit extends Component {
                 />
               </div>
               {/* <div className="input-label">content ( can use HTML )</div>
-                            <div className='news-new-content'>
-                                <textarea className='news-new-content-textarea' name="" id="" cols="30" rows="5" value={this.state.content}onChange={(e) => this.handleChange('content', e)}>
-                                </textarea>
-                            </div> */}
+              <div className="news-new-content">
+                <textarea
+                  className="news-new-content-textarea"
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="5"
+                  value={this.state.content}
+                  onChange={e => this.handleChange('content', e)}
+                />
+              </div> */}
               <div>
                 <input
                   onClick={this.handleSubmit}
@@ -169,5 +176,11 @@ class newsEdit extends Component {
     );
   }
 }
+
+newsEdit.propTypes = {
+  params: PropTypes.shape({
+    news_id: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default newsEdit;

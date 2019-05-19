@@ -1,21 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
+import { IndexRoute, Route, Router, browserHistory } from 'react-router';
 
-import HomePage from './terry/route/HomePage';
-import AboutPage from './terry/route/AboutPage';
-import CoursesPage from './terry/route/CoursesPage';
-import CourseContent from './terry/route/CourseContent';
-import PdfPage from './terry/route/PdfPage';
-import PublicationsPage from './terry/route/PublicationsPage';
-import Project from './terry/route/Project';
-import ProjectsPage from './terry/route/ProjectsPage';
-import NewsPage from './terry/route/NewsPage';
-import NewContent from './terry/route/NewContent';
-import LoginPage from './terry/route/LoginPage';
-import Logout from './terry/route/Logout';
-import RegisterPage from './terry/route/RegisterPage';
-import AccountPage from './terry/route/AccountPage';
+import HomePage from './route/HomePage';
+import AboutPage from './route/AboutPage';
+import CoursesPage from './route/CoursesPage';
+import CourseContent from './route/CourseContent';
+import PdfPage from './route/PdfPage';
+import PublicationsPage from './route/PublicationsPage';
+import Project from './route/Project';
+import ProjectsPage from './route/ProjectsPage';
+import NewsPage from './route/NewsPage';
+import NewContent from './route/NewContent';
+import LoginPage from './route/LoginPage';
+import Logout from './route/Logout';
+import RegisterPage from './route/RegisterPage';
+import AccountPage from './route/AccountPage';
 
 // Management
 import Template from './Template/Template';

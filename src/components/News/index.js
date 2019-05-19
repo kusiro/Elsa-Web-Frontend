@@ -1,17 +1,16 @@
 import https from 'https';
 
 import MediaQuery from 'react-responsive';
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
-import BackgroundImage from '../../static/background_image_invert_vertical.jpg';
-import Drawer from '../../Share/Drawer';
-import Header from '../../Share/Header';
-import IconImg from '../../static/icon.png';
-import settings from '../../../../settings';
+// import BackgroundImage from '../static/background_image_invert_vertical.jpg';
+import Drawer from '../Share/Drawer';
+import Header from '../Share/Header';
+import IconImg from '../static/icon.png';
+import settings from '../../settings';
 import {
   BackgroundColor,
   BigTitle,
@@ -27,8 +26,8 @@ import {
   Title1,
   Title2,
   TitleText,
-} from '../../Share';
-import { media, notebook } from '../../size';
+} from '../Share';
+import { media, notebook } from '../size';
 
 const Blocks = styled.div`
   padding-top: 15vh;
@@ -41,6 +40,7 @@ const Blocks = styled.div`
     height: 100%;
   `};
 `;
+
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
     height: 60vh;
@@ -54,30 +54,22 @@ const BackgroundStyleColor2 = styled(BackgroundColor)`
 `;
 
 const EachBlock = styled.div`
-  width: 80%;
+  width: 100%;
   height: 20vh;
   background-color: rgba(0, 0, 0, 0.3);
-  margin-left: auto;
-  margin-right: auto;
   margin-bottom: 5vh;
   color: white;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
 
   ${media.lessThan('notebook')`
-    width: 100%;
-    background-color: ${props => props.color};
     margin-bottom: 0;
+    margin-top: 2vh;
   `};
-`;
-
-const Date = styled.span`
-  font-size: 0.8vw;
-  padding-left: 0.25vw;
 `;
 
 const Title = styled.div`
   font-size: 2vw;
-  line-height: 120%;
+  padding-top: 1vh;
 
   ${media.lessThan('notebook')`
     font-size:5vw;
@@ -87,7 +79,7 @@ const Title = styled.div`
 const TextArea = styled.div`
   padding-left: 2.5vw;
   padding-right: 4vw;
-  padding-top: 3vh;
+  padding-top: 4.5vh;
 
   ${media.lessThan('notebook')`
     padding-top: 3.5vh;
@@ -116,23 +108,13 @@ const IconStyleImage = styled(IconImage)`
   `};
 `;
 
-const MidText = styled.div`
-  font-size: 80%;
-  font-style: italic;
-  margin-top: 3vh;
-`;
-
-class CourseContent extends Component {
+class News extends Component {
   state = {
-    title: '',
-    description: '',
-    year: '',
-    season: '',
-    lectures: [],
+    news: [],
   };
 
   componentWillMount() {
-    const { courseId, contentId } = this.props;
+    // const { token } = localStorage;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
@@ -142,62 +124,36 @@ class CourseContent extends Component {
     });
 
     ins
-      .get(`courses/${courseId}`)
+      .get('news')
       .then(res => {
-        console.log(res.data);
-        this.setState({
-          title: res.data.title,
-          description: res.data.description,
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    ins
-      .get(`courses/${courseId}/contents/${contentId}`)
-      .then(res => {
-        console.log(res.data);
-        this.setState(res.data);
+        console.log(res);
+        this.setState({ news: res.data });
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  renderClassContent = contentId => {
-    if (this.state.lectures) {
-      let isChangeOrder = false;
-      return this.state.lectures.map(
-        ({ id: lectureId, title, lecture_number: lectureNumber, files }) => {
-          isChangeOrder = !isChangeOrder;
-          return (
-            <a
-              key={lectureId}
-              href={`${contentId}/lectures/${lectureId}/files/${files[0].id}`}
-            >
-              <EachBlock
-                color={
-                  isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
-                }
-              >
-                <Row>
-                  <Col xs={{ span: 12 }} xl={{ span: 8 }}>
-                    <ImageArea image={BackgroundImage} />
-                  </Col>
-                  <Col xs={{ span: 12 }} xl={{ span: 16 }}>
-                    <TextArea>
-                      <div>
-                        material #{lectureNumber} <Date>2019/01/01</Date>
-                      </div>
-                      <Title>{title}</Title>
-                    </TextArea>
-                  </Col>
-                </Row>
-              </EachBlock>
-            </a>
-          );
-        }
+  renderNews = () => {
+    if (this.state.news) {
+      return this.state.news.map(
+        ({ id: newsId, title, description, image_url: imageUrl }) => (
+          <a key={newsId} href={`/news/${newsId}`}>
+            <EachBlock>
+              <Row type="flex">
+                <Col span={12} xs={{ order: 2 }} xl={{ order: 1 }}>
+                  <TextArea>
+                    <Title>{title}</Title>
+                    {description}
+                  </TextArea>
+                </Col>
+                <Col span={12} xs={{ order: 1 }} xl={{ order: 2 }}>
+                  <ImageArea image={imageUrl} />
+                </Col>
+              </Row>
+            </EachBlock>
+          </a>
+        )
       );
     }
   };
@@ -235,12 +191,10 @@ class CourseContent extends Component {
   );
 
   render() {
-    const { contentId } = this.props;
-
     return (
       <Row>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-          <BackgroundStyleColor color="#f8d188">
+          <BackgroundStyleColor color="#b3a1ba">
             <MainRow type="flex" justify="center">
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
@@ -262,19 +216,14 @@ class CourseContent extends Component {
                     <Hr color="#8c8c8c" />
                   </Col>
                   <Col span={12} offset={1}>
-                    Home / Courses
+                    Home
                   </Col>
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>
-                  {this.state.year} {this.state.season}
-                </TitleStyleText>
-                <MidText>{this.state.title}</MidText>
+                <TitleStyleText>News</TitleStyleText>
               </BigTitle>
-              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
-                {this.state.description}
-              </MedContent>
+              <MedContent span={12} color="#8c8c8c" />
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
@@ -284,7 +233,7 @@ class CourseContent extends Component {
             <MediaQuery query={`(max-width: ${notebook})`}>
               {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
             </MediaQuery>
-            <Blocks>{this.renderClassContent(contentId)}</Blocks>
+            <Blocks>{this.renderNews()}</Blocks>
           </BackgroundStyleColor2>
         </Col>
       </Row>
@@ -292,9 +241,4 @@ class CourseContent extends Component {
   }
 }
 
-CourseContent.propTypes = {
-  contentId: PropTypes.string.isRequired,
-  courseId: PropTypes.string.isRequired,
-};
-
-export default CourseContent;
+export default News;

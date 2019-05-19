@@ -1,14 +1,17 @@
 import https from 'https';
 
 import MediaQuery from 'react-responsive';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
-import Drawer from '../Share/Drawer';
-import Header from '../Share/Header';
-import IconImg from '../static/icon.png';
+import RichTextEditor from '../../Share/RichTextEditor';
+// import BackgroundImage from '../static/background_image_invert_vertical.jpg';
+import Drawer from '../../Share/Drawer';
+import Header from '../../Share/Header';
+import IconImg from '../../static/icon.png';
 import settings from '../../../settings';
 import {
   BackgroundColor,
@@ -25,29 +28,78 @@ import {
   Title1,
   Title2,
   TitleText,
-} from '../Share';
-import { media, notebook } from '../size';
+} from '../../Share';
+import { media, notebook } from '../../size';
 
-const TeachBlock = styled.div`
+const Blocks = styled.div`
+  padding-top: 15vh;
   width: 100%;
-  float: right;
-  margin-top: 20vh;
-  padding-left: 5vw;
+  height: 92vh;
+  overflow-y: scroll;
 
   ${media.lessThan('notebook')`
-    margin-top: 3vh;
+    padding-top: 0;
+    height: 100%;
   `};
 `;
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 45vh;
+    height: 60vh;
   `};
 `;
 
 const BackgroundStyleColor2 = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 55vh;
+    height: 100%;
+  `};
+`;
+
+// const EachBlock = styled.div`
+//   width: 100%;
+//   height: 20vh;
+//   background-color: rgba(0, 0, 0, 0.3);
+//   margin-bottom: 5vh;
+//   color: white;
+//   font-size: 1.2vw;
+
+//   ${media.lessThan('notebook')`
+//     margin-bottom: 0;
+//   `};
+// `;
+
+// const Title = styled.div`
+//   font-size: 2vw;
+//   padding-top: 1vh;
+
+//   ${media.lessThan('notebook')`
+//     font-size:5vw;
+//   `};
+// `;
+
+// const TextArea = styled.div`
+//   padding-left: 2.5vw;
+//   padding-right: 4vw;
+//   padding-top: 4.5vh;
+
+//   ${media.lessThan('notebook')`
+//     padding-top: 3.5vh;
+//     padding-left: 4vw;
+//     font-size:4vw;
+//   `};
+// `;
+
+const ImageArea = styled.div`
+  width: 100%;
+  height: 20vh;
+  background: url(${props => props.image});
+  background-size: cover;
+  background-position: center center;
+`;
+
+const TitleStyleText = styled(TitleText)`
+  ${media.lessThan('notebook')`
+    font-size: 10vw;
   `};
 `;
 
@@ -57,44 +109,31 @@ const IconStyleImage = styled(IconImage)`
   `};
 `;
 
-const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
-    font-size: 10vw;
-  `};
-`;
-
-const InfoTextArea = styled.div`
-  font-size: 1vw;
-  color: white;
-`;
-
-class Account extends Component {
-  state = {};
+class NewContent extends Component {
+  state = {
+    news: '',
+  };
 
   componentWillMount() {
-    const { user_id: userId, token } = localStorage;
-    if (token) {
-      const ins = axios.create({
-        baseURL: settings.backend_url,
-        timeout: 1000,
-        headers: {
-          Authorization: `JWT${token}`,
-        },
-        httpsAgent: new https.Agent({
-          rejectUnauthorized: false,
-        }),
-      });
+    const { newsId } = this.props;
+    // const token = localStorage.token;
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    });
 
-      ins
-        .get(`user/${userId}`)
-        .then(res => {
-          console.log(res);
-          this.setState({ user: res.data });
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    }
+    ins
+      .get(`news/${newsId}`)
+      .then(res => {
+        console.log(res);
+        this.setState({ news: res.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   renderLogin = () => {
@@ -129,26 +168,18 @@ class Account extends Component {
     </Row>
   );
 
-  renderProfile = () => {
-    const { user } = this.state;
-    if (user) {
-      return user.profile.nick_name;
-    }
-    return <></>;
-  };
-
   render() {
     return (
       <Row>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-          <BackgroundStyleColor color="#ffaaad">
+          <BackgroundStyleColor color="#b3a1ba">
             <MainRow type="flex" justify="center">
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col>
+                  <Col span={2.5}>
                     <IconStyleImage src={IconImg} />
                   </Col>
-                  <Col>
+                  <Col span={3}>
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
@@ -168,31 +199,22 @@ class Account extends Component {
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>Hello, {this.renderProfile()}</TitleStyleText>
+                <TitleStyleText>{this.state.news.title}</TitleStyleText>
               </BigTitle>
-              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
-                Here's your informations
-              </MedContent>
+              <MedContent span={12} color="#8c8c8c" />
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="#906262">
+          <BackgroundStyleColor2 color="white">
             <MediaQuery query={`(max-width: ${notebook})`}>
-              {matches => (!matches ? <Header fontColor="white" /> : <></>)}
+              {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
             </MediaQuery>
-            <TeachBlock>
-              <Row type="flex" justify="start" align="top">
-                <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
-                  <InfoTextArea>
-                    <div>Your Cources</div>
-                    <div>Your Messages</div>
-                    <div>Your News</div>
-                  </InfoTextArea>
-                </Col>
-              </Row>
-            </TeachBlock>
+            <Blocks>
+              <ImageArea image={this.state.news.image_url} />
+              <RichTextEditor content={this.state.news.content} readOnly />
+            </Blocks>
           </BackgroundStyleColor2>
         </Col>
       </Row>
@@ -200,4 +222,8 @@ class Account extends Component {
   }
 }
 
-export default Account;
+NewContent.propTypes = {
+  newsId: PropTypes.string.isRequired,
+};
+
+export default NewContent;

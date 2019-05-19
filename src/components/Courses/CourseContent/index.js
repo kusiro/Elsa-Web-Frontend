@@ -7,12 +7,11 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
-import RichTextEditor from '../../Share/RichTextEditor';
-// import BackgroundImage from '../static/background_image_invert_vertical.jpg';
+import BackgroundImage from '../../static/background_image_invert_vertical.jpg';
 import Drawer from '../../Share/Drawer';
 import Header from '../../Share/Header';
 import IconImg from '../../static/icon.png';
-import settings from '../../../../settings';
+import settings from '../../../settings';
 import {
   BackgroundColor,
   BigTitle,
@@ -42,7 +41,6 @@ const Blocks = styled.div`
     height: 100%;
   `};
 `;
-
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
     height: 60vh;
@@ -55,39 +53,48 @@ const BackgroundStyleColor2 = styled(BackgroundColor)`
   `};
 `;
 
-// const EachBlock = styled.div`
-//   width: 100%;
-//   height: 20vh;
-//   background-color: rgba(0, 0, 0, 0.3);
-//   margin-bottom: 5vh;
-//   color: white;
-//   font-size: 1.2vw;
+const EachBlock = styled.div`
+  width: 80%;
+  height: 20vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5vh;
+  color: white;
+  font-size: 1.5vw;
 
-//   ${media.lessThan('notebook')`
-//     margin-bottom: 0;
-//   `};
-// `;
+  ${media.lessThan('notebook')`
+    width: 100%;
+    background-color: ${props => props.color};
+    margin-bottom: 0;
+  `};
+`;
 
-// const Title = styled.div`
-//   font-size: 2vw;
-//   padding-top: 1vh;
+const Date = styled.span`
+  font-size: 0.8vw;
+  padding-left: 0.25vw;
+`;
 
-//   ${media.lessThan('notebook')`
-//     font-size:5vw;
-//   `};
-// `;
+const Title = styled.div`
+  font-size: 2vw;
+  line-height: 120%;
 
-// const TextArea = styled.div`
-//   padding-left: 2.5vw;
-//   padding-right: 4vw;
-//   padding-top: 4.5vh;
+  ${media.lessThan('notebook')`
+    font-size:5vw;
+  `};
+`;
 
-//   ${media.lessThan('notebook')`
-//     padding-top: 3.5vh;
-//     padding-left: 4vw;
-//     font-size:4vw;
-//   `};
-// `;
+const TextArea = styled.div`
+  padding-left: 2.5vw;
+  padding-right: 4vw;
+  padding-top: 3vh;
+
+  ${media.lessThan('notebook')`
+    padding-top: 3.5vh;
+    padding-left: 4vw;
+    font-size:4vw;
+  `};
+`;
 
 const ImageArea = styled.div`
   width: 100%;
@@ -109,14 +116,23 @@ const IconStyleImage = styled(IconImage)`
   `};
 `;
 
-class NewContent extends Component {
+const MidText = styled.div`
+  font-size: 80%;
+  font-style: italic;
+  margin-top: 3vh;
+`;
+
+class CourseContent extends Component {
   state = {
-    news: '',
+    title: '',
+    description: '',
+    year: '',
+    season: '',
+    lectures: [],
   };
 
   componentWillMount() {
-    const { newsId } = this.props;
-    // const token = localStorage.token;
+    const { courseId, contentId } = this.props;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
@@ -126,15 +142,65 @@ class NewContent extends Component {
     });
 
     ins
-      .get(`news/${newsId}`)
+      .get(`courses/${courseId}`)
       .then(res => {
-        console.log(res);
-        this.setState({ news: res.data });
+        console.log(res.data);
+        this.setState({
+          title: res.data.title,
+          description: res.data.description,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    ins
+      .get(`courses/${courseId}/contents/${contentId}`)
+      .then(res => {
+        console.log(res.data);
+        this.setState(res.data);
       })
       .catch(error => {
         console.log(error);
       });
   }
+
+  renderClassContent = contentId => {
+    if (this.state.lectures) {
+      let isChangeOrder = false;
+      return this.state.lectures.map(
+        ({ id: lectureId, title, lecture_number: lectureNumber, files }) => {
+          isChangeOrder = !isChangeOrder;
+          return (
+            <a
+              key={lectureId}
+              href={`${contentId}/lectures/${lectureId}/files/${files[0].id}`}
+            >
+              <EachBlock
+                color={
+                  isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
+                }
+              >
+                <Row>
+                  <Col xs={{ span: 12 }} xl={{ span: 8 }}>
+                    <ImageArea image={BackgroundImage} />
+                  </Col>
+                  <Col xs={{ span: 12 }} xl={{ span: 16 }}>
+                    <TextArea>
+                      <div>
+                        material #{lectureNumber} <Date>2019/01/01</Date>
+                      </div>
+                      <Title>{title}</Title>
+                    </TextArea>
+                  </Col>
+                </Row>
+              </EachBlock>
+            </a>
+          );
+        }
+      );
+    }
+  };
 
   renderLogin = () => {
     const { token } = localStorage;
@@ -169,10 +235,12 @@ class NewContent extends Component {
   );
 
   render() {
+    const { contentId } = this.props;
+
     return (
       <Row>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-          <BackgroundStyleColor color="#b3a1ba">
+          <BackgroundStyleColor color="#f8d188">
             <MainRow type="flex" justify="center">
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
@@ -194,14 +262,19 @@ class NewContent extends Component {
                     <Hr color="#8c8c8c" />
                   </Col>
                   <Col span={12} offset={1}>
-                    Home
+                    Home / Courses
                   </Col>
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>{this.state.news.title}</TitleStyleText>
+                <TitleStyleText>
+                  {this.state.year} {this.state.season}
+                </TitleStyleText>
+                <MidText>{this.state.title}</MidText>
               </BigTitle>
-              <MedContent span={12} color="#8c8c8c" />
+              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
+                {this.state.description}
+              </MedContent>
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
@@ -211,10 +284,7 @@ class NewContent extends Component {
             <MediaQuery query={`(max-width: ${notebook})`}>
               {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
             </MediaQuery>
-            <Blocks>
-              <ImageArea image={this.state.news.image_url} />
-              <RichTextEditor content={this.state.news.content} readOnly />
-            </Blocks>
+            <Blocks>{this.renderClassContent(contentId)}</Blocks>
           </BackgroundStyleColor2>
         </Col>
       </Row>
@@ -222,8 +292,9 @@ class NewContent extends Component {
   }
 }
 
-NewContent.propTypes = {
-  newsId: PropTypes.string.isRequired,
+CourseContent.propTypes = {
+  contentId: PropTypes.string.isRequired,
+  courseId: PropTypes.string.isRequired,
 };
 
-export default NewContent;
+export default CourseContent;
