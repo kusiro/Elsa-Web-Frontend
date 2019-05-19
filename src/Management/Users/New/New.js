@@ -18,11 +18,9 @@ class userNew extends Component {
       researchArea: '',
       selfIntro: '',
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(id, event) {
+  handleChange = (id, event) => {
     if (id === 'username') {
       this.setState({ username: event.target.value });
     } else if (id === 'name') {
@@ -36,9 +34,9 @@ class userNew extends Component {
     } else if (id === 'selfIntro') {
       this.setState({ selfIntro: event.target.value });
     }
-  }
+  };
 
-  checkForm() {
+  checkForm = () => {
     let reqCol = '';
     if (!this.state.username) {
       reqCol += 'username ';
@@ -53,9 +51,9 @@ class userNew extends Component {
       reqCol += 'is required.';
       window.alert(reqCol);
     }
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     this.checkForm(event);
 
     const { token } = localStorage;
@@ -79,7 +77,7 @@ class userNew extends Component {
         alert('請確認資料格式正確!');
         console.log(error);
       });
-  }
+  };
 
   render() {
     return (
