@@ -8,16 +8,10 @@ import settings from '../../../../../settings';
 import './Show.css';
 
 class lectureShow extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     year: '',
-  //     season: '',
-  //     course_no: '',
-  //     location: '',
-  //     lectures: [],
-  //   };
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
   componentWillMount() {
     const {

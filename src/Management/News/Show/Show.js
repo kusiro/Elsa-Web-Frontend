@@ -107,19 +107,15 @@ class newsShow extends Component {
               </a>
             </div>
           </div>
-          {/* <div className="news-show-outpage-preview">
-            <div className="news-show-main-title">outpage preview:</div>
-            <div className="latest-news">
-              <div style={outpageImageStyle(this.state.image_url)} />
-              <div className="news-main">
-                <div className="title">{this.state.title}</div>
-                <div className="content">{this.state.description}</div>
-              </div>
+          <div className="news-show-outpage-preview">
+            <div className="content-show-main-info">
+              <div>description : {this.state.description}</div>
+              <div>image url : {this.state.image_url}</div>
             </div>
-          </div> */}
+          </div>
           <div className="news-show-mainpage-preview">
-            {/* <div className="news-show-main-title">mainpage preview:</div> */}
             <div className="news-show-mainpage-preview-content">
+              <h3>Content</h3>
               <RichTextEditor content={this.state.content} readOnly />
             </div>
           </div>

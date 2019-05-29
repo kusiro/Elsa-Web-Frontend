@@ -30,7 +30,7 @@ class contentEdit extends Component {
       timeout: 1000,
       headers: {
         Authorization: `JWT ${token}`,
-      }
+      },
     });
 
     ins
