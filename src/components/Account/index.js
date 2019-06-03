@@ -132,6 +132,15 @@ class Account extends Component {
     return <></>;
   };
 
+  renderManagementLink = () => {
+    const { user } = this.state;
+    if (user) {
+      if (settings.root_user_types.includes(user.profile.studentType)) {
+        return <PageLink to="/management">Management Page</PageLink>;
+      }
+    }
+  };
+
   render() {
     return (
       <Row>
@@ -181,9 +190,11 @@ class Account extends Component {
               <Row type="flex" justify="start" align="top">
                 <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
                   <InfoTextArea>
-                    <div>Your Cources</div>
+                    {this.renderManagementLink()}
+
+                    {/* <div>Your Cources</div>
                     <div>Your Messages</div>
-                    <div>Your News</div>
+                    <div>Your News</div> */}
                   </InfoTextArea>
                 </Col>
               </Row>

@@ -37,11 +37,11 @@ class userIndex extends Component {
   render() {
     const users = this.state.users.map(item => (
       <div className="user-index-user" key={item.id}>
-        <img
+        {/* <img
           src={item.profile.pictureUrl}
           alt=""
           className="user-index-avater"
-        />
+        /> */}
         <div className="user-index-user-info">{item.username}</div>
         <div className="user-index-user-info">{item.profile.name}</div>
         <div className="user-index-user-info">{item.profile.studentType}</div>
